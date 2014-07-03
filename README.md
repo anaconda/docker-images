@@ -11,7 +11,7 @@ Usage
 You can download and use this image by pulling it:
 
     docker pull tswicegood/miniconda
-    docker run -i -t tswicegood/miniconda:3.5.5 /bin/bash
+    docker run -i -t tswicegood/miniconda /bin/bash
 
 
 [miniconda]: http://conda.pydata.org/miniconda.html
