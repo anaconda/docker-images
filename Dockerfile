@@ -1,8 +1,8 @@
-FROM centos:6.4
+FROM centos:centos6
 
 MAINTAINER Travis Swicegood version 3.5.5
 
-RUN yum install -y --quiet wget && \
+RUN yum install -y --quiet wget tar bzip2 && \
 	mkdir -p /downloads && \
 	mkdir -p /opt && \
 	cd /downloads && \
