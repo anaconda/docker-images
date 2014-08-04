@@ -10,8 +10,8 @@ Usage
 -----
 You can download and use this image by pulling it:
 
-    docker pull tswicegood/miniconda
-    docker run -i -t tswicegood/miniconda /bin/bash
+    docker pull continuumio/miniconda
+    docker run -i -t continuumio/miniconda /bin/bash
 
 
 [miniconda]: http://conda.pydata.org/miniconda.html
