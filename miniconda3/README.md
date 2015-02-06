@@ -2,7 +2,7 @@
 
 Docker container with a bootstrapped [miniconda][] installed and ready to use.
 
-This installs ``conda`` and Python 2.7 into the ``/opt/anaconda`` environment
+This installs ``conda`` and Python 3.4 into the ``/opt/anaconda`` environment
 and ensures that the default user has that on their path.
 
 
@@ -10,8 +10,8 @@ Usage
 -----
 You can download and use this image by pulling it:
 
-    docker pull continuumio/miniconda
-    docker run -i -t continuumio/miniconda /bin/bash
+    docker pull continuumio/miniconda3
+    docker run -i -t continuumio/miniconda3 /bin/bash
 
 
 [miniconda]: http://conda.pydata.org/miniconda.html
