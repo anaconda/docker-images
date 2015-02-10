@@ -9,3 +9,4 @@ RUN wget --quiet http://repo.continuum.io/archive/Anaconda-2.1.0-Linux-x86_64.sh
 RUN /bin/bash /Anaconda-2.1.0-Linux-x86_64.sh -b -p /opt/anaconda
 RUN rm /Anaconda-2.1.0-Linux-x86_64.sh
 
+ENV PATH /opt/anaconda/bin:$PATH
