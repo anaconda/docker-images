@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM debian:7.4
 
 MAINTAINER Travis Swicegood
 
