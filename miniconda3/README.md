@@ -2,7 +2,7 @@
 
 Docker container with a bootstrapped [miniconda][] installed and ready to use.
 
-This installs ``conda`` and Python 3.4 into the ``/opt/anaconda`` environment
+This installs ``conda`` and Python 3.4 into the ``/opt/conda`` environment
 and ensures that the default user has that on their path.
 
 
