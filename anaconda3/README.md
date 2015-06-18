@@ -1,6 +1,6 @@
 # docker-anaconda
 
-Docker container with a bootstrapped [anaconda][] installed and ready to use.
+Docker container with a bootstrapped [anaconda3](https://store.continuum.io/cshop/anaconda/) installed and ready to use.
 
 This installs whole anaconda python distribution (with native python in 3.4 version) into the ``/opt/conda`` environment
 and ensures that the default user has ``conda`` tool on their path.

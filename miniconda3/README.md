@@ -1,6 +1,6 @@
 # docker-miniconda
 
-Docker container with a bootstrapped [miniconda][] installed and ready to use.
+Docker container with a bootstrapped [miniconda3](http://conda.pydata.org/miniconda.html) installed and ready to use.
 
 This installs ``conda`` and Python 3.4 into the ``/opt/conda`` environment
 and ensures that the default user has that on their path.
