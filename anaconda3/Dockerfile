@@ -2,7 +2,8 @@ FROM debian:7.4
 
 MAINTAINER Travis Swicegood
 
-RUN apt-get update && apt-get install -y wget bzip2 ca-certificates
+RUN apt-get update && apt-get install -y wget bzip2 ca-certificates \
+    libglib2.0-0 libxext6 libsm6 libxrender1
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/archive/Anaconda3-2.2.0-Linux-x86_64.sh && \
     /bin/bash /Anaconda3-2.2.0-Linux-x86_64.sh -b -p /opt/conda && \
