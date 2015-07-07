@@ -1,6 +1,6 @@
 FROM debian:7.4
 
-MAINTAINER Travis Swicegood
+MAINTAINER Kamil Kwiek <kamil.kwiek@continuum.io>
 
 RUN apt-get update && apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 libxext6 libsm6 libxrender1
