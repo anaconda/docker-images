@@ -11,3 +11,7 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     /opt/conda/bin/conda install --yes conda==3.14.1
 
 ENV PATH /opt/conda/bin:$PATH
+
+# http://bugs.python.org/issue19846
+# > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
+ENV LANG C.UTF-8
