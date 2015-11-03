@@ -5,10 +5,10 @@ MAINTAINER Kamil Kwiek <kamil.kwiek@continuum.io>
 RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 libxext6 libsm6 libxrender1
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/archive/Anaconda3-2.3.0-Linux-x86_64.sh && \
-    /bin/bash /Anaconda3-2.3.0-Linux-x86_64.sh -b -p /opt/conda && \
-    rm /Anaconda3-2.3.0-Linux-x86_64.sh && \
-    /opt/conda/bin/conda install --yes conda==3.14.1
+    wget --quiet https://repo.continuum.io/archive/Anaconda3-2.4.0-Linux-x86_64.sh && \
+    /bin/bash /Anaconda3-2.4.0-Linux-x86_64.sh -b -p /opt/conda && \
+    rm /Anaconda3-2.4.0-Linux-x86_64.sh && \
+    /opt/conda/bin/conda install --yes conda==3.18.3
 
 RUN apt-get install -y curl grep sed dpkg && \
     TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
