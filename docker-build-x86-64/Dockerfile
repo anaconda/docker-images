@@ -1,5 +1,5 @@
 from centos:5.11
-
+MAINTAINER Michael Sarahan <msarahan@continuum.io>
 
 # build gcc 5.2.0 (http://en.librehat.com/blog/build-gcc-5-dot-2-on-rhel-6/)
 run yum install -y curl.x86_64 bzip2.x86_64 \
