@@ -2,7 +2,7 @@ from centos:5.11
 MAINTAINER Michael Sarahan <msarahan@continuum.io>
 
 # build gcc 5.2.0 (http://en.librehat.com/blog/build-gcc-5-dot-2-on-rhel-6/)
-run yum install -y curl.x86_64 bzip2.x86_64 yum-utils \
+run yum install -y curl.x86_64 bzip2.x86_64 yum-utils patch \
     && urls="http://ftpmirror.gnu.org/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2 \
                 https://gmplib.org/download/gmp/gmp-6.0.0a.tar.bz2 \
                 ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz \
