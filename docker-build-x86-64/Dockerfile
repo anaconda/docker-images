@@ -2,7 +2,7 @@ from centos:5.11
 MAINTAINER Michael Sarahan <msarahan@continuum.io>
 
 # build gcc 5.2.0 (http://en.librehat.com/blog/build-gcc-5-dot-2-on-rhel-6/)
-run yum install -y curl.x86_64 bzip2.x86_64 \
+run yum install -y curl.x86_64 bzip2.x86_64 yum-utils \
     && urls="http://ftpmirror.gnu.org/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2 \
                 https://gmplib.org/download/gmp/gmp-6.0.0a.tar.bz2 \
                 ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz \
@@ -46,9 +46,12 @@ run yum install -y curl.x86_64 bzip2.x86_64 \
     && scl enable devtoolset-2 'make -j$(getconf _NPROCESSORS_ONLN)' \
     && scl enable devtoolset-2 'make install' \
     && yum remove -y devtoolset-2 \
+    && rm -rf /opt/rh \
     && rm /etc/yum.repos.d/slc5-devtoolset.repo \
+    && cd / \
     && rm -rf /gcc-build/work \
     && mkdir /gcc-build/work \
+    && cd /gcc-build/work \
     && /gcc-build/configure --disable-multilib \
              --prefix=/usr \
              --enable-languages=c,c++,fortran \
@@ -64,9 +67,10 @@ run yum install -y curl.x86_64 bzip2.x86_64 \
              --enable-lto \
              --with-default-libstdcxx-abi=gcc4-compatible \
     && make -j$(getconf _NPROCESSORS_ONLN) \
-    && run make install \
-    && rm -rf /gcc-build
-    && yum install -y libX11-devel.x86-64 libS.x86-64M libXrende.x86-64r openssh-client.x86-64s chrpath.x86-64 vim-enhanced.x86-64 vim-common.x86-64 nano.x86-64
+    && make install \
+    && rm -rf /gcc-build \
+    && yum install -y libX11-devel.x86-64 libSM.x86-64 libXrender.x86-64 openssh-clients.x86-64 chrpath.x86-64 vim-enhanced.x86-64 vim-common.x86-64 nano.x86-64 \
+    && yum remove -y yum-utils \
     && yum clean all
 
 # Setup home environment
