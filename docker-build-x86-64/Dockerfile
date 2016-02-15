@@ -1,7 +1,9 @@
 from msarahan/centos5_gcc52_base:latest
 MAINTAINER Michael Sarahan <msarahan@continuum.io>
 
-run yum install -y libX11-devel.x86_64 libSM.x86_64 libXrender.x86_64 openssh-clients.x86_64 ncurses-devel.x86_64 patch.x86_64 chrpath.x86_64 \
+RUN yum install -y libX11-devel.x86_64 libSM.x86_64 libXrender.x86_64 \
+        openssh-clients.x86_64 ncurses-devel.x86_64 patch.x86_64 \
+        chrpath.x86_64 nano vim-enhanced xz \
     && yum clean all
 
 # Setup home environment
