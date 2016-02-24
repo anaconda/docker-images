@@ -24,7 +24,7 @@ run yum install -y curl.x86_64 bzip2.x86_64 yum-utils glibc-devel.i386 glibc-dev
     && curl -LO http://ftp.gnu.org/gnu/binutils/binutils-2.26.tar.bz2 \
     && tar xf binutils-2.26.tar.bz2 \
     && cd /gcc-build/work/binutils-2.26 \
-    && scl enable devtoolset-2 './configure --prefix=/usr \
+    && scl enable devtoolset-2 './configure --prefix=/usr/local \
                                             --enable-plugin \
                                             --with-sysroot=/ \
                                             --target=x86_64-redhat-linux-gnu \
@@ -32,7 +32,7 @@ run yum install -y curl.x86_64 bzip2.x86_64 yum-utils glibc-devel.i386 glibc-dev
                                 && make -j$(getconf _NPROCESSORS_ONLN) && make install' \
     && cd /gcc-build/work \
     && scl enable devtoolset-2 '/gcc-build/configure \
-             --prefix=/usr \
+             --prefix=/usr/local \
              --enable-multilib \
              --target=x86_64-redhat-linux-gnu \
              --enable-languages=c,c++,fortran \
@@ -50,7 +50,7 @@ run yum install -y curl.x86_64 bzip2.x86_64 yum-utils glibc-devel.i386 glibc-dev
              --with-default-libstdcxx-abi=gcc4-compatible' \
     && scl enable devtoolset-2 'make -j$(getconf _NPROCESSORS_ONLN) all' \
     && scl enable devtoolset-2 'make install' \
-    && yum remove -y devtoolset-2 \
+    && yum remove -y devtoolset-2 curl bzip2 \
     && rm -rf /opt/rh \
     && rm /etc/yum.repos.d/slc5-devtoolset.repo \
     && cd / \
@@ -59,7 +59,7 @@ run yum install -y curl.x86_64 bzip2.x86_64 yum-utils glibc-devel.i386 glibc-dev
     && cd /gcc-build/work \
     && /gcc-build/configure \
     && /gcc-build/configure \
-             --prefix=/usr \
+	     --prefix=/usr/local \
              --enable-multilib \
              --target=x86_64-redhat-linux-gnu \
              --enable-languages=c,c++,fortran \
@@ -77,6 +77,7 @@ run yum install -y curl.x86_64 bzip2.x86_64 yum-utils glibc-devel.i386 glibc-dev
              --with-default-libstdcxx-abi=gcc4-compatible \
     && make -j$(getconf _NPROCESSORS_ONLN) \
     && make install-strip \
-    && cd / \
+    && cd /usr/local/bin \
+    && ln -sf gcc cc \
     && rm -rf /gcc-build \
     && yum clean all
