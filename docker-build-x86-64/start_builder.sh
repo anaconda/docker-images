@@ -4,12 +4,12 @@ home=$(eval echo "~${user}")
 
 ssh_vol=""
 if [ -d "$home/.ssh" ]; then
-   ssh_vol="-v $home/.ssh:/home/dev/.ssh:ro"
+   ssh_vol="-v $home/.ssh:/opt/share/.ssh:ro"
 fi
 
 gitconfig_vol=""
 if [ -e $home/.gitconfig ]; then
-    gitconfig_vol="-v $home/.gitconfig:/home/dev/.gitconfig:ro"
+    gitconfig_vol="-v $home/.gitconfig:/opt/share/.gitconfig:ro"
 fi
 
 docker run -ti -e USER=$user \
