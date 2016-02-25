@@ -14,7 +14,12 @@ echo "alias anaconda_setup='clone_anaconda && cd anaconda && git checkout use_hb
 echo
 echo "Welcome to the conda-builder image, brought to you by Continuum Analytics."
 echo
+echo "Binaries produced with this image should be compatible with any Linux OS"
+echo "that is at least CentOS 5 or newer (Glibc lower bound), and anything "
+echo "that uses G++ 5.2 or older (libstdc++ upper bound)"
+echo
 echo "   GCC is: $(gcc --version | head -1)"
+echo "   Default C++ ABI: $(gcc -v 2>&1 | grep -o -G '\-\-with\-default\-libstdcxx\-abi=[^\ ]*' | cut -f2- -d'=')"
 echo "   GLIBC is: $(getconf GNU_LIBC_VERSION)"
 echo "   ld/binutils is: $(ld --version | head -1)"
 echo
