@@ -27,7 +27,6 @@ run yum install -y curl.x86_64 bzip2.x86_64 yum-utils glibc-devel.i386 glibc-dev
     && scl enable devtoolset-2 './configure --prefix=/usr/local \
                                             --enable-plugin \
                                             --with-sysroot=/ \
-                                            --target=x86_64-redhat-linux-gnu \
                                             --enable-targets=x86_64-redhat-linux-gnu,i386-redhat-linux-gnu \
                                 && make -j$(getconf _NPROCESSORS_ONLN) && make install' \
     && cd /gcc-build/work \
@@ -50,7 +49,7 @@ run yum install -y curl.x86_64 bzip2.x86_64 yum-utils glibc-devel.i386 glibc-dev
              --with-default-libstdcxx-abi=gcc4-compatible' \
     && scl enable devtoolset-2 'make -j$(getconf _NPROCESSORS_ONLN) all' \
     && scl enable devtoolset-2 'make install' \
-    && yum remove -y devtoolset-2 curl bzip2 \
+    && yum remove -y devtoolset-2 curl bzip2 binutils \
     && rm -rf /opt/rh \
     && rm /etc/yum.repos.d/slc5-devtoolset.repo \
     && cd / \
