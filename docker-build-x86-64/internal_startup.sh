@@ -1,10 +1,15 @@
 #!/bin/bash
 
+if [[ -z "${ABI}" ]]; then
+    echo "WARNING: No ABI default set.  Falling back to compatibility mode with GCC 4."
+    export ABI=4
+fi
+
 # Setup home environment
 
-export PATH=/opt/miniconda/bin:$PATH
-export LD_LIBRARY_PATH=/opt/miniconda/lib:$LD_LIBRARY_PATH
-export INCLUDE=/opt/miniconda/include:$INCLUDE
+export PATH=/opt/miniconda/bin:/usr/local/gcc5_abi${ABI}/bin:$PATH
+export LD_LIBRARY_PATH=/opt/miniconda/lib:/usr/local/gcc5_abi${ABI}/lib:$LD_LIBRARY_PATH
+export INCLUDE=/opt/miniconda/include:/usr/local/gcc5_abi${ABI}/include:$INCLUDE
 
 echo "alias clone_recipes='git clone https://github.com/conda/conda-recipes'" >> ~/.bashrc
 # Continuum internal build system (private repo, requires on-site or VPN, may require Docker VM restart if network settings change)
@@ -19,8 +24,9 @@ echo "that is at least CentOS 5 or newer (Glibc lower bound), and anything "
 echo "that uses G++ 5.2 or older (libstdc++ upper bound)"
 echo
 echo "   GCC is: $(gcc --version | head -1)"
-echo "   Default C++ ABI: $(gcc -v 2>&1 | grep -o -G '\-\-with\-default\-libstdcxx\-abi=[^\ ]*' | cut -f2- -d'=')"
+echo "   Default C++ ABI: ${ABI} (C++ $([ "${ABI}" == "4" ] && echo "98" || echo "11"))"
 echo "   GLIBC is: $(getconf GNU_LIBC_VERSION)"
+echo "   Native arch is x64.  To build for 32-bit, set CONDA_FORCE_32BIT=1, or outside of conda-build, CFLAGS=\"-m32\""
 echo "   ld/binutils is: $(ld --version | head -1)"
 echo
 echo "   The dev user has passwordless sudo access for yum and such."
