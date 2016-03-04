@@ -24,12 +24,13 @@ echo "that is at least CentOS 5 or newer (Glibc lower bound), and anything "
 echo "that uses G++ 5.2 or older (libstdc++ upper bound)"
 echo
 echo "   GCC is: $(gcc --version | head -1)"
-echo "   Default C++ ABI: ${ABI} (C++ $([ "${ABI}" == "4" ] && echo "98" || echo "11"))"
+echo "   Default C++ ABI: ${ABI} (C++$([ "${ABI}" == "4" ] && echo "98" || echo "11"))"
 echo "   GLIBC is: $(getconf GNU_LIBC_VERSION)"
-echo "   Native arch is x64.  To build for 32-bit, set CONDA_FORCE_32BIT=1, or outside of conda-build, CFLAGS=\"-m32\""
+echo "   Native arch is x64.  To build for 32-bit, set CONDA_FORCE_32BIT=1, or"
+echo "        outside of conda-build, CFLAGS=\"-m32\""
 echo "   ld/binutils is: $(ld --version | head -1)"
 echo
-echo "   The dev user has passwordless sudo access for yum and such."
+echo "   The dev user (currently signed in) has passwordless sudo access."
 echo "   miniconda (2.7) is installed at /opt/miniconda."
 echo "   git is also available."
 

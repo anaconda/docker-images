@@ -84,6 +84,4 @@ fi
 docker_run_string+="msarahan/conda_builder_linux:latest "
 docker_run_string+="bash /opt/share/internal_startup.sh ${LEFTOVERS[@]}"
 
-echo $docker_run_string
-
 docker ${docker_run_string}
