@@ -23,6 +23,7 @@ echo "   Default C++ ABI: $(gcc -v 2>&1 | grep -o -G '\-\-with\-default\-libstdc
 echo "   GLIBC is: $(getconf GNU_LIBC_VERSION)"
 echo "   ld/binutils is: $(ld --version | head -1)"
 echo
+echo "   The dev user has passwordless sudo access for yum and such."
 echo "   miniconda (2.7) is installed at /opt/miniconda."
 echo "   git is also available."
 
@@ -39,6 +40,8 @@ if [ -f /id_rsa ]; then
     chmod 700 .ssh
     sudo chown dev: .ssh/id_rsa
     sudo chmod 600 .ssh/id_rsa
+    echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    echo -e "Host bremen\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
     echo "   Your ssh private key has been imported for passwordless ssh."
 fi
 
