@@ -9,7 +9,7 @@
 ENV_VARS=()
 VOLUMES=()
 LEFTOVERS=()
-while [[ $# > 1 ]]
+while [[ $# > 0 ]]
 do
     key="$1"
 
@@ -28,6 +28,7 @@ do
         --log-driver)
             # TODO: Docker specifies this with an = sign, not sure if bash parsing will split on = by default.
             LOG_DRIVER="$2"
+            shift # past argument
             ;;
         -v|--volume)
             VOLUMES+=("$2")

@@ -61,4 +61,10 @@ echo "    anaconda_setup: clones anaconda repo and sets up continuum internal bu
 
 echo
 
-bash "$@"
+if [[ $# < 1 ]]; then
+    # interactive session
+    bash
+else
+    # Run whatever the user wants to pass in
+    eval "$@"
+fi
