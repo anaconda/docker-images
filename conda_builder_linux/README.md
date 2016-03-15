@@ -24,15 +24,18 @@ Binaries produced with this image should be compatible with any Linux OS that is
 at least CentOS 5 or newer (Glibc lower bound), and anything that uses G++ 5.2
 or older (libstdc++ upper bound)
 
-   GCC is: gcc (GCC) 5.2.0 Default C++ ABI: 4 (C++98) GLIBC is: glibc 2.5 Native
-   arch is x64. To build for 32-bit, set CONDA_FORCE_32BIT=1, or outside of
-   conda-build, CFLAGS="-m32" ld/binutils is: GNU ld (GNU Binutils)
-   2.26.20160125
+   GCC is: gcc (GCC) 5.2.0
+   Default C++ ABI: 4 (C++98)
+   GLIBC is: glibc 2.5
+   Native arch is x64. To build for 32-bit, set CONDA_FORCE_32BIT=1,
+       or outside of conda-build, CFLAGS="-m32"
+   ld/binutils is: GNU ld (GNU Binutils) 2.26.20160125
 
-   The dev user (currently signed in) has passwordless sudo access. miniconda
-   (2.7) is installed at /opt/miniconda. git is also available. Your .gitconfig
-   has been imported. Your ssh private key has been imported for passwordless
-   ssh.
+   The dev user (currently signed in) has passwordless sudo access.
+   miniconda (2.7) is installed at /opt/miniconda.
+   git is also available.
+   Your .gitconfig has been imported.
+   Your ssh private key has been imported for passwordless ssh.
 
 Helpful aliases:
     clone_recipes: clones the conda/conda-recipes repo from Github
