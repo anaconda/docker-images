@@ -7,9 +7,17 @@ fi
 
 # Setup home environment
 
-export PATH=/opt/miniconda/bin:/usr/local/gcc5_abi${ABI}/bin:$PATH
-export LD_LIBRARY_PATH=/opt/miniconda/lib:/usr/local/gcc5_abi${ABI}/lib:$LD_LIBRARY_PATH
-export INCLUDE=/opt/miniconda/include:/usr/local/gcc5_abi${ABI}/include:$INCLUDE
+export PATH=/usr/local/bin:/opt/miniconda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/lib64:/usr/local/lib:/opt/miniconda/lib:$LD_LIBRARY_PATH
+export LIBRARY_PATH=/usr/local/lib64:/usr/local/lib:/opt/miniconda/lib:$LIBRARY_PATH
+export INCLUDE=/opt/miniconda/include:$INCLUDE
+export CXXFLAGS="${CXXFLAGS} -Wabi=2"
+
+if [ $ABI -lt 5 ]; then
+    export CXXFLAGS="${CXXFLAGS} -D_GLIBCXX_USE_CXX11_ABI=0"
+else
+    export CXXFLAGS="${CXXFLAGS} -D_GLIBCXX_USE_CXX11_ABI=1"
+fi
 
 echo "alias clone_recipes='git clone https://github.com/conda/conda-recipes'" >> ~/.bashrc
 # Continuum internal build system (private repo, requires on-site or VPN, may require Docker VM restart if network settings change)

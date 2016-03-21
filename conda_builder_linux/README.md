@@ -44,11 +44,29 @@ Helpful aliases:
     system.
 ```
 
-You can pass commands to the startup scripts, or just run them without further
-arguments. Any arguments you pass in are parsed first to pull out ```docker
-run``` arguments, then any unrecognized parts are fed into the container and
-executed using ```eval```. If you did not supply any command for the start
-script to run directly, you'll be dropped at an interactive prompt:
+The docker image is made to be used either interactively, or by passing
+commands, so that the image is effectively just a run environment. Any arguments
+you pass in are parsed first to pull out ```docker run``` arguments, then any
+unrecognized parts are fed into the container and executed using ```eval```. If
+you did not supply any command for the start script to run directly, you'll be
+dropped at an interactive prompt.
+
+Interactive use
+===============
+
+Starting the image in interactive mode looks like:
+
+    start_cpp98.sh
+
+For mounting volumes or setting environment variables, you can pass the -v or -e arguments:
+
+    # mount your local recipes folder in the container, avoid a clone in the container.
+    start_cpp98.sh -v ~/code/my_recipes:/home/dev/recipes
+
+    # build in 32-bit (compiler is 64-bit native, but with multilib can build 32-bit packages)
+    start_cpp98.sh -e CONDA_FORCE_32BIT=1
+
+The interactive prompt looks like:
 
     [dev@da2f4a3e941b ~]$
 
@@ -63,6 +81,22 @@ PATH. Additionally, a few aliases are set up by default:
   - **anaconda_setup**: clone the conda recipes repository from
     https://github.com/continuumIO/anaconda and run ```python setup.py
     develop``` to install the build system's commands
+
+Scripted use
+============
+
+Starting the image to run a command looks like:
+
+    start_cpp98.sh my_build_script.sh && echo "weeee"
+
+Again, you can pass flags to the docker run command through the start_*.sh script:
+
+    # mount your local recipes folder in the container, avoid a clone in the container.
+    start_cpp98.sh -v ~/code/my_recipes:/home/dev/recipes my_build_script.sh
+
+    # build in 32-bit (compiler is 64-bit native, but with multilib can build 32-bit packages)
+    start_cpp98.sh -e CONDA_FORCE_32BIT=1 my_build_script.sh
+
 
 NOTES
 -----
