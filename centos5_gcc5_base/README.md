@@ -8,8 +8,5 @@ distributions. Additionally, GCC5.2 allows compilation of C++11 and C++14 code.
 This image is extremely limited. It is meant as a base layer for other tools
 that utilize the compiler.
 
-There are two installations of GCC 5.2 in this image: one for the
-C++98-compatible ABI (GCC4-compatible), and the other for C++11 ABI
-(GCC5-compatible). These are in /usr/local/gcc5_abi4 and /usr/local/gcc5_abi5,
-respectively. Neither are on PATH, by default. You must manually add them before
-using them, or specify full paths.
+GCC in this image is compiled to output code with the C++11 ABI.  If you want
+the C++98 (GCC4) ABI, you need to set ```CXXFLAGS="${CXXFLAGS} -D_GLIBCXX_USE_CXX11_ABI=0"```
