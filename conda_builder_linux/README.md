@@ -97,6 +97,10 @@ Again, you can pass flags to the docker run command through the start_*.sh scrip
     # build in 32-bit (compiler is 64-bit native, but with multilib can build 32-bit packages)
     start_cpp98_32.sh my_build_script.sh
 
+Docker Hub location
+===================
+
+https://hub.docker.com/r/continuumio/conda_builder_linux/
 
 NOTES
 -----
