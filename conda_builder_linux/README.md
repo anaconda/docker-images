@@ -64,7 +64,7 @@ For mounting volumes or setting environment variables, you can pass the -v or -e
     start_cpp98.sh -v ~/code/my_recipes:/home/dev/recipes
 
     # build in 32-bit (compiler is 64-bit native, but with multilib can build 32-bit packages)
-    start_cpp98.sh -e CONDA_FORCE_32BIT=1
+    start_cpp98_32.sh
 
 The interactive prompt looks like:
 
@@ -95,7 +95,7 @@ Again, you can pass flags to the docker run command through the start_*.sh scrip
     start_cpp98.sh -v ~/code/my_recipes:/home/dev/recipes my_build_script.sh
 
     # build in 32-bit (compiler is 64-bit native, but with multilib can build 32-bit packages)
-    start_cpp98.sh -e CONDA_FORCE_32BIT=1 my_build_script.sh
+    start_cpp98_32.sh my_build_script.sh
 
 
 NOTES
