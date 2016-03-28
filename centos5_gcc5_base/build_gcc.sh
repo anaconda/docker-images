@@ -31,9 +31,10 @@ cd /gcc-build/work/binutils-2.26
 scl enable devtoolset-2 './configure --prefix=/usr/local \
                                      --enable-plugin     \
                                      --with-sysroot=/    \
-                                     --enable-targets=x86_64-redhat-linux-gnu,i386-redhat-linux-gnu \
+                                     --enable-targets=x86_64-redhat-linux-gnu,i686-redhat-linux-gnu \
                          && make -j$(getconf _NPROCESSORS_ONLN) && make install'
 cd /gcc-build/work
+
 scl enable devtoolset-2 '/gcc-build/configure \
       --build x86_64-redhat-linux-gnu \
       --enable-__cxa_atexit \

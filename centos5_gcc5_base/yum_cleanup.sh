@@ -1,4 +1,4 @@
-yum remove -y devtoolset-2* curl binutils
+yum remove -y devtoolset-2* curl binutils kernel
 rm -rf /opt/rh
 rm /etc/yum.repos.d/slc5-devtoolset.repo
 yum -y remove wireless-tools gtk2 libX11 hicolor-icon-theme \

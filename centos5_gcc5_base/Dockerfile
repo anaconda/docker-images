@@ -1,4 +1,4 @@
-from centos:5.11
+FROM centos:5.11
 MAINTAINER Michael Sarahan <msarahan@continuum.io>
 
 WORKDIR /build_scripts
