@@ -18,6 +18,7 @@ RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 # this is where we'll mount shares from the user
 RUN mkdir -p /opt/share
 ADD build/internal_startup.sh /opt/share/internal_startup.sh
+ADD build/alias_32bit.sh /opt/share/alias_32bit.sh
 RUN chmod -R 777 /opt
 
 WORKDIR /home/dev
