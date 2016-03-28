@@ -82,7 +82,7 @@ if [ -e $home/.gitconfig ]; then
 fi
 
 # these two need to come last: the image, and the command to run.
-docker_run_string+="msarahan/conda_builder_linux:latest "
+docker_run_string+="continuumio/conda_builder_linux:latest "
 docker_run_string+="bash /opt/share/internal_startup.sh ${LEFTOVERS[@]}"
 
 docker ${docker_run_string}

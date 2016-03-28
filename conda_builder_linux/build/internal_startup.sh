@@ -27,7 +27,7 @@ fi
 echo "alias clone_recipes='git clone https://github.com/conda/conda-recipes'" >> ~/.bashrc
 # Continuum internal build system (private repo, requires on-site or VPN, may require Docker VM restart if network settings change)
 echo "alias clone_anaconda='git clone git@github.com:continuumIO/anaconda'" >> ~/.bashrc
-echo "alias anaconda_setup='clone_anaconda && cd anaconda && git checkout use_hbb && python setup.py develop && cd .. && mkdir aroot'" >> ~/.bashrc
+echo "alias anaconda_setup='clone_anaconda && python setup.py develop && cd .. && mkdir aroot'" >> ~/.bashrc
 
 if [[ "$ARCH" -eq "64" || -z "$ARCH" ]]; then
     ARCH_DOC=$'To build 32-bit code, set the ARCH environment

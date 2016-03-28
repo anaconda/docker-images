@@ -1,4 +1,4 @@
-from msarahan/centos5_gcc52_base:latest
+from continuumio/centos5_gcc5_base:5.11-5.2-0
 MAINTAINER Michael Sarahan <msarahan@continuum.io>
 
 WORKDIR /build_scripts
