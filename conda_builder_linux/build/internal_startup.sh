@@ -5,11 +5,6 @@ if [[ -z "${ABI}" ]]; then
     export ABI=4
 fi
 
-# replace ancient system libstdc++, plug ours in.  This is a workaround for some recipes that do not respect LIBRARY_PATH.
-sudo ln -sf /usr/local/lib64/libstdc++.so.6.0.21 /usr/lib64/libstdc++.so.6
-sudo ln -sf /usr/local/lib/libstdc++.so.6.0.21 /usr/lib/libstdc++.so.6
-sudo ln -sf /usr/local/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
-
 # Setup home environment
 
 export PATH=/usr/local/bin:/opt/miniconda/bin:$PATH

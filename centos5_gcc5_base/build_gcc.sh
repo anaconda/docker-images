@@ -8,7 +8,7 @@ MPFR_VER=3.1.4
 ISL_VER=0.14
 
 # build gcc 5.2.0 (http://en.librehat.com/blog/build-gcc-5-dot-2-on-rhel-6/)
-urls="http://ftpmirror.gnu.org/gcc/gcc-${GCC_VER}/gcc-${GCC_VER}.tar.bz2 \
+urls="http://mirrors-usa.go-parts.com/gcc/releases/gcc-${GCC_VER}/gcc-${GCC_VER}.tar.bz2 \
          http://gnu.askapache.com/gmp/gmp-${GMP_VER}.tar.bz2 \
          ftp://ftp.gnu.org/gnu/mpc/mpc-${MPC_VER}.tar.gz \
          http://www.mpfr.org/mpfr-current/mpfr-${MPFR_VER}.tar.bz2 \
@@ -66,3 +66,4 @@ scl enable devtoolset-2 'make install-strip'
 ln -sf /usr/local/bin/gcc /usr/local/bin/cc
 rm -rf /gcc-build
 rm -rf /usr/local/gcc_tmp
+
