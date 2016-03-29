@@ -73,6 +73,8 @@ done
 user=$(id -u -n)
 home=$(eval echo "~${user}")
 
+docker_run_string+="-e USER=${user} "
+
 if [ -e $home/.ssh/id_rsa ]; then
     docker_run_string+="-v $home/.ssh/id_rsa:/id_rsa:ro "
 fi

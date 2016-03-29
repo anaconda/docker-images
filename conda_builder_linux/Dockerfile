@@ -12,6 +12,12 @@ RUN bash yum_install_syslibs.sh && \
     bash yum_cleanup.sh && \
     rm -rf /build_scripts
 
+# Yum may have messed up symlinks to libstdc++.  Make sure they are still ours.
+RUN ln -sf /usr/local/lib64/libstdc++.so.6.0.21 /usr/lib64/libstdc++.so.6
+RUN ln -sf /usr/local/lib/libstdc++.so.6.0.21 /usr/lib/libstdc++.so.6
+RUN ln -sf /usr/local/lib64/libgcc_s.so.1 /usr/lib64/libgcc_s.so.1
+RUN ln -sf /usr/local/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
+
 RUN useradd -m --uid 1000 -G wheel dev
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 

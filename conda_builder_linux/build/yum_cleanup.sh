@@ -1,5 +1,4 @@
-yum -y erase wireless-tools gtk2 hicolor-icon-theme \
-    avahi freetype bitstream-vera-fonts curl > /dev/null 2>&1
+yum -y erase wireless-tools avahi curl > /dev/null 2>&1
 yum -y clean all
 
 # print out all installed packages, and then again by size
