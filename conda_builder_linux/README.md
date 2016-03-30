@@ -105,15 +105,4 @@ https://hub.docker.com/r/continuumio/conda_builder_linux/
 NOTES
 -----
 
-There are two installations of GCC in /usr/local. These have been compiled
-each with a different C++ ABI setting (GCC4 compatible, and GCC5 compatible.)
-
-  - Neither of these are on PATH by default - the startup scripts add one or
-    the other.
-  - Libraries compiled with one are generally incompatible with consumers
-    compiled with another.
-  - Continuum is using GCC4 compatibility mode for now, with a switch
-    anticipated at some point.  This will be well-announced.
-  - Your choice here does NOT limit where you software will run: if you
-    compile everything yourself with only one ABI, you should be fine on any
-    platform. It is only when things are mixed that they break.
+If you do not use one of the start_???.sh or docker_wrapper.sh scripts, and do not otherwise set environment variables, the docker image will compile using the C++11 ABI, 64-bit only.  This code will not be backward-compatible with GCC4-compiled code.
