@@ -105,4 +105,6 @@ https://hub.docker.com/r/continuumio/conda_builder_linux/
 NOTES
 -----
 
-If you do not use one of the start_???.sh or docker_wrapper.sh scripts, and do not otherwise set environment variables, the docker image will compile using the C++11 ABI, 64-bit only.  This code will not be backward-compatible with GCC4-compiled code.
+- Build containers are NOT automatically cleaned up by the start scripts, unless you specify cleanup by passing the --rm flag.  All of the startup shell scripts should respect this command, and remove the docker container after it has exited.
+
+- If you do not use one of the start_???.sh or docker_wrapper.sh scripts, and do not otherwise set environment variables, the docker image will compile using the C++11 ABI, 64-bit only.  This code will not be backward-compatible with GCC4-compiled code.
