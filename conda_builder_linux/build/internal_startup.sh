@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# save stdout as file descriptor 3, and redirect stdout to stderr
+exec 3>&1
+exec 1>&2
+
 if [[ -z "${ABI}" ]]; then
     echo "WARNING: No ABI default set.  Falling back to compatibility mode with GCC 4."
     export ABI=4
@@ -83,6 +87,9 @@ echo "    clone_anaconda: clones the continuumIO/anaconda (private) repo from Gi
 echo "    anaconda_setup: clones anaconda repo and sets up continuum internal build system."
 
 echo
+
+# restore stdout
+exec 1>&3
 
 if [[ $# < 1 ]]; then
     # interactive session
