@@ -20,6 +20,8 @@ RUN ln -sf /usr/local/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
 
 RUN useradd -m --uid 1000 -G wheel dev
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# do not require tty for sudo access
+RUN echo 'Defaults:dev   !requiretty' >> /etc/sudoers
 
 # this is where we'll mount shares from the user
 RUN mkdir -p /opt/share

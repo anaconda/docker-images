@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -z "${ABI}" ]]; then
-    echo "WARNING: No ABI default set.  Falling back to compatibility mode with GCC 4."
+    ABI_WARNING="WARNING: No ABI default set.  Falling back to compatibility mode with GCC 4."
     export ABI=4
 fi
 
@@ -39,28 +39,6 @@ else
     sudo chmod +x /bin/uname
 fi
 
-echo
-echo "Welcome to the conda-builder image, brought to you by Continuum Analytics."
-echo
-echo "Binaries produced with this image should be compatible with any Linux OS"
-echo "that is at least CentOS 5 or newer (Glibc lower bound), and anything "
-echo "that uses G++ 5.2 or older (libstdc++ upper bound)"
-echo
-echo "    GCC is: $(gcc --version | head -1)"
-echo "    Default C++ ABI: ${ABI} (C++$([ "${ABI}" == "4" ] && echo "98" || echo "11"))"
-echo "    GLIBC is: $(getconf GNU_LIBC_VERSION)"
-echo "    ld/binutils is: $(ld --version | head -1)"
-echo
-echo "    Native arch is x86_64.  ${ARCH_DOC}"
-echo
-echo "    The dev user (currently signed in) has passwordless sudo access."
-echo "    miniconda (2.7) is installed at /opt/miniconda."
-echo "    git is also available."
-
-if [ -f "/home/dev/.gitconfig" ]; then
-    echo "    Your .gitconfig has been imported."
-fi
-
 # jumping through hoops for file ownership - we can't have the owner be
 #    the native linux owner, and we also can't have permissions too wide open,
 #    or ssh complains.
@@ -72,20 +50,46 @@ if [ -f /id_rsa ]; then
     sudo chmod 600 .ssh/id_rsa
     echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
     echo -e "Host bremen\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    echo "    Your ssh private key has been imported for passwordless ssh."
 fi
-
-echo
-
-echo "Helpful aliases:"
-echo "    clone_recipes: clones the conda/conda-recipes repo from Github"
-echo "    clone_anaconda: clones the continuumIO/anaconda (private) repo from Github"
-echo "    anaconda_setup: clones anaconda repo and sets up continuum internal build system."
-
-echo
 
 if [[ $# < 1 ]]; then
     # interactive session
+    echo "$ABI_WARNING"
+    echo
+    echo "Welcome to the conda-builder image, brought to you by Continuum Analytics."
+    echo
+    echo "Binaries produced with this image should be compatible with any Linux OS"
+    echo "that is at least CentOS 5 or newer (Glibc lower bound), and anything "
+    echo "that uses G++ 5.2 or older (libstdc++ upper bound)"
+    echo
+    echo "    GCC is: $(gcc --version | head -1)"
+    echo "    Default C++ ABI: ${ABI} (C++$([ "${ABI}" == "4" ] && echo "98" || echo "11"))"
+    echo "    GLIBC is: $(getconf GNU_LIBC_VERSION)"
+    echo "    ld/binutils is: $(ld --version | head -1)"
+    echo
+    echo "    Native arch is x86_64.  ${ARCH_DOC}"
+    echo
+    echo "    The dev user (currently signed in) has passwordless sudo access."
+    echo "    miniconda (2.7) is installed at /opt/miniconda."
+    echo "    git is also available."
+
+    if [ -f "/home/dev/.gitconfig" ]; then
+        echo "    Your .gitconfig has been imported."
+    fi
+
+    if [ -f /id_rsa ]; then
+        echo "    Your ssh private key has been imported for passwordless ssh."
+    fi
+
+    echo
+
+    echo "Helpful aliases:"
+    echo "    clone_recipes: clones the conda/conda-recipes repo from Github"
+    echo "    clone_anaconda: clones the continuumIO/anaconda (private) repo from Github"
+    echo "    anaconda_setup: clones anaconda repo and sets up continuum internal build system."
+
+    echo
+
     bash
 else
     # Run whatever the user wants to pass in
