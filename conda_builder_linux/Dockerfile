@@ -27,6 +27,8 @@ RUN echo 'Defaults:dev   !requiretty' >> /etc/sudoers
 RUN mkdir -p /opt/share
 ADD build/internal_startup.sh /opt/share/internal_startup.sh
 ADD build/alias_32bit.sh /opt/share/alias_32bit.sh
+RUN mkdir -p /opt/miniconda/conda-bld/work/linux-64
+RUN mkdir -p /opt/miniconda/conda-bld/work/linux-32
 RUN chmod -R 777 /opt
 
 WORKDIR /home/dev
