@@ -19,6 +19,7 @@ RUN ln -sf /usr/local/lib64/libstdc++.so.6.0.21 /usr/lib64/libstdc++.so.6 && \
     ln -sf /usr/local/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
 
 RUN useradd -m --uid 1000 -G wheel dev
+
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
   echo 'Defaults:%wheel !requiretty' >> /etc/sudoers
 
@@ -26,6 +27,8 @@ RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
 RUN mkdir -p /opt/share
 ADD build/internal_startup.sh /opt/share/internal_startup.sh
 ADD build/alias_32bit.sh /opt/share/alias_32bit.sh
+RUN mkdir -p /opt/miniconda/conda-bld/work/linux-64
+RUN mkdir -p /opt/miniconda/conda-bld/work/linux-32
 RUN chmod -R 777 /opt
 
 WORKDIR /home/dev

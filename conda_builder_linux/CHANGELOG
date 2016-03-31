@@ -1,0 +1,8 @@
+5.11-5.2-0-1: 2016-03-31:
+	- add /opt/miniconda/conda-bld/linux64 and /opt/miniconda/conda-bld/linux-32 folders for mount points for build output
+	- Made output upon login with internal_startup.sh only show up when no build command is passed
+	- enabled sudo when tty is not available
+
+5.11-5.2-0-0: 2016-03-30: First release
+	- naming scheme is Centos version-GCC version-base image revision-builder image revision
+	- base image refers to https://github.com/ContinuumIO/docker-images/tree/master/centos5_gcc5_base
