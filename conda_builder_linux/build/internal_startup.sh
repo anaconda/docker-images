@@ -93,8 +93,8 @@ exec 1>&3
 
 if [[ $# < 1 ]]; then
     # interactive session
-    bash
+    exec bash
 else
     # Run whatever the user wants to pass in
-    eval "$@"
+    exec "$@"
 fi
