@@ -13,13 +13,14 @@ RUN bash yum_install_syslibs.sh && \
     rm -rf /build_scripts
 
 # Yum may have messed up symlinks to libstdc++.  Make sure they are still ours.
-RUN ln -sf /usr/local/lib64/libstdc++.so.6.0.21 /usr/lib64/libstdc++.so.6
-RUN ln -sf /usr/local/lib/libstdc++.so.6.0.21 /usr/lib/libstdc++.so.6
-RUN ln -sf /usr/local/lib64/libgcc_s.so.1 /usr/lib64/libgcc_s.so.1
-RUN ln -sf /usr/local/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
+RUN ln -sf /usr/local/lib64/libstdc++.so.6.0.21 /usr/lib64/libstdc++.so.6 && \
+    ln -sf /usr/local/lib/libstdc++.so.6.0.21 /usr/lib/libstdc++.so.6 && \
+    ln -sf /usr/local/lib64/libgcc_s.so.1 /usr/lib64/libgcc_s.so.1 && \
+    ln -sf /usr/local/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
 
 RUN useradd -m --uid 1000 -G wheel dev
-RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+  echo 'Defaults:%wheel !requiretty' >> /etc/sudoers
 
 # this is where we'll mount shares from the user
 RUN mkdir -p /opt/share
