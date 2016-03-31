@@ -53,6 +53,10 @@ if [ -f /id_rsa ]; then
 fi
 
 if [[ $# < 1 ]]; then
+    # save stdout as file descriptor 3, and redirect stdout to stderr
+    exec 3>&1
+    exec 1>&2
+
     # interactive session
     echo "$ABI_WARNING"
     echo
@@ -90,8 +94,11 @@ if [[ $# < 1 ]]; then
 
     echo
 
-    bash
+    # restore stdout
+    exec 1>&3
+
+    exec bash
 else
     # Run whatever the user wants to pass in
-    eval "$@"
+    exec "$@"
 fi
