@@ -8,6 +8,44 @@ distributions. Additionally, GCC5.2 allows compilation of C++11 and C++14 code.
 
 Usage
 -----
+**TLDR**: make an alias in your shell startup scripts:
+
+    alias build32="<full path to start script> <mounts> <env vars>"
+
+Mounts should be of the form:
+
+    -v local_path:internal_path
+    
+internal paths must be absolute, no ~ allowed.  You probably want to mount under either /opt or /home/dev
+    
+Map your recipes on your local system into the container:
+
+    -v ~/recipes:/home/dev/recipes
+    
+Map your local Miniconda/Anaconda folders into the container, to share downloaded packages and dump outputs to your local system:
+
+    -v ~/miniconda2/conda-bld/svn-cache:/opt/miniconda/conda-bld/svn-cache
+    -v ~/miniconda2/conda-bld/hg-cache:/opt/miniconda/conda-bld/hg-cache
+    -v ~/miniconda2/conda-bld/git-cache:/opt/miniconda/conda-bld/git-cache
+    -v ~/miniconda2/conda-bld/src-cache:/opt/miniconda/conda-bld/src-cache
+ 
+    -v ~/miniconda2/conda-bld/linux-64:/opt/miniconda/conda-bld/linux-64
+    -v ~/miniconda2/conda-bld/linux-32:/opt/miniconda/conda-bld/linux-32
+    -v ~/miniconda2/conda-bld/noarch:/opt/miniconda/conda-bld/noarch
+
+Set environment variables (if any):
+
+    -e "MEANINGOFLIFE=42"
+
+**Any additional arguments you pass to your alias go right on through.**  You can treat the builder as a black box and never enter an interactive session:
+
+    build32 conda build recipes/myrecipe
+
+Note two things here:
+   - You should NOT mount the whole of conda-bld to your container.  If you do that, work directories and locks are unnecessarily shared.  Keep those folders internal to the container, and do not mount them (unless you want to study the failed state of a build - but in that case, you could always attach to the docker container, anyway).
+   - the path to the recipe is the container-internal path.  Relative paths are OK, but remember, they start from /home/dev (the login folder for the container).  Use absolute paths if you get confused.
+
+### Explanation of why those work:
 
 A helper script for running is provided that mounts your .ssh folder (for
 passwordless SSH) and ~/.gitconfig file in the container. To run this, download
@@ -47,7 +85,7 @@ Helpful aliases:
 The docker image is made to be used either interactively, or by passing
 commands, so that the image is effectively just a run environment. Any arguments
 you pass in are parsed first to pull out ```docker run``` arguments, then any
-unrecognized parts are fed into the container and executed using ```eval```. If
+unrecognized parts are fed into the container and executed using ```exec```. If
 you did not supply any command for the start script to run directly, you'll be
 dropped at an interactive prompt.
 
