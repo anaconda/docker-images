@@ -60,6 +60,6 @@ fi
 docker_run_string+="${DOCKER_ARGS[@]} "
 # these two need to come last: the image, and the command to run.
 docker_run_string+="$IMAGE "
-docker_run_string+="bash /opt/share/internal_startup.sh $@}"
+docker_run_string+="bash /opt/share/internal_startup.sh $@"
 
 docker ${docker_run_string}
