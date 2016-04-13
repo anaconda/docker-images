@@ -6,68 +6,42 @@
 #    know how to tweak docker run
 
 # parse options and pick off docker-run options
-ENV_VARS=()
-VOLUMES=()
-LEFTOVERS=()
+DOCKER_ARGS=()
+IMAGE="continuumio/conda_builder_linux:latest"
 while [[ $# > 0 ]]
 do
     key="$1"
 
     case $key in
-        -e)
-            ENV_VARS+=("$2")
-            shift # past argument
-            ;;
-        --rm)
-            RM=1
-            ;;
+	-I|--image)
+	    IMAGE="$2"
+	    shift # past argument
+	    ;;
         -d)
-            DETACHED=1
             # start in detached mode
+            DETACHED=1
             ;;
-        --log-driver)
-            # TODO: Docker specifies this with an = sign, not sure if bash parsing will split on = by default.
-            LOG_DRIVER="$2"
-            shift # past argument
-            ;;
-        -v|--volume)
-            VOLUMES+=("$2")
-            shift # past argument
-            ;;
+	--)
+	    # End of docker options.
+	    # Anything beyond this point is part of the docker command.
+	    shift
+	    break
+	    ;;
         *)
-            # pass through for unknown options
-            LEFTOVERS+=("$1")
+            # pass through unknown options
+            DOCKER_ARGS+=("$1")
             ;;
     esac
     shift # past argument or value
 done
-
 # build up the docker run command string with each of the options
 docker_run_string="run "
-
-if [[ ! -z "${RM}" ]]; then
-    docker_run_string+="--rm "
-fi
 
 if [[ ! -z "${DETACHED}" ]]; then
     docker_run_string+="-d "
 else
     docker_run_string+="-it "
 fi
-
-if [[ ! -z "${LOG_DRIVER}" ]]; then
-    docker_run_string+="--log-driver=${LOG_DRIVER} "
-fi
-
-for var in "${ENV_VARS[@]}"
-do
-    docker_run_string+="-e $var "
-done
-
-for var in "${VOLUMES[@]}"
-do
-    docker_run_string+="-v $var "
-done
 
 # try to map gitconfig and ssh private key for convenience
 user=$(id -u -n)
@@ -83,8 +57,9 @@ if [ -e $home/.gitconfig ]; then
     docker_run_string+="-v $home/.gitconfig:/home/dev/.gitconfig:ro "
 fi
 
+docker_run_string+="${DOCKER_ARGS[@]} "
 # these two need to come last: the image, and the command to run.
-docker_run_string+="continuumio/conda_builder_linux:latest "
-docker_run_string+="bash /opt/share/internal_startup.sh ${LEFTOVERS[@]}"
+docker_run_string+="$IMAGE "
+docker_run_string+="bash /opt/share/internal_startup.sh $@}"
 
 docker ${docker_run_string}
