@@ -6,6 +6,7 @@
 #    know how to tweak docker run
 
 # parse options and pick off docker-run options
+DOCKER=docker
 DOCKER_ARGS=()
 IMAGE="continuumio/conda_builder_linux:latest"
 while [[ $# > 0 ]]
@@ -16,6 +17,9 @@ do
 	-I|--image)
 	    IMAGE="$2"
 	    shift # past argument
+	    ;;
+	--nvidia)
+	    DOCKER=nvidia-docker
 	    ;;
         -d)
             # start in detached mode
@@ -62,4 +66,4 @@ docker_run_string+="${DOCKER_ARGS[@]} "
 docker_run_string+="$IMAGE "
 docker_run_string+="bash /opt/share/internal_startup.sh $@"
 
-docker ${docker_run_string}
+${DOCKER} ${docker_run_string}
