@@ -13,7 +13,7 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     /bin/bash Miniconda2-latest-Linux-x86_64.sh -b -p /opt/conda && \
     rm Miniconda2-latest-Linux-x86_64.sh && \
     source ~/.bashrc && \
-    conda install -yq -c msarahan conda-build git curl && \
+    conda install -yq -c msarahan conda-build git curl anaconda-client && \
     conda clean -pt && yum erase -y curl
 
 ENV PATH /opt/conda/bin:$PATH
