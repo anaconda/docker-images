@@ -1,7 +1,8 @@
 FROM debian:sid-slim
 MAINTAINER Continuum Analytics, Inc. <conda@continuum.io>
 
-RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
+RUN apt-get -qq update \
+    && apt-get -qq -y install curl bzip2 \
     && curl -sSL https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
     && bash /tmp/miniconda.sh -bfp /usr/local \
     && rm -rf /tmp/miniconda.sh \
