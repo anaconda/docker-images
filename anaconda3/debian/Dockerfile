@@ -1,4 +1,4 @@
-FROM debian:sid-slim
+FROM debian:jessie-slim
 MAINTAINER Continuum Analytics, Inc. <conda@continuum.io>
 
 RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
