@@ -25,7 +25,7 @@ RUN wget --quiet http://mirror.ox.ac.uk/sites/ctan.org/systems/texlive/tlnet/ins
     && tar -xf install-tl-unx.tar.gz \
     && cd $(ls -d */|head -n 1) \
     && TEXLIVE_INSTALL_PREFIX=/opt/texlive ./install-tl \
-    && rm -rf /temp/*
+    && rm -rf /temp
 
 RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda2-4.3.11-Linux-x86_64.sh -O ~/miniconda.sh \
     && /bin/bash ~/miniconda.sh -b -p /opt/conda \
