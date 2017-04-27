@@ -6,6 +6,7 @@ RUN conda update -qy --all && conda install -qy -c conda-canary -c msarahan cond
 RUN mkdir -p bin && curl -L https://github.com/concourse/concourse/releases/download/v2.7.3/fly_linux_amd64 -o bin/fly && chmod +x bin/fly
 RUN echo "export PATH=$PATH:~/bin" >> ~/.bashrc
 RUN echo "add_pip_as_python_dependency: False" >> ~/.condarc
+RUN conda config --add channels msarahan
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
