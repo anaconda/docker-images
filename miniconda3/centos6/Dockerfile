@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:centos6
 MAINTAINER Continuum Analytics, Inc. <conda@continuum.io>
 
 RUN yum -y update \
@@ -8,5 +8,6 @@ RUN yum -y update \
     && rm -rf /tmp/miniconda.sh \
     && conda install -y python=3 conda=4.3.14 \
     && conda clean --all --yes \
-    && rpm -e --nodeps curl bzip2 \
-    && yum clean all
+    && rpm --erase --nodeps curl bzip2 \
+    && conda clean --all --yes \
+    && yum clean all \
