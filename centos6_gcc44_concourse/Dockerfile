@@ -10,7 +10,7 @@ RUN yum -y update; yum clean all \
         indent intltool libtool curl bzip2 wget swig systemtap\
         patch patchutils rcs redhat-rpm-config rpm-build subversion \
         centos-release-SCL devtoolset-2 tar.x86_64 unzip \
-        emacs vim-enhanced nano \
+        emacs vim-enhanced nano epel-release tmux htop\
     &&  yum install -y  gcc44 gcc44-c++ gcc44-gfortran mesa-libGL-devel \
                          mesa-libGLU-devel libX11-devel libXt-devel \
                          libXrender-devel libXext-devel libXdmcp-devel \
@@ -20,9 +20,8 @@ RUN yum -y update; yum clean all \
     && rm -rf /build_scripts
 
 RUN ln -s /usr/bin/gcc44 /usr/local/bin/gcc \
-    && ln -s /usr/bin/g++44 /usr/local/bin/g++ \ 
+    && ln -s /usr/bin/g++44 /usr/local/bin/g++ \
     && ln -s /usr/bin/gfortran44 /usr/local/bin/gfortran
-
 
 RUN curl -sS https://ftp.gnu.org/gnu/binutils/binutils-2.27.tar.gz -o /tmp/binutils.tar.gz \
     && cd /tmp \
