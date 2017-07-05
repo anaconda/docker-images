@@ -53,5 +53,5 @@ RUN curl -L https://github.com/concourse/concourse/releases/download/v3.3.1/conc
  && chmod +x /usr/local/bin/concourse
 
 WORKDIR /home
-RUN git clone https://github.com/conda/conda-concourse-ci.git \
-    && cd conda-concourse-ci/concourse-server/keys/
+RUN git clone https://github.com/conda/conda-concourse-ci.git 
+WORKDIR  ./conda-concourse-ci/concourse-server/keys/
