@@ -1,5 +1,5 @@
 FROM centos:5.11
-MAINTAINER Michael Sarahan <msarahan@continuum.io>
+LABEL maintainer="Michael Sarahan <msarahan@continuum.io>"
 
 WORKDIR /build_scripts
 COPY install_yum_deps.sh build_gcc.sh yum_cleanup.sh symlink_libraries.sh /build_scripts/
