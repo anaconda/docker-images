@@ -1,6 +1,6 @@
 FROM debian:8
 
-MAINTAINER Kamil Kwiek <kamil.kwiek@continuum.io>
+LABEL maintainer="Kamil Kwiek <kamil.kwiek@continuum.io>"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 

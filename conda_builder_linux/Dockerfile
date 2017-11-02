@@ -1,5 +1,5 @@
 from continuumio/centos5_gcc5_base:5.11-5.2-1
-MAINTAINER Michael Sarahan <msarahan@continuum.io>
+LABEL maintainer="Michael Sarahan <msarahan@continuum.io>"
 
 WORKDIR /build_scripts
 COPY build/yum_install_syslibs.sh \
