@@ -1,4 +1,4 @@
-curl http://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -o Miniconda.sh
+curl http://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh -o Miniconda.sh
 /bin/bash Miniconda.sh -b -p /opt/miniconda
 rm Miniconda.sh
 /opt/miniconda/bin/conda config --set show_channel_urls True
