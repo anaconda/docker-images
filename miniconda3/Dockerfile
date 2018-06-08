@@ -1,5 +1,10 @@
 FROM debian:latest
 
+#  $ docker build . -t continuumio/miniconda3:latest -t continuumio/miniconda3:4.5.4
+#  $ docker push continuumio/miniconda3:latest
+#  $ docker push continuumio/miniconda3:4.5.4
+#  $ docker run --rm -it continuumio/miniconda3:latest /bin/bash
+
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
@@ -8,7 +13,7 @@ RUN apt-get update --fix-missing && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.4.10-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.5.4-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy && \
