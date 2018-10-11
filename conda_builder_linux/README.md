@@ -1,3 +1,7 @@
+# THIS DOCKER IMAGE IS DEPRECATED!!!
+# See https://conda.io/docs/user-guide/tasks/build-packages/compiler-tools.html for the new way to use Linux compilers
+
+
 # conda_builder_linux
 
 Docker container (CentOS 5.11) with GCC 5.2, Binutils 2.26, and a bootstrapped
