@@ -1,6 +1,6 @@
 # docker-miniconda
 
-Docker container with a bootstrapped installation of [Miniconda](http://conda.pydata.org/miniconda.html) (based on Python 3.5) that is ready to use.
+Docker container with a bootstrapped installation of [Miniconda](http://conda.pydata.org/miniconda.html) (based on Python 3.7) that is ready to use.
 
 The Miniconda distribution is installed into the `/opt/conda` folder and ensures that the default user has the `conda` command in their path.
 
