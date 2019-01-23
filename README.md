@@ -4,8 +4,7 @@ https://hub.docker.com/r/continuumio/
 
 Documentation for Anaconda Integrations, including Docker:
 
-https://docs.continuum.io/anaconda/images
-
+https://docs.anaconda.com/anaconda/user-guide/tasks/docker/
 
 Push All:
 
