@@ -50,23 +50,22 @@ ENV ANACONDA_MD5 c9af603d89656bc89680889ef1f92623
 
 # Create non-root user, install dependencies, install Anaconda
 RUN addgroup -S anaconda && \
-    adduser -D -u 10151 anaconda -G anaconda && 
+    adduser -D -u 10151 anaconda -G anaconda && \
     apk update && \
     apk add --no-cache openssl && \
     apk add --no-cache bash libstdc++ && \
-    wget --quiet https://repo.continuum.io/archive/Anaconda3-$ANACONDA_VERSION-Linux-x86_64.sh && \
-    echo "${ANACONDA_MD5}  Anaconda3-$ANACONDA_VERSION-Linux-x86_64.sh" > anaconda.md5 && \
+    wget --quiet https://repo.continuum.io/archive/Anaconda3-$ANACONDA_VERSION-Linux-x86_64.sh -O anaconda.sh && \
+    echo "${ANACONDA_MD5}  anaconda.sh" > anaconda.md5 && \
     if [ $(md5sum -c anaconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
-    mv Anaconda3-$ANACONDA_VERSION-Linux-x86_64.sh anaconda.sh && \
     mkdir -p /opt && \
     bash ./anaconda.sh -b -p /opt/conda && \
-    rm anaconda.sh && \
+    rm anaconda.sh anaconda.md5 && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     chown -R anaconda /opt
 
 ENV PATH "/bin:/sbin:/opt/conda/bin:/usr/bin"
 USER 10151
-RUN echo ". /opt/anaconda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
 CMD [ "bash" ]

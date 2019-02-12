@@ -50,7 +50,7 @@ ENV CONDA_MD5 866ae9dff53ad0874e1d1a60b1ad1ef8
 
 # Create non-root user, install dependencies, install Conda
 RUN addgroup -S anaconda && \
-    adduser -S -G anaconda anaconda && \
+    adduser -D -u 10151 anaconda -G anaconda && \
     apk update && \
     apk add --no-cache openssl && \
     apk add --no-cache bash libstdc++ && \

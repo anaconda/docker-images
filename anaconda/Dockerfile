@@ -68,7 +68,7 @@ RUN addgroup -S anaconda && \
 
 ENV PATH "/bin:/sbin:/opt/conda/bin:/usr/bin"
 USER 10151
-RUN  echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-     echo "conda activate base" >> ~/.bashrc
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
 
 CMD [ "bash" ]
