@@ -1,9 +1,10 @@
 FROM alpine:3.9 as alpine-glibc
 
-ENV LANG=C.UTF-8
+LABEL MAINTAINER="Vlad Frolov"
+LABEL SRC=https://github.com/frol/docker-alpine-glibc
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # Here we install GNU libc (aka glibc) and set C.UTF-8 locale as default.
-
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.28-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -42,38 +43,32 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
 
-FROM alpine-glibc
-USER root
 
+# Build Anaconda container
+FROM alpine-glibc
+
+LABEL MAINTAINER="Anaconda, Inc"
 ENV ANACONDA_VERSION 2018.12
 ENV ANACONDA_MD5 84f39388da2c747477cf14cb02721b93
 
-# Create non-root user
+# Create non-root user, install dependencies, install anaconda
 RUN addgroup -S anaconda && \
-    adduser -S -G anaconda anaconda
-
-# We need to install openssl so that wget can fetch from HTTPS
-RUN apk update && \
-    apk add --no-cache openssl
-
-# Install anaconda dependencies.
-RUN apk add --no-cache bash libstdc++
-
-# Install anaconda 
-RUN  wget --quiet https://repo.continuum.io/archive/Anaconda2-$ANACONDA_VERSION-Linux-x86_64.sh && \
-     echo "${ANACONDA_MD5}  Anaconda2-$ANACONDA_VERSION-Linux-x86_64.sh" > anaconda.md5 && \
-     if [ $(md5sum -c anaconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
-     mv Anaconda2-$ANACONDA_VERSION-Linux-x86_64.sh anaconda.sh && \
-     mkdir -p /opt && \
-     bash ./anaconda.sh -b -p /opt/conda && \
-     rm anaconda.sh && \
-     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-     echo ". /opt/anaconda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-     echo "conda activate base" >> ~/.bashrc && \
-     chown -R anaconda /opt
+    adduser -D -u 10151 anaconda -G anaconda && \
+    apk update && \
+    apk add --no-cache openssl && \
+    apk add --no-cache bash libstdc++ && \
+    wget --quiet https://repo.continuum.io/archive/Anaconda2-$ANACONDA_VERSION-Linux-x86_64.sh -O anaconda.sh && \
+    echo "${ANACONDA_MD5}  anaconda.sh" > anaconda.md5 && \
+    if [ $(md5sum -c anaconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
+    mkdir -p /opt && \
+    bash ./anaconda.sh -b -p /opt/conda && \
+    rm anaconda.sh anaconda.md5 && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    chown -R anaconda /opt
 
 ENV PATH "/bin:/sbin:/opt/conda/bin:/usr/bin"
-
-USER anaconda
+USER 10151
+RUN  echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+     echo "conda activate base" >> ~/.bashrc
 
 CMD [ "bash" ]

@@ -1,9 +1,9 @@
 FROM alpine:3.9 as alpine-glibc
 
-ENV LANG=C.UTF-8
+LABEL MAINTAINER="Vlad Frolov"
+LABEL SRC=https://github.com/frol/docker-alpine-glibc
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-# src: https://hub.docker.com/r/frolvlad/alpine-glibc 
-# Here we install GNU libc (aka glibc) and set C.UTF-8 locale as default.
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.28-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -43,38 +43,30 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
 
 FROM alpine-glibc
-USER root
 
+LABEL MAINTAINER="Anaconda, Inc"
 ENV CONDA_VERSION 4.5.12
 ENV CONDA_MD5 866ae9dff53ad0874e1d1a60b1ad1ef8
 
-# Create non-root user
+# Create non-root user, install dependencies, install Conda
 RUN addgroup -S anaconda && \
-    adduser -S -G anaconda anaconda
+    adduser -S -G anaconda anaconda && \
+    apk update && \
+    apk add --no-cache openssl && \
+    apk add --no-cache bash libstdc++ && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-$CONDA_VERSION-Linux-x86_64.sh && \
+    echo "${CONDA_MD5}  Miniconda3-$CONDA_VERSION-Linux-x86_64.sh" > miniconda.md5 && \
+    if [ $(md5sum -c miniconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
+    mv Miniconda3-$CONDA_VERSION-Linux-x86_64.sh miniconda.sh && \
+    mkdir -p /opt && \
+    bash ./miniconda.sh -b -p /opt/conda && \
+    rm miniconda.sh miniconda.md5 && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    chown -R anaconda:anaconda /opt
 
-# We need to install openssl so that wget can fetch from HTTPS
-RUN apk update && \
-    apk add --no-cache openssl
-
-# Install anaconda dependencies.
-RUN apk add --no-cache bash libstdc++
-
-# Install anaconda
-RUN  wget --quiet https://repo.continuum.io/miniconda/Miniconda3-$CONDA_VERSION-Linux-x86_64.sh && \
-     echo "${CONDA_MD5}  Miniconda3-$CONDA_VERSION-Linux-x86_64.sh" > miniconda.md5 && \
-     if [ $(md5sum -c miniconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
-     mv Miniconda3-$CONDA_VERSION-Linux-x86_64.sh miniconda.sh && \
-     mkdir -p /opt && \
-     bash ./miniconda.sh -b -p /opt/conda && \
-     rm miniconda.sh miniconda.md5 && \
-     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-     chown -R anaconda:anaconda /opt
-
-USER anaconda
-
-RUN  echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-     echo "conda activate base" >> ~/.bashrc
-
+USER  10151
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
 ENV PATH "/bin:/sbin:/opt/conda/bin:/usr/bin"
 
 CMD [ "bash" ] 
