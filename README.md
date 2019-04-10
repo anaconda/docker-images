@@ -1,3 +1,5 @@
+# Anaconda and Miniconda Docker Docker Docker
+
 Docker images for Anaconda/Miniconda that are available from Docker Hub:
 
 https://hub.docker.com/r/continuumio/
@@ -23,3 +25,9 @@ docker push continuumio/miniconda3:latest
 docker push continuumio/miniconda3:4.5.4
 ```
 
+## How to build anaconda images
+
+1. Update the version in `anaconda/**/Dockerfile` and `anaconda3/**/Dockerfile`
+2. cd to scripts
+3. bash build_anaconda.sh -v <version>
+4. push all the things
