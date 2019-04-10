@@ -12,7 +12,7 @@ Usage
 You can download and run this image using the following commands:
 
     docker pull continuumio/anaconda
-    docker run -i -t continuumio/anaconda /bin/bash
+    docker run -i -t continuumio/anaconda sh
 
 Alternatively, you can start a Jupyter Notebook server and interact with Anaconda via your browser:
 

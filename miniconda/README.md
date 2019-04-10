@@ -12,7 +12,7 @@ Usage
 You can download and run this image using the following commands:
 
     docker pull continuumio/miniconda
-    docker run -i -t continuumio/miniconda /bin/bash
+    docker run -i -t continuumio/miniconda sh
 
 Alternatively, you can start a Jupyter Notebook server and interact with Miniconda via your browser:
 
