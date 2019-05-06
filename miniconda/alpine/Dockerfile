@@ -1,5 +1,8 @@
 FROM alpine:3.9 as alpine-glibc
 
+#  $ docker build . -t continuumio/miniconda:4.6.14-alpine -t continuumio/miniconda2:4.6.14-alpine
+#  $ docker push continuumio/miniconda:4.6.14-alpine
+
 LABEL MAINTAINER="Vlad Frolov"
 LABEL SRC=https://github.com/frol/docker-alpine-glibc
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -45,16 +48,16 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
 FROM alpine-glibc
 
 LABEL MAINTAINER="Anaconda, Inc"
-ENV CONDA_VERSION 4.5.12
-ENV CONDA_MD5 866ae9dff53ad0874e1d1a60b1ad1ef8
+ENV CONDA_VERSION 4.6.14
+ENV CONDA_MD5 faa7cb0b0c8986ac3cacdbbd00fe4168
 
 # Create non-root user, install dependencies, install Conda
 RUN addgroup -S anaconda && \
     adduser -D -u 10151 anaconda -G anaconda && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-$CONDA_VERSION-Linux-x86_64.sh && \
-    echo "${CONDA_MD5}  Miniconda3-$CONDA_VERSION-Linux-x86_64.sh" > miniconda.md5 && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda2-$CONDA_VERSION-Linux-x86_64.sh && \
+    echo "${CONDA_MD5}  Miniconda2-$CONDA_VERSION-Linux-x86_64.sh" > miniconda.md5 && \
     if [ $(md5sum -c miniconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
-    mv Miniconda3-$CONDA_VERSION-Linux-x86_64.sh miniconda.sh && \
+    mv Miniconda2-$CONDA_VERSION-Linux-x86_64.sh miniconda.sh && \
     mkdir -p /opt && \
     sh ./miniconda.sh -b -p /opt/conda && \
     rm miniconda.sh miniconda.md5 && \
@@ -63,7 +66,7 @@ RUN addgroup -S anaconda && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> /home/anaconda/.profile && \
     echo "conda activate base" >> /home/anaconda/.profile
 
-USER  10151
+USER 10151
 ENV PATH "/bin:/sbin:/usr/bin"
 
 CMD [ "sh", "--login", "-i" ]
