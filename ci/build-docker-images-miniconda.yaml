@@ -1,7 +1,7 @@
 # fly -t concourse set-pipeline -p docker-images -c build-docker-images-miniconda.yml -l config.yaml
 
 resources:
-- name: docker-images-repo
+- name: docker-images
   type: git
   source:
     uri: https://((recipe-repo-access-token))@github.com/ContinuumIO/docker-images.git
@@ -55,11 +55,11 @@ jobs:
       - get: docker-images-repo
       - put: docker-image-miniconda
         params:
-          build: miniconda/alpine
+          build: docker-images/miniconda/alpine
           tag_file: docker-images-repo/ci/miniconda-alpine
       - put: docker-image-miniconda
         params:
-          build: miniconda/debian
+          build: docker-images/miniconda/debian
           tag_as_latest: true
           tag_file: docker-images-repo/ci/miniconda-debian
   - name: build_miniconda2
@@ -67,11 +67,11 @@ jobs:
       - get: docker-images-repo
       - put: docker-image-miniconda2
         params:
-          build: miniconda/alpine
+          build: docker-images/miniconda/alpine
           tag_file: docker-images-repo/ci/miniconda-alpine
       - put: docker-image-miniconda2
         params:
-          build: miniconda/debian
+          build: docker-images/miniconda/debian
           tag_as_latest: true
           tag_file: docker-images-repo/ci/miniconda-debian
   - name: build_miniconda3
@@ -79,11 +79,11 @@ jobs:
       - get: docker-images-repo
       - put: docker-image-miniconda3
         params:
-          build: miniconda3/alpine
+          build: docker-images/miniconda3/alpine
           tag_file: docker-images-repo/ci/miniconda-alpine
       - put: docker-image-miniconda3
         params:
-          build: miniconda3/debian
+          build: docker-images/miniconda3/debian
           tag_as_latest: true
           tag_file: docker-images-repo/ci/miniconda-debian
 
@@ -92,11 +92,11 @@ jobs:
       - get: docker-images-repo
       - put: docker-imageanaiconda
         params:
-          build: anaconda/alpine
+          build: docker-images/anaconda/alpine
           tag_file: docker-images-repo/ci/anaconda-alpine
       - put: docker-image-anaconda
         params:
-          build: anaconda/debian
+          build: docker-images/anaconda/debian
           tag_as_latest: true
           tag_file: docker-images-repo/ci/anaconda-debian
   - name: build_anaconda2
@@ -104,11 +104,11 @@ jobs:
       - get: docker-images-repo
       - put: docker-image-anaconda2
         params:
-          build: anaconda/alpine
+          build: docker-images/anaconda/alpine
           tag_file: docker-images-repo/ci/anaconda-alpine
       - put: docker-image-anaconda2
         params:
-          build: anaconda/debian
+          build: docker-images/anaconda/debian
           tag_as_latest: true
           tag_file: docker-images-repo/ci/anaconda-debian
   - name: build_anaconda3
@@ -116,10 +116,10 @@ jobs:
       - get: docker-images-repo
       - put: docker-image-anaconda3
         params:
-          build: anaconda3/alpine
+          build: docker-images/anaconda3/alpine
           tag_file: docker-images-repo/ci/anaconda-alpine
       - put: docker-image-anaconda3
         params:
-          build: anaconda3/debian
+          build: docker-images/anaconda3/debian
           tag_as_latest: true
           tag_file: docker-images-repo/ci/anaconda-debian
