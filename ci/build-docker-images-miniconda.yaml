@@ -1,0 +1,67 @@
+# fly -t concourse set-pipeline -p miniconda-images -c build-docker-images-miniconda.yml -l config.yaml
+
+resources:
+- name: docker-images-repo
+  type: git
+  source:
+    uri: https://((recipe-repo-access-token))@github.com/ContinuumIO/docker-images.git
+    branch: docker-images-ci
+
+- name: docker-image-miniconda
+  type: docker-image
+  source:
+    password:
+    repository: continuumio/miniconda
+    username:
+
+- name: docker-image-miniconda2
+  type: docker-image
+  source:
+    password:
+    repository: continuumio/miniconda2
+    username:
+
+- name: docker-image-miniconda3
+  type: docker-image
+  source:
+    password:
+    repository: continuumio/miniconda3
+    username:
+
+jobs:
+  - name: build_miniconda
+    plan:
+      - get: docker-images-repo
+      - put: docker-image-miniconda
+        params:
+          build: miniconda/alpine
+          tag_file: docker-images-repo/ci/miniconda-alpine
+      - put: docker-image-miniconda
+        params:
+          build: miniconda/debian
+          tag_as_latest: true
+          tag_file: docker-images-repo/ci/miniconda-debian
+  - name: build_miniconda2
+    plan:
+      - get: docker-images-repo
+      - put: docker-image-miniconda2
+        params:
+          build: miniconda/alpine
+          tag_file: docker-images-repo/ci/miniconda-alpine
+      - put: docker-image-miniconda2
+        params:
+          build: miniconda/debian
+          tag_as_latest: true
+          tag_file: docker-images-repo/ci/miniconda-debian
+  - name: build_miniconda3
+    plan:
+      - get: docker-images-repo
+      - put: docker-image-miniconda3
+        params:
+          build: miniconda3/alpine
+          tag_file: docker-images-repo/ci/miniconda-alpine
+      - put: docker-image-miniconda3
+        params:
+          build: miniconda3/debian
+          tag_as_latest: true
+          tag_file: docker-images-repo/ci/miniconda-debian
