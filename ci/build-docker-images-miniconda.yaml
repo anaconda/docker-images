@@ -28,6 +28,27 @@ resources:
     repository: continuumio/miniconda3
     username: condabot
 
+- name: docker-image-anaconda
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda
+    username: condabot
+
+- name: docker-image-anaconda2
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda2
+    username: condabot
+
+- name: docker-image-anaconda3
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda3
+    username: condabot
+
 jobs:
   - name: build_miniconda
     plan:
@@ -65,3 +86,40 @@ jobs:
           build: miniconda3/debian
           tag_as_latest: true
           tag_file: docker-images-repo/ci/miniconda-debian
+
+  - name: build_anaconda
+    plan:
+      - get: docker-images-repo
+      - put: docker-imageanaiconda
+        params:
+          build: anaconda/alpine
+          tag_file: docker-images-repo/ci/anaconda-alpine
+      - put: docker-image-anaconda
+        params:
+          build: anaconda/debian
+          tag_as_latest: true
+          tag_file: docker-images-repo/ci/anaconda-debian
+  - name: build_anaconda2
+    plan:
+      - get: docker-images-repo
+      - put: docker-image-anaconda2
+        params:
+          build: anaconda/alpine
+          tag_file: docker-images-repo/ci/anaconda-alpine
+      - put: docker-image-anaconda2
+        params:
+          build: anaconda/debian
+          tag_as_latest: true
+          tag_file: docker-images-repo/ci/anaconda-debian
+  - name: build_anaconda3
+    plan:
+      - get: docker-images-repo
+      - put: docker-image-anaconda3
+        params:
+          build: anaconda3/alpine
+          tag_file: docker-images-repo/ci/anaconda-alpine
+      - put: docker-image-anaconda3
+        params:
+          build: anaconda3/debian
+          tag_as_latest: true
+          tag_file: docker-images-repo/ci/anaconda-debian
