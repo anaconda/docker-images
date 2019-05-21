@@ -1,4 +1,4 @@
-# fly -t concourse set-pipeline -p miniconda-images -c build-docker-images-miniconda.yml -l config.yaml
+# fly -t concourse set-pipeline -p docker-images -c build-docker-images-miniconda.yml -l config.yaml
 
 resources:
 - name: docker-images-repo
@@ -10,23 +10,23 @@ resources:
 - name: docker-image-miniconda
   type: docker-image
   source:
-    password:
+    password: ((dockerhub_password))
     repository: continuumio/miniconda
-    username:
+    username: condabot
 
 - name: docker-image-miniconda2
   type: docker-image
   source:
-    password:
+    password: ((dockerhub_password))
     repository: continuumio/miniconda2
-    username:
+    username: condabot
 
 - name: docker-image-miniconda3
   type: docker-image
   source:
-    password:
+    password: ((dockerhub_password))
     repository: continuumio/miniconda3
-    username:
+    username: condabot
 
 jobs:
   - name: build_miniconda
