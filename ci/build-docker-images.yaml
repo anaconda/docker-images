@@ -1,0 +1,125 @@
+# fly -t concourse set-pipeline -p docker-images -c build-docker-images.yaml -l config.yaml
+
+resources:
+- name: docker-images
+  type: git
+  source:
+    uri: https://((recipe-repo-access-token))@github.com/ContinuumIO/docker-images.git
+    branch: docker-images-ci
+
+- name: docker-image-miniconda
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/miniconda
+    username: condabot
+
+- name: docker-image-miniconda2
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/miniconda2
+    username: condabot
+
+- name: docker-image-miniconda3
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/miniconda3
+    username: condabot
+
+- name: docker-image-anaconda
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda
+    username: condabot
+
+- name: docker-image-anaconda2
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda2
+    username: condabot
+
+- name: docker-image-anaconda3
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda3
+    username: condabot
+
+jobs:
+  - name: build_miniconda
+    plan:
+      - get: docker-images
+      - put: docker-image-miniconda
+        params:
+          build: docker-images/miniconda/alpine
+          tag_file: docker-images/ci/miniconda-alpine
+      - put: docker-image-miniconda
+        params:
+          build: docker-images/miniconda/debian
+          tag_as_latest: true
+          tag_file: docker-images/ci/miniconda-debian
+  - name: build_miniconda2
+    plan:
+      - get: docker-images
+      - put: docker-image-miniconda2
+        params:
+          build: docker-images/miniconda/alpine
+          tag_file: docker-images/ci/miniconda-alpine
+      - put: docker-image-miniconda2
+        params:
+          build: docker-images/miniconda/debian
+          tag_as_latest: true
+          tag_file: docker-images/ci/miniconda-debian
+  - name: build_miniconda3
+    plan:
+      - get: docker-images
+      - put: docker-image-miniconda3
+        params:
+          build: docker-images/miniconda3/alpine
+          tag_file: docker-images/ci/miniconda-alpine
+      - put: docker-image-miniconda3
+        params:
+          build: docker-images/miniconda3/debian
+          tag_as_latest: true
+          tag_file: docker-images/ci/miniconda-debian
+
+  - name: build_anaconda
+    plan:
+      - get: docker-images
+      - put: docker-image-anaconda
+        params:
+          build: docker-images/anaconda/alpine
+          tag_file: docker-images/ci/anaconda-alpine
+      - put: docker-image-anaconda
+        params:
+          build: docker-images/anaconda/debian
+          tag_as_latest: true
+          tag_file: docker-images/ci/anaconda-debian
+  - name: build_anaconda2
+    plan:
+      - get: docker-images
+      - put: docker-image-anaconda2
+        params:
+          build: docker-images/anaconda/alpine
+          tag_file: docker-images/ci/anaconda-alpine
+      - put: docker-image-anaconda2
+        params:
+          build: docker-images/anaconda/debian
+          tag_as_latest: true
+          tag_file: docker-images/ci/anaconda-debian
+  - name: build_anaconda3
+    plan:
+      - get: docker-images
+      - put: docker-image-anaconda3
+        params:
+          build: docker-images/anaconda3/alpine
+          tag_file: docker-images/ci/anaconda-alpine
+      - put: docker-image-anaconda3
+        params:
+          build: docker-images/anaconda3/debian
+          tag_as_latest: true
+          tag_file: docker-images/ci/anaconda-debian

@@ -1,0 +1,2 @@
+recipe-repo-access-token: ((common.recipe-repo-access-token))
+dockerhub_password: ((docker-images.dockerhub_password))
