@@ -5,7 +5,7 @@ resources:
   type: git
   source:
     uri: https://((recipe-repo-access-token))@github.com/ContinuumIO/docker-images.git
-    branch: docker-images-ci
+    branch: master
 
 - name: docker-image-miniconda
   type: docker-image
