@@ -64,7 +64,11 @@ RUN addgroup -S anaconda && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     chown -R anaconda:anaconda /opt && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> /home/anaconda/.profile && \
-    echo "conda activate base" >> /home/anaconda/.profile
+    echo "conda activate base" >> /home/anaconda/.profile && \
+    find /opt/conda/ -follow -type f -name '*.a' -delete && \
+    find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
+    /opt/conda/bin/conda clean -afy
+
 
 USER  10151
 ENV PATH "/bin:/sbin:/usr/bin"
