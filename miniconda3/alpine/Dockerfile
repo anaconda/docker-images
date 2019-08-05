@@ -71,6 +71,6 @@ RUN addgroup -S anaconda && \
 
 
 USER  10151
-ENV PATH "/bin:/sbin:/usr/bin"
+ENV PATH "/opt/conda/bin:/bin:/sbin:/usr/bin"
 
 CMD [ "sh", "--login", "-i" ]
