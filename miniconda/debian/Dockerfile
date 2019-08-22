@@ -16,4 +16,8 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda2-4.7.10-Linux-x86
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     /opt/conda/bin/conda clean -afy
 
+COPY start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/start.sh
+
 CMD [ "/bin/bash" ]
+ENTRYPOINT [ "/usr/local/bin/start.sh" ]
