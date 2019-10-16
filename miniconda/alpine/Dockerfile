@@ -49,8 +49,8 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
 FROM alpine-glibc
 
 LABEL MAINTAINER="Anaconda, Inc"
-ENV CONDA_VERSION 4.7.10
-ENV CONDA_MD5 3bc6ffc6cda8efa467926dfd92a30bca
+ENV CONDA_VERSION 4.7.12
+ENV CONDA_MD5 5a218d9dce3a77905d17ae87ac72a1e8
 
 # Create non-root user, install dependencies, install Conda
 RUN addgroup -S anaconda && \
