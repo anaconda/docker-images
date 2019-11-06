@@ -6,7 +6,6 @@ FROM alpine:3.9 as alpine-glibc
 LABEL MAINTAINER="Vlad Frolov"
 LABEL SRC=https://github.com/frol/docker-alpine-glibc
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
 
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.28-r0" && \
@@ -55,6 +54,7 @@ ENV CONDA_MD5 0dba759b8ecfc8948f626fa18785e3d8
 # Create non-root user, install dependencies, install Conda
 RUN addgroup -S anaconda && \
     adduser -D -u 10151 anaconda -G anaconda && \
+    apk add --no-cache bash && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-$CONDA_VERSION-Linux-x86_64.sh && \
     echo "${CONDA_MD5}  Miniconda3-$CONDA_VERSION-Linux-x86_64.sh" > miniconda.md5 && \
     if [ $(md5sum -c miniconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
@@ -70,8 +70,7 @@ RUN addgroup -S anaconda && \
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     /opt/conda/bin/conda clean -afy
 
-
+ENV PATH "/bin:/sbin:/opt/conda/bin:/usr/bin"
 USER  10151
-ENV PATH "/bin:/sbin:/usr/bin"
 
 CMD [ "sh", "--login", "-i" ]
