@@ -1,7 +1,7 @@
 FROM alpine:3.9 as alpine-glibc
 
-#  $ docker build . -t continuumio/miniconda3:4.8.2-alpine
-#  $ docker push continuumio/miniconda3:4.8.2-alpine
+#  $ docker build . -t continuumio/miniconda3:4.8.3-alpine
+#  $ docker push continuumio/miniconda3:4.8.3-alpine
 
 LABEL MAINTAINER="Vlad Frolov"
 LABEL SRC=https://github.com/frol/docker-alpine-glibc
@@ -49,8 +49,8 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
 FROM alpine-glibc
 
 LABEL MAINTAINER="Anaconda, Inc"
-ENV CONDA_VERSION 4.8.2
-ENV CONDA_MD5 87e77f097f6ebb5127c77662dfc3165e
+ENV CONDA_VERSION 4.8.3
+ENV CONDA_MD5 751786b92c00b1aeae3f017b781018df
 
 # Create non-root user, install dependencies, install Conda
 RUN addgroup -S anaconda && \
