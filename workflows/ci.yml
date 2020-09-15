@@ -19,27 +19,27 @@ jobs:
         with:
           version: latest
           driver-opts: network=host
-      - name: build-push linux-64-python3.8
+      - name: build-push conda-ci-linux-64-python3.8
         uses: docker/build-push-action@v2
         with:
-          context: ./condatest/linux-64-python3.8
+          context: ./conda_ci/linux-64-python3.8
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./condatest/linux-64-python3.8/Dockerfile
-          tags: angloyna/linux-64-python3.8:ghaction
+          file: ./conda_ci/conda-ci-linux-64-python3.8/Dockerfile
+          tags: continuumio/conda-ci-linux-64-python3.8:ghaction
           push: true 
-      - name: build-push linux-64-python3.7
+      - name: build-push conda-ci-linux-64-python3.7
         uses: docker/build-push-action@v2
         with:
-          context: ./condatest/linux-64-python3.7
+          context: ./conda_ci/linux-64-python3.7
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./condatest/linux-64-python3.7/Dockerfile
-          tags: angloyna/linux-64-python3.7:ghaction
-          push: true 
-      - name: build-push linux-64-python2.7
+          file: ./conda_ci/conda-ci-linux-64-python3.7/Dockerfile
+          tags: continuumio/conda-ci-linux-64-python3.7:ghaction
+          push: true
+      - name: build-push conda-ci-linux-64-python2.7
         uses: docker/build-push-action@v2
         with:
-          context: ./condatest/linux-64-python2.7
+          context: ./conda_ci/linux-64-python2.7
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./condatest/linux-64-python2.7/Dockerfile
-          tags: angloyna/linux-64-python2.7:ghaction
+          file: ./conda_ci/conda-ci-linux-64-python2.7/Dockerfile
+          tags: continuumio/conda-ci-linux-64-python2.7:ghaction
           push: true 
