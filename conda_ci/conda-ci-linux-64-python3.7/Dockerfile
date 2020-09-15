@@ -22,10 +22,11 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     /opt/conda/bin/conda clean -tipsy
 
 # conda and test dependencies
-RUN /opt/conda/bin/conda install -y -c defaults -c conda-forge conda conda-package-handling \
+RUN /opt/conda/bin/conda install -y -c defaults \
+    conda conda-package-handling \
     python=$PYTHON_VERSION pycosat requests ruamel_yaml cytoolz \
     anaconda-client nbformat make \
-    pytest pytest-cov radon pytest-timeout mock responses pexpect xonsh \
+    pytest pytest-cov radon pytest-timeout mock responses pexpect \
     flake8 && \
     /opt/conda/bin/conda clean --all --yes
 
@@ -33,7 +34,7 @@ RUN /opt/conda/bin/pip install codecov \
   && rm -rf ~root/.cache/pip
 
 # conda-build and test dependencies
-RUN sudo /opt/conda/bin/conda install -y -c defaults -c conda-forge \
+RUN sudo /opt/conda/bin/conda install -y -c defaults \
         conda-build patch git \
         perl pytest-xdist pytest-mock \
         anaconda-client \
