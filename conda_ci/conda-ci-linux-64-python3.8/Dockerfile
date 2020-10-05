@@ -26,12 +26,9 @@ RUN /opt/conda/bin/conda install -y -c defaults \
     conda conda-package-handling \
     python=$PYTHON_VERSION pycosat requests ruamel_yaml cytoolz \
     anaconda-client nbformat make \
-    pytest pytest-cov radon pytest-timeout mock responses pexpect \
+    pytest pytest-cov codecov radon pytest-timeout mock responses pexpect \
     flake8 && \
     /opt/conda/bin/conda clean --all --yes
-
-RUN /opt/conda/bin/pip install codecov \
-  && rm -rf ~root/.cache/pip
 
 # conda-build and test dependencies
 RUN sudo /opt/conda/bin/conda install -y -c defaults \
