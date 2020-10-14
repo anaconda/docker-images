@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'conda_ci/**'
+      - '.github/workflows/ci.yml'
 
 jobs:
   build:
