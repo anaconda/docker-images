@@ -3,7 +3,7 @@ FROM debian:buster-slim
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
-ENV PYTHON_VERSION 3.8
+ARG PYTHON_VERSION=3.8
 
 RUN useradd -ms /bin/bash test_user
 
