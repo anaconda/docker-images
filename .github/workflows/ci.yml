@@ -29,8 +29,7 @@ jobs:
           context: ./conda_ci/conda-ci-linux-64-python3
           builder: ${{ steps.buildx.outputs.name }}
           file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
-          build-args:
-            - PYTHON_VERSON=3.8
+          build-args: PYTHON_VERSON=3.8
           tags: continuumio/conda-ci-linux-64-python3.8:latest
           push: true 
 
@@ -40,8 +39,7 @@ jobs:
           context: ./conda_ci/conda-ci-linux-64-python3
           builder: ${{ steps.buildx.outputs.name }}
           file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
-          build-args:
-            - PYTHON_VERSON=3.7
+          build-args: PYTHON_VERSON=3.7
           tags: continuumio/conda-ci-linux-64-python3.7:latest
           push: true
 
