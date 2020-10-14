@@ -2,6 +2,9 @@ name: Build and Publish Conda CI Images
 on:
   schedule:
     - cron:  '0 0 * * 0'
+  push:
+    paths:
+      - 'conda_ci/**'
 
 jobs:
   build:
