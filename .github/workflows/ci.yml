@@ -2,6 +2,10 @@ name: Build and Publish Conda CI Images
 on:
   schedule:
     - cron:  '0 0 * * 0'
+  push:
+    paths:
+      - 'conda_ci/**'
+      - '.github/workflows/ci.yml'
 
 jobs:
   build:
@@ -19,22 +23,27 @@ jobs:
         with:
           version: latest
           driver-opts: network=host
+
       - name: build-push conda-ci-linux-64-python3.8
         uses: docker/build-push-action@v2
         with:
-          context: ./conda_ci/conda-ci-linux-64-python3.8
+          context: ./conda_ci/conda-ci-linux-64-python3
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./conda_ci/conda-ci-linux-64-python3.8/Dockerfile
+          file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+          build-args: PYTHON_VERSON=3.8
           tags: continuumio/conda-ci-linux-64-python3.8:latest
           push: true 
+
       - name: build-push conda-ci-linux-64-python3.7
         uses: docker/build-push-action@v2
         with:
-          context: ./conda_ci/conda-ci-linux-64-python3.7
+          context: ./conda_ci/conda-ci-linux-64-python3
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./conda_ci/conda-ci-linux-64-python3.7/Dockerfile
+          file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+          build-args: PYTHON_VERSON=3.7
           tags: continuumio/conda-ci-linux-64-python3.7:latest
           push: true
+
       - name: build-push conda-ci-linux-64-python2.7
         uses: docker/build-push-action@v2
         with:
