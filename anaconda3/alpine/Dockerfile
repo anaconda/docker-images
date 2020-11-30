@@ -46,8 +46,8 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
 FROM alpine-glibc
 
 LABEL MAINTAINER="Anaconda, Inc"
-ENV ANACONDA_VERSION 2020.07
-ENV ANACONDA_MD5 1046c40a314ab2531e4c099741530ada
+ENV ANACONDA_VERSION 2020.11
+ENV ANACONDA_MD5 4cd48ef23a075e8555a8b6d0a8c4bae2
 
 # Create non-root user, install dependencies, install Anaconda
 RUN addgroup -S anaconda && \
