@@ -50,7 +50,7 @@ FROM alpine-glibc
 
 LABEL MAINTAINER="Anaconda, Inc"
 ENV CONDA_VERSION 4.9.2
-ENV CONDA_MD5 5c4d7cf61676fa8487fc0057a26eb061
+ENV CONDA_MD5 122c8c9beb51e124ab32a0fa6426c656
 
 # Create non-root user, install dependencies, install Conda
 RUN addgroup -S anaconda && \
