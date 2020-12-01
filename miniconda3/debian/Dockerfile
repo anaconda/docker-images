@@ -2,8 +2,8 @@ FROM debian:buster-slim
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
-ENV CONDA_VERSION=py38_4.8.3
-ENV CONDA_MD5 d63adf39f2c220950a063e0529d4ff74
+ENV CONDA_VERSION py38_4.9.2
+ENV CONDA_MD5 122c8c9beb51e124ab32a0fa6426c656
 
 RUN apt-get update --fix-missing && \
     apt-get install -y wget bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion && \
