@@ -1,4 +1,4 @@
-FROM alpine:3.9 as alpine-glibc
+FROM alpine:3.12.1 as alpine-glibc
 
 #  $ docker build . -t continuumio/miniconda3:4.9.2-alpine
 #  $ docker push continuumio/miniconda3:4.9.2-alpine
@@ -6,10 +6,9 @@ FROM alpine:3.9 as alpine-glibc
 LABEL MAINTAINER="Vlad Frolov"
 LABEL SRC=https://github.com/frol/docker-alpine-glibc
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
 
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
-    ALPINE_GLIBC_PACKAGE_VERSION="2.28-r0" && \
+    ALPINE_GLIBC_PACKAGE_VERSION="2.32-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -45,6 +44,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
+
 
 FROM alpine-glibc
 
