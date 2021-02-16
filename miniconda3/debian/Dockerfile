@@ -14,6 +14,7 @@ RUN apt-get update -q && \
         libxext6 \
         libxrender1 \
         mercurial \
+        procps \
         subversion \
         wget \
     && apt-get clean
