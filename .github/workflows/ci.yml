@@ -6,6 +6,7 @@ on:
     paths:
       - 'conda_ci/**'
       - '.github/workflows/ci.yml'
+  workflow_dispatch:
 
 jobs:
   build:
