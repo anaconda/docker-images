@@ -1,0 +1,57 @@
+# To use: `fly -t c3i sp -p docker-ci-images -c ${this_file}`
+jobs:
+  - name: build_ci_python27
+    plan:
+    - get: docker-images
+    - params:
+        build: docker-images/conda_ci/conda-ci-linux-64-python2.7
+        tag_as_latest: true
+      put: docker-image-ci-linux64-py27
+
+  - name: build_ci_python37
+    plan:
+    - get: docker-images
+    - params:
+        build: docker-images/conda_ci/conda-ci-linux-64-python3
+        build_args:
+          PYTHON_VERSION: "3.7"
+        tag_as_latest: true
+      put: docker-image-ci-linux64-py37
+
+  - name: build_ci_python38
+    plan:
+    - get: docker-images
+    - params:
+        build: docker-images/conda_ci/conda-ci-linux-64-python3
+        build_args:
+          PYTHON_VERSION: "3.8"
+        tag_as_latest: true
+      put: docker-image-ci-linux64-py38
+
+resources:
+  - name: docker-images
+    source:
+      branch: master
+      uri: https://((common.recipe-repo-access-token))@github.com/ContinuumIO/docker-images.git
+    type: git
+
+  - name: docker-image-ci-linux64-py27
+    source:
+      password: ((docker-images.dockerhub_password))
+      repository: continuumio/conda-ci-linux-64-python2.7
+      username: condabot
+    type: docker-image
+
+  - name: docker-image-ci-linux64-py37
+    source:
+      password: ((docker-images.dockerhub_password))
+      repository: continuumio/conda-ci-linux-64-python3.7
+      username: condabot
+    type: docker-image
+
+  - name: docker-image-ci-linux64-py38
+    source:
+      password: ((docker-images.dockerhub_password))
+      repository: continuumio/conda-ci-linux-64-python3.8
+      username: condabot
+    type: docker-image
