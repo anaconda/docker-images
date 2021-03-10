@@ -28,6 +28,16 @@ jobs:
         tag_as_latest: true
       put: docker-image-ci-linux64-py38
 
+  - name: build_ci_python39
+    plan:
+    - get: docker-images
+    - params:
+        build: docker-images/conda_ci/conda-ci-linux-64-python3
+        build_args:
+          PYTHON_VERSION: "3.9"
+        tag_as_latest: true
+      put: docker-image-ci-linux64-py39
+
 resources:
   - name: docker-images
     source:
@@ -53,5 +63,12 @@ resources:
     source:
       password: ((docker-images.dockerhub_password))
       repository: continuumio/conda-ci-linux-64-python3.8
+      username: condabot
+    type: docker-image
+
+  - name: docker-image-ci-linux64-py39
+    source:
+      password: ((docker-images.dockerhub_password))
+      repository: continuumio/conda-ci-linux-64-python3.9
       username: condabot
     type: docker-image
