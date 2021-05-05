@@ -54,12 +54,3 @@ jobs:
           build-args: PYTHON_VERSION=3.7
           tags: continuumio/conda-ci-linux-64-python3.7:latest
           push: true
-
-      - name: build-push conda-ci-linux-64-python2.7
-        uses: docker/build-push-action@v2
-        with:
-          context: ./conda_ci/conda-ci-linux-64-python2.7
-          builder: ${{ steps.buildx.outputs.name }}
-          file: ./conda_ci/conda-ci-linux-64-python2.7/Dockerfile
-          tags: continuumio/conda-ci-linux-64-python2.7:latest
-          push: true
