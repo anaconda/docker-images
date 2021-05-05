@@ -5,11 +5,11 @@ on:
   pull_request:
     paths:
       - 'conda_ci/**'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/conda_ci_cicd.yml'
   push:
     paths:
       - 'conda_ci/**'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/conda_ci_cicd.yml'
   workflow_dispatch:
 
 jobs:
