@@ -1,10 +1,13 @@
 FROM alpine:3.9 as alpine-glibc
 
-LABEL MAINTAINER="Vlad Frolov"
-LABEL SRC=https://github.com/frol/docker-alpine-glibc
+LABEL maintainer="Vlad Frolov"
+LABEL src=https://github.com/frol/docker-alpine-glibc
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+
+# hadolint ignore=DL3018
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.28-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -21,7 +24,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m\
         1QIDAQAB\
         -----END PUBLIC KEY-----" | sed 's/   */\n/g' > "/etc/apk/keys/sgerrand.rsa.pub" && \
-    wget \
+    wget -q \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" && \
@@ -45,7 +48,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
 
 FROM alpine-glibc
 
-LABEL MAINTAINER="Anaconda, Inc"
+LABEL maintainer="Anaconda, Inc"
 ENV ANACONDA_VERSION 2020.11
 ENV ANACONDA_MD5 4cd48ef23a075e8555a8b6d0a8c4bae2
 
@@ -54,7 +57,7 @@ RUN addgroup -S anaconda && \
     adduser -D -u 10151 anaconda -G anaconda && \
     wget --quiet https://repo.continuum.io/archive/Anaconda3-$ANACONDA_VERSION-Linux-x86_64.sh -O anaconda.sh && \
     echo "${ANACONDA_MD5}  anaconda.sh" > anaconda.md5 && \
-    if [ $(md5sum -c anaconda.md5 | awk '{print $2}') != "OK" ] ; then exit 1; fi && \
+    if ! md5sum -s -c anaconda.md5; then exit 1; fi && \
     mkdir -p /opt && \
     sh ./anaconda.sh -b -p /opt/conda && \
     rm anaconda.sh anaconda.md5 && \
