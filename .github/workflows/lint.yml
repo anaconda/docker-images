@@ -1,0 +1,21 @@
+name: Lint with Hadolint
+on:
+  pull_request:
+    paths:
+      - '**/Dockerfile'
+      - '.github/workflows/lint.yml'
+  push:
+    paths:
+      - '**/Dockerfile'
+      - '.github/workflows/lint.yml'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint
+        run: |
+          echo "::add-matcher::.github/hadolint-matcher.json"
+          make lint-docker
+          echo "::remove-matcher owner=hadolint::"

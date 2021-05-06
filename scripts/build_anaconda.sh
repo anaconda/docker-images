@@ -31,18 +31,6 @@ done
 
 cd ..
 
-echo "ANACONDA ALPINE"
-
-pushd anaconda/alpine
-docker build . -t "$REPO/anaconda:$VERSION-alpine"
-popd
-
-echo "ANACONDA DEBIAN"
-
-pushd anaconda/debian
-docker build . -t $REPO/anaconda:$VERSION -t $REPO/anaconda:latest
-popd
-
 echo "ANACONDA3 ALPINE"
 
 pushd anaconda3/alpine

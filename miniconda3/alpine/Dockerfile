@@ -3,10 +3,13 @@ FROM alpine:3.12.1 as alpine-glibc
 #  $ docker build . -t continuumio/miniconda3:4.9.2-alpine
 #  $ docker push continuumio/miniconda3:4.9.2-alpine
 
-LABEL MAINTAINER="Vlad Frolov"
-LABEL SRC=https://github.com/frol/docker-alpine-glibc
+LABEL maintainer="Vlad Frolov"
+LABEL src=https://github.com/frol/docker-alpine-glibc
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+
+# hadolint ignore=DL3018
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.32-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -48,7 +51,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
 
 FROM alpine-glibc
 
-LABEL MAINTAINER="Anaconda, Inc"
+LABEL maintainer="Anaconda, Inc"
 
 ENV PATH /opt/conda/bin:$PATH
 

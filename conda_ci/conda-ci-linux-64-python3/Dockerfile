@@ -3,16 +3,16 @@ FROM debian:buster-slim
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
+# hadolint ignore=DL3008
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget build-essential bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion sudo && \
-    apt-get clean
-
-RUN useradd -m -s /bin/bash test_user && \
+    apt-get install -y --no-install-recommends wget build-essential bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion sudo && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    useradd -m -s /bin/bash test_user && \
     usermod -u 1001 test_user && \
     groupmod -g 1001 test_user && \
-    echo "test_user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    echo "test_user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy
