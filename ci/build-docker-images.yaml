@@ -78,13 +78,13 @@ resources:
     username: condabot
     tag: 2021.05-alpine
 
-- name: anaconda3-arm64
+- name: anaconda3-amazonlinux
   type: docker-image
   source:
     password: ((dockerhub_password))
     repository: continuumio/anaconda3
     username: condabot
-    tag: 2021.05-arm64
+    tag: 2021.05-amazonlinux
 
 jobs:
   - name: build_miniconda
@@ -162,13 +162,13 @@ jobs:
           tag_file: docker-images/ci/anaconda-debian
       - put: docker-image-anaconda3
         params:
-          build: docker-images/anaconda3/arm64
-          tag_file: docker-images/ci/anaconda-arm64
+          build: docker-images/anaconda3/amazonlinux
+          tag_file: docker-images/ci/anaconda-amazonlinux
   - name: build manifest from images
     plan:
       - get: anaconda3-amd64-debian
       - get: anaconda3-amd64-alpine
-      - get: anaconda3-arm64
+      - get: anaconda3-amazonlinux
       - put: build manifest
         params:
           tag_file: docker-images/ci/anaconda-debian
@@ -181,4 +181,4 @@ jobs:
               digest_file: anaconda3-amd64-alpine/digest
             - arch: amd64
               os: linux
-              digest_file: anaconda3-arm64/digest
+              digest_file: anaconda3-amazonlinux/digest
