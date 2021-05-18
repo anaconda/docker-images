@@ -1,6 +1,19 @@
 # fly -t concourse set-pipeline -p docker-images -c build-docker-images.yaml -l config.yaml
 
+resource_types:
+- name: docker-manifest
+  type: docker-image
+  source:
+    repository: mbialon/concourse-docker-manifest-resource
+
 resources:
+- name: image-manifest
+  type: docker-manifest
+  source:
+    repository: mbialon/image
+    username: condabot
+    password: ((dockerhub_password))
+
 - name: docker-images
   type: git
   source:
@@ -48,6 +61,30 @@ resources:
     password: ((dockerhub_password))
     repository: continuumio/anaconda3
     username: condabot
+
+- name: anaconda3-amd64-debian
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda3
+    username: condabot
+    tag: 2021.05
+
+- name: anaconda3-amd64-alpine
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda3
+    username: condabot
+    tag: 2021.05-alpine
+
+- name: anaconda3-arm64-amazonlinux
+  type: docker-image
+  source:
+    password: ((dockerhub_password))
+    repository: continuumio/anaconda3
+    username: condabot
+    tag: 2021.05-amazonlinux
 
 jobs:
   - name: build_miniconda
@@ -123,3 +160,25 @@ jobs:
           build: docker-images/anaconda3/debian
           tag_as_latest: true
           tag_file: docker-images/ci/anaconda-debian
+      - put: docker-image-anaconda3
+        params:
+          build: docker-images/anaconda3/amazonlinux
+          tag_file: docker-images/ci/anaconda-amazonlinux
+  - name: build manifest from images
+    plan:
+      - get: anaconda3-amd64-debian
+      - get: anaconda3-amd64-alpine
+      - get: anaconda3-arm64-amazonlinux
+      - put: build manifest
+        params:
+          tag_file: docker-images/ci/anaconda-debian
+          manifests:
+            - arch: amd64
+              os: linux
+              digest_file: anaconda3-amd64-debian/digest
+            - arch: amd64
+              os: linux
+              digest_file: anaconda3-amd64-alpine/digest
+            - arch: arm64
+              os: linux
+              digest_file: anaconda3-amazonlinux/digest
