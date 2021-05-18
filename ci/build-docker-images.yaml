@@ -179,6 +179,6 @@ jobs:
             - arch: amd64
               os: linux
               digest_file: anaconda3-amd64-alpine/digest
-            - arch: amd64
+            - arch: arm64
               os: linux
               digest_file: anaconda3-amazonlinux/digest
