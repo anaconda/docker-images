@@ -78,7 +78,7 @@ resources:
     username: condabot
     tag: 2021.05-alpine
 
-- name: anaconda3-amazonlinux
+- name: anaconda3-arm64-amazonlinux
   type: docker-image
   source:
     password: ((dockerhub_password))
@@ -168,7 +168,7 @@ jobs:
     plan:
       - get: anaconda3-amd64-debian
       - get: anaconda3-amd64-alpine
-      - get: anaconda3-amazonlinux
+      - get: anaconda3-arm64-amazonlinux
       - put: build manifest
         params:
           tag_file: docker-images/ci/anaconda-debian
