@@ -2,8 +2,10 @@
 # packages released on the "defaults" (repo.anaconda.com) channels.
 
 ARG BASEDIST=centos:7
+# hadolint ignore=DL3006
 FROM ${BASEDIST}
 
+# hadolint ignore=DL3031,DL3033
 RUN yum install -q -y deltarpm \
     # Hack to force locale generation, if needed
     && yum update -q -y glibc-common \
@@ -77,6 +79,7 @@ RUN curl -sSL -o /tmp/miniconda.sh \
     && /bin/bash /tmp/miniconda.sh -bfp /opt/conda \
     && rm -fv /tmp/miniconda.sh
 
+# hadolint ignore=DL3059
 RUN if [ ${MC_ARCH} = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi \
     && /opt/conda/bin/conda update --all --quiet --yes \
     && /opt/conda/bin/conda install --quiet --yes conda-build \
@@ -94,6 +97,7 @@ RUN if [ ${MC_ARCH} = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi
     && /opt/conda/bin/conda install --download-only --quiet --yes \
         gcc_linux-$subdir=${GCC_VER} gxx_linux-$subdir=${GCC_VER}
 
+# hadolint ignore=DL3059
 RUN rm -fv /opt/conda/.condarc \
     && /opt/conda/bin/conda config --system --set show_channel_urls True \
     && /opt/conda/bin/conda config --system --set add_pip_as_python_dependency False \
