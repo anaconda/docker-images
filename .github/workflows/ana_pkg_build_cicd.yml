@@ -1,0 +1,83 @@
+name: Build and publish package builder images
+on:
+  pull_request:
+    paths:
+      - 'anaconda-pkg-build/**/Dockerfile'
+      - '.github/workflows/ana_pkg_build_cicd.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        if: github.ref == 'refs/heads/master'
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+          driver-opts: network=host
+
+      - name: build-push pkg-builder-x86_64
+        uses: docker/build-push-action@v2
+        with:
+          context: ./anaconda-pkg-build/linux
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./anaconda-pkg-build/linux/Dockerfile
+          platform: linux/amd64
+          build-args:
+            - BASEDIST=amd64/centos:7
+            - MC_ARCH=x86_64
+            - GCC_VER=7.3
+          tags: continuumio/c3i-linux-64:cos7
+          push: github.ref == 'refs/heads/master'
+
+      - name: build-push pkg-builder-ppc64le
+        uses: docker/build-push-action@v2
+        with:
+          context: ./anaconda-pkg-build/linux
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./anaconda-pkg-build/linux/Dockerfile
+          platform: linux/ppc64le
+          build-args:
+            - BASEDIST=ppc64le/centos:7
+            - MC_ARCH=ppc64le
+            - GCC_VER=7.3
+          tags: continuumio/c3i-linux-ppc64le:cos7
+          push: github.ref == 'refs/heads/master'
+
+      - name: build-push pkg-builder-aarch64
+        uses: docker/build-push-action@v2
+        with:
+          context: ./anaconda-pkg-build/linux
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./anaconda-pkg-build/linux/Dockerfile
+          platform: linux/arm64/v8
+          build-args:
+            - BASEDIST=arm64v8/centos:7
+            - MC_ARCH=aarch64
+            - GCC_VER=10.2
+          tags: continuumio/c3i-linux-aarch64:cos7
+          push: github.ref == 'refs/heads/master'
+
+      - name: build-push pkg-builder-s390x
+        uses: docker/build-push-action@v2
+        with:
+          context: ./anaconda-pkg-build/linux
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./anaconda-pkg-build/linux/Dockerfile
+          platform: linux/s390x
+          build-args:
+            - BASEDIST=s390x/clefos:7
+            - MC_ARCH=s390x
+            - GCC_VER=7.5
+          tags: continuumio/c3i-linux-s390x:cos7
+          push: github.ref == 'refs/heads/master'
