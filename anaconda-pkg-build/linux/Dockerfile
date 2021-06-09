@@ -36,7 +36,7 @@ RUN yum install -q -y deltarpm \
         #----------------------------------------
         # X11 virtual framebuffer; useful for testing GUI apps
         #----------------------------------------
-        #xorg-x11-server-Xvfb \
+        xorg-x11-server-Xvfb \
         #----------------------------------------
         # Other hardware and low-level system libraries
         #----------------------------------------
