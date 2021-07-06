@@ -3,7 +3,7 @@ FROM debian:buster-slim
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
-# hadolint ignore=DL3008
+# hadolint ignore=DL3008,SC1072
 RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends wget build-essential bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion sudo && \
     apt-get clean && \
@@ -12,16 +12,22 @@ RUN apt-get update --fix-missing && \
     usermod -u 1001 test_user && \
     groupmod -g 1001 test_user && \
     echo "test_user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-	if [ uname -m == "x86_64" ]; then \
+	if [ $(uname -m) = "x86_64" ]; then \
         wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh && \
-    elif [ uname -m == "s390x" ] \
+		/bin/bash ~/miniconda.sh -b -p /opt/conda && \
+		rm ~/miniconda.sh && \
+		/opt/conda/bin/conda clean -tipsy ; \
+    elif [ $(uname -m) = "s390x" ]; then \
         wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-s390x.sh -O miniconda.sh && \
-    elif [ uname -m == "aarch64" ] \
+		/bin/bash ~/miniconda.sh -b -p /opt/conda && \
+		rm ~/miniconda.sh && \
+		/opt/conda/bin/conda clean -tipsy ; \
+    elif [ $(uname -m) = "aarch64" ]; then \
         wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-aarch64.sh -O miniconda.sh && \
-    fi \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh && \
-    /opt/conda/bin/conda clean -tipsy
+		/bin/bash ~/miniconda.sh -b -p /opt/conda && \
+		rm ~/miniconda.sh && \
+		/opt/conda/bin/conda clean -tipsy ; \
+    fi
 
 ARG PYTHON_VERSION=3.8
 
