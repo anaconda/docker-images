@@ -28,13 +28,14 @@ CMD [ "/bin/bash" ]
 ARG PYTHON_VERSION=39
 ARG CONDA_VERSION=4.10.1
 
-RUN if [[ uname -m == "x86_64" ]]; then \
+# hadolint ignore=SC1072
+RUN if [ uname -m == "x86_64" ]; then \
         ARG CONDA_MD5=122c8c9beb51e124ab32a0fa6426c656 \
-        wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh &&; \
-    elif [[ uname -m == "s390x" ]] \
+        wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh; \
+    elif [ uname -m == "s390x" ] \
         ARG CONDA_MD5=ff0ed5428dd94a6f5c64c92a59a73165 \
         wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-s390x.sh -O miniconda.sh &&; \
-    elif [[ uname -m == "aarch64" ]] \
+    elif [ uname -m == "aarch64" ] \
         ARG CONDA_MD5=34aba2af867e5411eff7fddd80982aa9 \
         wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-aarch64.sh -O miniconda.sh &&; \
     fi \
