@@ -23,6 +23,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: linux/s390x, qemu-aarch64
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -33,9 +39,11 @@ jobs:
       - name: build-push conda-ci-linux-64-python3.9
         uses: docker/build-push-action@v2
         with:
-          context: ./conda_ci/conda-ci-linux-64-python3
+#         context: ./conda_ci/conda-ci-linux-64-python3
+          context: ./miniconda3/multi-arch
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+#         file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+          file: ./miniconda3/multi-arch/Dockerfile
           build-args: PYTHON_VERSION=3.9
           tags: continuumio/conda-ci-linux-64-python3.9:latest
           push: github.ref == 'refs/heads/master'
@@ -43,9 +51,11 @@ jobs:
       - name: build-push conda-ci-linux-64-python3.8
         uses: docker/build-push-action@v2
         with:
-          context: ./conda_ci/conda-ci-linux-64-python3
+#         context: ./conda_ci/conda-ci-linux-64-python3
+          context: ./miniconda3/multi-arch
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+#         file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+          file: ./miniconda3/multi-arch/Dockerfile
           build-args: PYTHON_VERSION=3.8
           tags: continuumio/conda-ci-linux-64-python3.8:latest
           push: github.ref == 'refs/heads/master'
@@ -53,9 +63,11 @@ jobs:
       - name: build-push conda-ci-linux-64-python3.7
         uses: docker/build-push-action@v2
         with:
-          context: ./conda_ci/conda-ci-linux-64-python3
+#         context: ./conda_ci/conda-ci-linux-64-python3
+          context: ./miniconda3/multi-arch
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+#         file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
+          file: ./miniconda3/multi-arch/Dockerfile
           build-args: PYTHON_VERSION=3.7
           tags: continuumio/conda-ci-linux-64-python3.7:latest
           push: github.ref == 'refs/heads/master'
