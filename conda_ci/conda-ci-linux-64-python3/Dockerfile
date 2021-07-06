@@ -12,7 +12,13 @@ RUN apt-get update --fix-missing && \
     usermod -u 1001 test_user && \
     groupmod -g 1001 test_user && \
     echo "test_user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+	if [ uname -m == "x86_64" ]; then \
+        wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh && \
+    elif [ uname -m == "s390x" ] \
+        wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-s390x.sh -O miniconda.sh && \
+    elif [ uname -m == "aarch64" ] \
+        wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-aarch64.sh -O miniconda.sh && \
+    fi \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy
