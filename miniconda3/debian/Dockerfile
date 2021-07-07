@@ -26,14 +26,12 @@ CMD [ "/bin/bash" ]
 
 # Leave these args here to better use the Docker build cache
 ARG CONDA_VERSION=py38_4.9.2
-ARG CONDA_MD5=122c8c9beb51e124ab32a0fa6426c656
+#ARG CONDA_MD5=122c8c9beb51e124ab32a0fa6426c656
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh && \
-    echo "${CONDA_MD5}  miniconda.sh" > miniconda.md5 && \
-    if ! md5sum --status -c miniconda.md5; then exit 1; fi && \
+RUN if [ "$(uname -m)" = "x86_64" ]; then wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh; elif [ "$(uname -m)" = "s390x" ]; then wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-s390x.sh -O miniconda.sh; elif [ "$(uname -m)" = "aarch64" ]; then wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-aarch64.sh -O miniconda.sh; fi && \
     mkdir -p /opt && \
     sh miniconda.sh -b -p /opt/conda && \
-    rm miniconda.sh miniconda.md5 && \
+    rm miniconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \
