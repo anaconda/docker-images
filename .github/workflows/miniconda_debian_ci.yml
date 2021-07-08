@@ -43,4 +43,4 @@ jobs:
           file: ./miniconda3/debian/Dockerfile
           tags: continuumio/miniconda3/debian:latest
           platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x
-          push: ${{ github.ref == 'ref/head/master' }}
+          push: ${{ github.ref == 'refs/heads/master' }}
