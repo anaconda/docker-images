@@ -2,8 +2,6 @@ FROM debian:buster-slim
 
 LABEL maintainer="Anaconda, Inc"
 
-SHELL ["/bin/bash", "-o", "errtrace", "-o", "nounset", "-o", "pipefail", "-o", "errexit", "-c"]
-
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # hadolint ignore=DL3008
@@ -29,6 +27,7 @@ CMD [ "/bin/bash" ]
 # Leave these args here to better use the Docker build cache
 ARG CONDA_VERSION=py38_4.9.2
 
+# hadolint ignore=DL4006
 RUN set -x && \
     UNAME_M="$(uname -m)" && \
     if [ "${UNAME_M}" = "x86_64" ]; then \
