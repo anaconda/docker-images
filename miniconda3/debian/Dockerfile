@@ -28,7 +28,6 @@ CMD [ "/bin/bash" ]
 # Leave these args here to better use the Docker build cache
 ARG CONDA_VERSION=py38_4.9.2
 
-# hadolint ignore=DL4006
 RUN set -x && \
     UNAME_M="$(uname -m)" && \
     if [ "${UNAME_M}" = "x86_64" ]; then \
@@ -45,10 +44,11 @@ RUN set -x && \
         SHA256SUM="2b111dab4b72a34c969188aa7a91eca927a034b14a87f725fa8d295955364e71"; \
     fi && \
     wget "${MINICONDA_URL}" -O miniconda.sh -q && \
-    if [ "${CONDA_VERSION}" != "latest" ]; then echo "${SHA256SUM} miniconda.sh" | sha256sum --check --status; fi && \
+    echo "${SHA256SUM} miniconda.sh" > shasum && \
+    if [ "${CONDA_VERSION}" != "latest" ]; then sha256sum --check --status shasum; fi && \
     mkdir -p /opt && \
     sh miniconda.sh -b -p /opt/conda && \
-    rm miniconda.sh && \
+    rm miniconda.sh shasum && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \

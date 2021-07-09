@@ -3,7 +3,7 @@ FROM debian:buster-slim
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
-# hadolint ignore=DL3008,DL4006
+# hadolint ignore=DL3008
 RUN set -x && \
     apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
@@ -35,9 +35,10 @@ RUN set -x && \
         SHA256SUM="097064807a9adae3f91fc4c5852cd90df2b77fc96505929bb25bf558f1eef76f"; \
     fi && \
     wget "${ANACONDA_URL}" -O anaconda.sh -q && \
-    echo "${SHA256SUM} anaconda.sh" | sha256sum --check --status && \
+    echo "${SHA256SUM} anaconda.sh" > shasum && \
+    sha256sum --check --status shasum && \
     /bin/bash anaconda.sh -b -p /opt/conda && \
-    rm anaconda.sh && \
+    rm anaconda.sh shasum && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \
