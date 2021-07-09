@@ -41,6 +41,6 @@ jobs:
           context: ./miniconda3/debian
           builder: ${{ steps.buildx.outputs.name }}
           file: ./miniconda3/debian/Dockerfile
-          tags: continuumio/miniconda3/debian:latest
+          tags: continuumio/miniconda3:latest
           platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x
           push: ${{ github.ref == 'refs/heads/master' }}
