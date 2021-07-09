@@ -15,6 +15,7 @@ RUN apt-get update -q && \
         libxext6 \
         libxrender1 \
         mercurial \
+        openssh-client \
         subversion \
         wget \
     && apt-get clean \

@@ -11,10 +11,11 @@ RUN set -x && \
         ca-certificates \
         git \
         libglib2.0-0 \
-        libxext6 \
         libsm6 \
+        libxext6 \
         libxrender1 \
         mercurial \
+        openssh-client \
         subversion \
         wget \
     && apt-get clean \
