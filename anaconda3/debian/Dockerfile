@@ -16,6 +16,7 @@ RUN set -x && \
         libxrender1 \
         mercurial \
         openssh-client \
+        procps \
         subversion \
         wget \
     && apt-get clean \
