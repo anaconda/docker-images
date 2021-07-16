@@ -16,6 +16,7 @@ RUN apt-get update -q && \
         libxrender1 \
         mercurial \
         openssh-client \
+        procps \
         subversion \
         wget \
     && apt-get clean \
