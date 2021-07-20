@@ -38,7 +38,7 @@ jobs:
           file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
           build-args: PYTHON_VERSION=3.9
           tags: continuumio/conda-ci-linux-64-python3.9:latest
-          push: github.ref == 'refs/heads/master'
+          push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: build-push conda-ci-linux-64-python3.8
         uses: docker/build-push-action@0987321e128873c0caa3bed11ad3b83f22b846ed
@@ -48,7 +48,7 @@ jobs:
           file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
           build-args: PYTHON_VERSION=3.8
           tags: continuumio/conda-ci-linux-64-python3.8:latest
-          push: github.ref == 'refs/heads/master'
+          push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: build-push conda-ci-linux-64-python3.7
         uses: docker/build-push-action@0987321e128873c0caa3bed11ad3b83f22b846ed
@@ -58,4 +58,4 @@ jobs:
           file: ./conda_ci/conda-ci-linux-64-python3/Dockerfile
           build-args: PYTHON_VERSION=3.7
           tags: continuumio/conda-ci-linux-64-python3.7:latest
-          push: github.ref == 'refs/heads/master'
+          push: ${{ github.ref == 'refs/heads/master' }}
