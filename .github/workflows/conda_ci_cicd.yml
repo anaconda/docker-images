@@ -31,7 +31,7 @@ jobs:
           driver-opts: network=host
 
       - name: build-push conda-ci-linux-64-python3.9
-        uses: docker/build-push-action@0987321e128873c0caa3bed11ad3b83f22b846ed
+        uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
         with:
           context: ./conda_ci/conda-ci-linux-64-python3
           builder: ${{ steps.buildx.outputs.name }}
@@ -41,7 +41,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: build-push conda-ci-linux-64-python3.8
-        uses: docker/build-push-action@0987321e128873c0caa3bed11ad3b83f22b846ed
+        uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
         with:
           context: ./conda_ci/conda-ci-linux-64-python3
           builder: ${{ steps.buildx.outputs.name }}
@@ -51,7 +51,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: build-push conda-ci-linux-64-python3.7
-        uses: docker/build-push-action@0987321e128873c0caa3bed11ad3b83f22b846ed
+        uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
         with:
           context: ./conda_ci/conda-ci-linux-64-python3
           builder: ${{ steps.buildx.outputs.name }}
