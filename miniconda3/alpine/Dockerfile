@@ -59,15 +59,15 @@ ENV ENV /root/.shinit   # set path to `ash` equivalent of ~/.bashrc
 CMD [ "/bin/sh" ]
 
 # Leave these args here to better use the Docker build cache
-ARG CONDA_VERSION=py38_4.9.2
-ARG CONDA_MD5=122c8c9beb51e124ab32a0fa6426c656
+ARG CONDA_VERSION=py39_4.10.3
+ARG SHA256SUM=1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f
 
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh && \
-    echo "${CONDA_MD5}  miniconda.sh" > miniconda.md5 && \
-    if ! md5sum -s -c miniconda.md5; then exit 1; fi && \
+    echo "${SHA256SUM}  miniconda.sh" > miniconda.sha256 && \
+    if ! sha256sum --check --status miniconda.sha256; then exit 1; fi && \
     mkdir -p /opt && \
     sh miniconda.sh -b -p /opt/conda && \
-    rm miniconda.sh miniconda.md5 && \
+    rm miniconda.sh miniconda.sha256 && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.shinit && \
     echo "conda activate base" >> ~/.shinit && \
