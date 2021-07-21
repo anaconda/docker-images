@@ -1,7 +1,4 @@
-FROM alpine:3.12.1 as alpine-glibc
-
-#  $ docker build . -t continuumio/miniconda3:4.9.2-alpine
-#  $ docker push continuumio/miniconda3:4.9.2-alpine
+FROM alpine:3.14.0 as alpine-glibc
 
 LABEL maintainer="Vlad Frolov"
 LABEL src=https://github.com/frol/docker-alpine-glibc
@@ -11,7 +8,7 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 # hadolint ignore=DL3018
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
-    ALPINE_GLIBC_PACKAGE_VERSION="2.32-r0" && \
+    ALPINE_GLIBC_PACKAGE_VERSION="2.33-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -64,7 +61,7 @@ ARG SHA256SUM=1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f
 
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh && \
     echo "${SHA256SUM}  miniconda.sh" > miniconda.sha256 && \
-    if ! sha256sum --check --status miniconda.sha256; then exit 1; fi && \
+    if ! sha256sum -cs miniconda.sha256; then exit 1; fi && \
     mkdir -p /opt && \
     sh miniconda.sh -b -p /opt/conda && \
     rm miniconda.sh miniconda.sha256 && \
