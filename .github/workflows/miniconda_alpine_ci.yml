@@ -38,11 +38,9 @@ jobs:
         with:
           images: continuumio/miniconda3
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=match,pattern=miniconda3-v(.*)-alpine,group=1
-          flavor: |
-            suffix=alpine
+            type=ref,event=branch,suffix=-alpine
+            type=ref,event=pr,suffix=-alpine
+            type=match,pattern=miniconda3-v(.*)-alpine,group=1,suffix=-alpine
 
       - name: build miniconda3/alpine
         uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
