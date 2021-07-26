@@ -1,6 +1,6 @@
 # docker-anaconda
 
-Docker container with a bootstrapped installation of [Anaconda](http://continuum.io/downloads) (based on Python 3.X) that is ready to use.
+Docker container with a bootstrapped installation of [Anaconda](https://www.anaconda.com/products/individual#Downloads) (based on Python 3.X) that is ready to use.
 
 The Anaconda distribution is installed into the `/opt/conda` folder and ensures that the default user has the `conda` command in their path.
 
