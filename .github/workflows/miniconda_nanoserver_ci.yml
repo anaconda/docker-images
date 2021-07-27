@@ -1,0 +1,23 @@
+name: Build Miniconda3 Nanoserver Image
+on:
+  push:
+    tags:
+      - 'miniconda3-v*.*.*-nanoserver'
+    paths:
+      - 'miniconda3/nanoserver/Dockerfile'
+      - '.github/workflows/miniconda_nanoserver_ci.yml'
+  pull_request:
+    paths:
+      - 'miniconda3/nanoserver/Dockerfile'
+      - '.github/workflows/miniconda_nanoserver_ci.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+
+      - name: Build
+        run: |
+          cd miniconda3/nanoserver && docker build . -t continuumio/miniconda3:nanoserver
