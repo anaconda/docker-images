@@ -22,4 +22,9 @@ USER ContainerAdministrator
 RUN C:\Miniconda3\Library\bin\conda init && \
     C:\Miniconda3\Library\bin\conda clean -afy
 
+# Test
+RUN conda list && \
+    conda create --name testenv numpy --dry-run && \
+    conda clean -afy
+
 CMD ["cmd"]
