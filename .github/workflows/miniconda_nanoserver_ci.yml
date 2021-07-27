@@ -20,4 +20,4 @@ jobs:
 
       - name: Build
         run: |
-          cd miniconda3/nanoserver && docker build . -t continuumio/miniconda3:nanoserver
+          cd miniconda3/nanoserver && docker build . -t continuumio/miniconda3:nanoserver && docker image inspect continuumio/miniconda3:nanoserver
