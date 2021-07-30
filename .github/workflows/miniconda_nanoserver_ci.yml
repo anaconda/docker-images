@@ -42,6 +42,7 @@ jobs:
       # TODO: Parse and use the meta action generated tag list
       - name: Build
         run: |
+          echo "${{ steps.meta.outputs.tags }}"
           cd miniconda3/nanoserver && docker build . -t continuumio/miniconda3:master-nanoserver && docker image inspect continuumio/miniconda3:master-nanoserver
 
       - name: Push
