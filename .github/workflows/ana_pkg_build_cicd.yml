@@ -27,7 +27,7 @@ jobs:
           driver-opts: network=host
 
       - name: build-push pkg-builder-x86_64
-        uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
+        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
         with:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
@@ -41,7 +41,7 @@ jobs:
           push: github.ref == 'refs/heads/master'
 
       - name: build-push pkg-builder-ppc64le
-        uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
+        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
         with:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
@@ -55,7 +55,7 @@ jobs:
           push: github.ref == 'refs/heads/master'
 
       - name: build-push pkg-builder-aarch64
-        uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
+        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
         with:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
@@ -69,7 +69,7 @@ jobs:
           push: github.ref == 'refs/heads/master'
 
       - name: build-push pkg-builder-s390x
-        uses: docker/build-push-action@1bc1040caef9e604eb543693ba89b5bf4fc80935
+        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
         with:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
