@@ -25,15 +25,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Login to Public ECR
-        uses: docker/login-action@v1
-        with:
-          registry: public.ecr.aws
-          username: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        env:
-          AWS_REGION: us-east-1
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480
         with:
@@ -50,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@3a3bb3a81753dc99f090d24ee7e5343838b73a96
         with:
-          images: continuumio/miniconda3,public.ecr.aws/y0o4y9o3/miniconda3
+          images: continuumio/miniconda3
           tags: |
             type=ref,event=branch
             type=ref,event=pr
