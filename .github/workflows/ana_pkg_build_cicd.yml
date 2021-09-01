@@ -63,7 +63,7 @@ jobs:
             - BASEDIST=amd64/centos:7
             - MC_ARCH=x86_64
             - GCC_VER=7.3
-          tags: continuumio/anaconda-pkg-build:linux-64,cos7
+          tags: public.ecr.aws/y0o4y9o3/anaconda-pkg-build:linux-64,cos7
           push: github.ref == 'refs/heads/master'
 
       - name: build-push pkg-builder-ppc64le
@@ -92,7 +92,7 @@ jobs:
             - BASEDIST=ppc64le/centos:7
             - MC_ARCH=ppc64le
             - GCC_VER=7.3
-          tags: continuumio/anaconda-pkg-build:linux-ppc64le,cos7
+          tags: public.ecr.aws/y0o4y9o3/anaconda-pkg-build:linux-ppc64le,cos7
           push: github.ref == 'refs/heads/master'
 
       - name: build-push pkg-builder-aarch64
@@ -121,7 +121,7 @@ jobs:
             - BASEDIST=arm64v8/centos:7
             - MC_ARCH=aarch64
             - GCC_VER=10.2
-          tags: continuumio/anaconda-pkg-build:linux-aarch64,cos7
+          tags: public.ecr.aws/y0o4y9o3/anaconda-pkg-build:linux-aarch64,cos7
           push: github.ref == 'refs/heads/master'
 
       - name: build-push pkg-builder-s390x
@@ -150,5 +150,5 @@ jobs:
             - BASEDIST=s390x/clefos:7
             - MC_ARCH=s390x
             - GCC_VER=7.5
-          tags: continuumio/anaconda-pkg-build:linux-s390x,cos7
+          tags: public.ecr.aws/y0o4y9o3/anaconda-pkg-build:linux-s390x,cos7
           push: github.ref == 'refs/heads/master'
