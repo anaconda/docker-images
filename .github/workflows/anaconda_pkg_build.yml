@@ -3,7 +3,7 @@ on:
   pull_request:
     paths:
       - 'anaconda-pkg-build/**/Dockerfile'
-      - '.github/workflows/ana_pkg_build_cicd.yml'
+      - '.github/workflows/anaconda_pkg_build.yml'
   workflow_dispatch:
 
 jobs:
