@@ -40,66 +40,16 @@ jobs:
           version: latest
           driver-opts: network=host
 
-      - name: build-push pkg-builder-x86_64
+      - name: build-push pkg-builder
         uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
         with:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
           file: ./anaconda-pkg-build/linux/Dockerfile
-          platform: linux/amd64
+          platforms: linux/amd64,linux/ppc64le,linux/arm64/v8,linux/s390x
           build-args: |
-            BASEDIST=amd64/centos:7
-            MC_ARCH=x86_64
-            GCC_VER=7.3
+            BASEVERSION=7
           tags: |
-            continuumio/anaconda-pkg-build:linux-64,cos7
-            ${{ steps.login-ecr.outputs.registry }}/anaconda-pkg-build:linux-64,cos7
-          push: github.ref == 'refs/heads/master'
-
-      - name: build-push pkg-builder-ppc64le
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
-        with:
-          context: ./anaconda-pkg-build/linux
-          builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/Dockerfile
-          platform: linux/ppc64le
-          build-args: |
-            BASEDIST=ppc64le/centos:7
-            MC_ARCH=ppc64le
-            GCC_VER=7.3
-          tags: |
-            continuumio/anaconda-pkg-build:linux-ppc64le,cos7
-            ${{ steps.login-ecr.outputs.registry }}/anaconda-pkg-build:linux-ppc64le,cos7
-          push: github.ref == 'refs/heads/master'
-
-      - name: build-push pkg-builder-aarch64
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
-        with:
-          context: ./anaconda-pkg-build/linux
-          builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/Dockerfile
-          platform: linux/arm64/v8
-          build-args: |
-            BASEDIST=arm64v8/centos:7
-            MC_ARCH=aarch64
-            GCC_VER=10.2
-          tags: |
-            continuumio/anaconda-pkg-build:linux-aarch64,cos7
-            ${{ steps.login-ecr.outputs.registry }}/anaconda-pkg-build:linux-aarch64,cos7
-          push: github.ref == 'refs/heads/master'
-
-      - name: build-push pkg-builder-s390x
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
-        with:
-          context: ./anaconda-pkg-build/linux
-          builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/Dockerfile
-          platform: linux/s390x
-          build-args: |
-            BASEDIST=s390x/clefos:7
-            MC_ARCH=s390x
-            GCC_VER=7.5
-          tags: |
-            continuumio/anaconda-pkg-build:linux-s390x,cos7
-            ${{ steps.login-ecr.outputs.registry }}/anaconda-pkg-build:linux-s390x,cos7
-          push: github.ref == 'refs/heads/master'
+            continuumio/anaconda-pkg-build:cos7
+            ${{ steps.login-ecr.outputs.registry }}/anaconda-pkg-build:cos7
+          push: ${{ github.ref == 'refs/heads/master' }}
