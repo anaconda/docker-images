@@ -1,5 +1,11 @@
 name: Build and publish package builder images
 on:
+  push:
+    tags:
+      - 'pkg-build-*'
+    paths:
+      - 'anaconda-pkg-build/**/Dockerfile'
+      - '.github/workflows/anaconda_pkg_build.yml'
   pull_request:
     paths:
       - 'anaconda-pkg-build/**/Dockerfile'
@@ -40,6 +46,18 @@ jobs:
           version: latest
           driver-opts: network=host
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@3a3bb3a81753dc99f090d24ee7e5343838b73a96
+        with:
+          images: |
+            continuumio/anaconda-pkg-build
+            ${{ steps.login-ecr.outputs.registry }}/anaconda-pkg-build
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=match,pattern=pkg-build-(.*),group=1
+
       - name: build-push pkg-builder
         uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
         with:
@@ -49,7 +67,6 @@ jobs:
           platforms: linux/amd64,linux/ppc64le,linux/arm64/v8,linux/s390x
           build-args: |
             BASEVERSION=7
-          tags: |
-            continuumio/anaconda-pkg-build:cos7
-            ${{ steps.login-ecr.outputs.registry }}/anaconda-pkg-build:cos7
-          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags') }}
