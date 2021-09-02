@@ -1,9 +1,22 @@
 # Dockerfile for container images that Anaconda, Inc. uses to build conda
 # packages released on the "defaults" (repo.anaconda.com) channels.
 
-ARG BASEDIST=centos:7
+ARG BASEVERSION=7
+
+FROM centos:${BASEVERSION} AS base-amd64
+ARG GCC_VER=7.3
+
+FROM centos:${BASEVERSION} AS base-ppc64le
+ARG GCC_VER=7.3
+
+FROM centos:${BASEVERSION} AS base-arm64
+ARG GCC_VER=10.2
+
+FROM clefos:${BASEVERSION} AS base-s390x
+ARG GCC_VER=7.5
+
 # hadolint ignore=DL3006
-FROM ${BASEDIST}
+FROM base-$TARGETARCH
 
 # hadolint ignore=DL3031,DL3033
 RUN yum install -q -y deltarpm \
@@ -70,17 +83,16 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-ARG MC_ARCH=$TARGETPLATFORM
 ARG MC_VER=py38_4.9.2
-ARG GCC_VER=7
 
 RUN curl -sSL -o /tmp/miniconda.sh \
-        https://repo.anaconda.com/miniconda/Miniconda3-${MC_VER}-Linux-${MC_ARCH}.sh \
+        "https://repo.anaconda.com/miniconda/Miniconda3-${MC_VER}-Linux-$(uname -m)".sh \
     && /bin/bash /tmp/miniconda.sh -bfp /opt/conda \
     && rm -fv /tmp/miniconda.sh
 
 # hadolint ignore=DL3059
-RUN if [ ${MC_ARCH} = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi \
+RUN MC_ARCH="$(uname -m)" \
+    && if [ "${MC_ARCH}" = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi \
     && /opt/conda/bin/conda update --all --quiet --yes \
     && /opt/conda/bin/conda install --quiet --yes conda-build \
     && /opt/conda/bin/conda clean --all --yes \
@@ -95,7 +107,7 @@ RUN if [ ${MC_ARCH} = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi
     # Note, too, that this MUST come _after_ the `conda clean --all` above,
     # or the compilers will be dumped from the package cache.
     && /opt/conda/bin/conda install --download-only --quiet --yes \
-        gcc_linux-$subdir=${GCC_VER} gxx_linux-$subdir=${GCC_VER}
+        "gcc_linux-$subdir=${GCC_VER}" "gxx_linux-$subdir=${GCC_VER}"
 
 # hadolint ignore=DL3059
 RUN rm -fv /opt/conda/.condarc \
