@@ -9,7 +9,7 @@ ARG GCC_VER=7.3
 FROM centos:${BASEVERSION} AS base-ppc64le
 ARG GCC_VER=7.3
 
-FROM centos:${BASEVERSION} AS base-arm64
+FROM amazonlinux:2 AS base-arm64
 ARG GCC_VER=10.2
 
 FROM clefos:${BASEVERSION} AS base-s390x
