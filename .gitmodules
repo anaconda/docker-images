@@ -1,0 +1,4 @@
+[submodule "concourse-rsync-resource"]
+	path = concourse-rsync-resource
+	url = ../../AnacondaRecipes/concourse-rsync-resource.git
+	branch = master
