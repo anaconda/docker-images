@@ -49,7 +49,7 @@ jobs:
         uses: docker/metadata-action@3a3bb3a81753dc99f090d24ee7e5343838b73a96
         with:
           images: |
-            conda/concourse-rsync-resource
+            continuumio/concourse-rsync-resource
             public.ecr.aws/y0o4y9o3/concourse-rsync-resource
           tags: |
             type=ref,event=branch
