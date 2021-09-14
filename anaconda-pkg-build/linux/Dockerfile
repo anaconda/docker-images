@@ -83,10 +83,11 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-ARG MC_VER=py38_4.9.2
+ARG MC_VER=py39_4.10.3
 
 RUN curl -sSL -o /tmp/miniconda.sh \
         "https://repo.anaconda.com/miniconda/Miniconda3-${MC_VER}-Linux-$(uname -m)".sh \
+    && sha256sum /tmp/miniconda.sh \
     && /bin/bash /tmp/miniconda.sh -bfp /opt/conda \
     && rm -fv /tmp/miniconda.sh
 
