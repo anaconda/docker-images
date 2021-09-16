@@ -117,4 +117,6 @@ RUN rm -fv /opt/conda/.condarc \
 
 ENV PATH="/opt/conda/bin:${PATH}"
 
-ENTRYPOINT [ "/opt/conda/bin/conda-build", "--suppress-variables", "--error-overlinking", "--error-overdepending" ]
+COPY entrypoint.sh /entrypoint.sh
+
+CMD ["/entrypoint.sh"]
