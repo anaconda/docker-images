@@ -1,4 +1,7 @@
-#!/bin/bash -x
+#!/bin/bash
+
+set -o errtrace -o nounset -o pipefail -o errexit -x
+
 #
 # This script allows you to build (linux) conda recipes with the only requirement that you have docker installed
 #
@@ -14,7 +17,7 @@
 #
 #   $ ./conda_build_in_docker.sh ~/vc/conda-recipes/jinja2 /tmp/conda_pkg stuarteberg,asmeurer
 #
-# 
+#
 # Notes
 # -----
 # Your user need to be in the docker group (docker is not invoked with "sudo").
@@ -28,18 +31,22 @@
 # invocations. Could be a 4th positional argument:
 # and then -v $ABS_PKG_CACHE:/opt/conda/pkgs
 
-ABS_RECIPE_PATH=$(unset CDPATH && cd "$1" && echo $PWD)
-ABS_OUTPUT_PATH=$(unset CDPATH && cd "$2" && echo $PWD)
+ABS_RECIPE_PATH=$(unset CDPATH && cd "$1" && echo "${PWD}")
+ABS_OUTPUT_PATH=$(unset CDPATH && cd "$2" && echo "${PWD}")
 CONDA_ENVS=""
-if [ ! -z $CONDA_PY ]; then
-    CONDA_ENVS="$CONDA_ENVS -e CONDA_PY"
+# shellcheck disable=SC2154
+if [ -n "${CONDA_PY}" ]; then
+    CONDA_ENVS="${CONDA_ENVS} -e CONDA_PY"
 fi
-if [ ! -z $CONDA_NPY ]; then
-    CONDA_ENVS="$CONDA_ENVS -e CONDA_NPY"
+# shellcheck disable=SC2154
+if [ -n "${CONDA_NPY}" ]; then
+    CONDA_ENVS="${CONDA_ENVS} -e CONDA_NPY"
 fi
 # Since docker run as uid 0 by default we export our uid and gid and set ownership
 # of files in our volume /output before exiting the container.
-cat <<'EOF' | docker run --rm $CONDA_ENVS -e CONDA_CHANNELS=$3 -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -v $ABS_RECIPE_PATH:/recipe:ro -v $ABS_OUTPUT_PATH:/output -i continuumio/anaconda bash -x
+# shellcheck disable=SC2086
+cat <<'EOF' | docker run --rm ${CONDA_ENVS} -e CONDA_CHANNELS="$3" -e HOST_UID="$(id -u)" -e HOST_GID="$(id -g)" -v "${ABS_RECIPE_PATH}:/recipe:ro" -v "${ABS_OUTPUT_PATH}:/output" -i continuumio/anaconda bash -x
+set -o errtrace -o nounset -o pipefail -o errexit
 IFS=',' read -a array <<< "$CONDA_CHANNELS"
 for element in "${array[@]}"
 do
