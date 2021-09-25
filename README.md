@@ -1,4 +1,4 @@
-# Anaconda and Miniconda Docker Docker Docker
+# Anaconda and Miniconda Docker Images and Documentation
 
 Docker images for Anaconda/Miniconda that are available from DockerHub:
 
