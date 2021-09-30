@@ -75,12 +75,12 @@ jobs:
         uses: docker/metadata-action@3a3bb3a81753dc99f090d24ee7e5343838b73a96
         with:
           images: |
-            continuumio/concourse-pkg-build
-            public.ecr.aws/y0o4y9o3/concourse-pkg-build
+            continuumio/anaconda-pkg-build
+            public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=match,pattern=pkg-build-(.*),group=1
+            type=ref,event=branch,suffix=-amd64
+            type=ref,event=pr,suffix=-amd64
+            type=match,pattern=pkg-build-(.*),group=1,suffix=-amd64
 
       - name: build-push pkg-builder-concourse
         uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
