@@ -88,7 +88,7 @@ jobs:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
           file: ./anaconda-pkg-build/linux/Dockerfile
-          platform: linux/amd64
+          platforms: linux/amd64
           build-args: |
             BASEVERSION=7
           tags: ${{ steps.concourse-meta.outputs.tags }}
