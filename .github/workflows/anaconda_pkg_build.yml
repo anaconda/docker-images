@@ -81,6 +81,8 @@ jobs:
             type=ref,event=branch,suffix=-amd64
             type=ref,event=pr,suffix=-amd64
             type=match,pattern=pkg-build-(.*),group=1,suffix=-amd64
+          flavor: |
+            latest=false
 
       - name: build-push pkg-builder-concourse
         uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
