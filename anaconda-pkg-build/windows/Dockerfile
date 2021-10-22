@@ -16,11 +16,11 @@ RUN powershell -Command " \
         --add "Microsoft.VisualStudio.Workload.VCTools;includeRecommended" \
         --add Microsoft.VisualStudio.Component.VC.v141 \
         --add Microsoft.VisualStudio.Component.VC.v141.x86.x64 \
-        --add Microsoft.VisualStudio.Component.Windows10SDK.17763 \
+        --add Microsoft.VisualStudio.Component.Windows81SDK \
         --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
         --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
         --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
-        --remove Microsoft.VisualStudio.Component.Windows81SDK && \
+        --remove Microsoft.VisualStudio.Component.Windows10SDK.17763 && \
     del vs_buildtools.exe
 
 # hadolint ignore=DL3059
@@ -45,7 +45,7 @@ RUN powershell -Command " \
 ENTRYPOINT [ \
     "miniconda3\Scripts\activate.bat", \
     "&&", \
-    "C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat", "-vcvars_ver=14.16", "10.0.17763.0", \
+    "C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat", "-vcvars_ver=14.16", "8.1", \
     "&&", \
     "cd", "C:/Users/Administrator", \
     "&&", \
