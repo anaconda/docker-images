@@ -10,10 +10,8 @@ RUN powershell -Command " \
     $url = \"https://aka.ms/vs/16/release/vs_buildtools.exe\"; \
     $client = new-object System.Net.WebClient; \
     $client.DownloadFile( $url, \"vs_buildtools.exe\"); \
-    "
-
-# hadolint ignore=DL3059
-RUN vs_buildtools.exe --quiet --wait --norestart --nocache \
+    " && \
+    vs_buildtools.exe --quiet --wait --norestart --nocache \
         --installPath C:\BuildTools \
         --add "Microsoft.VisualStudio.Workload.VCTools;includeRecommended" \
         --add Microsoft.VisualStudio.Component.VC.v141 \
@@ -33,10 +31,8 @@ RUN powershell -Command " \
     ./miniconda3.exe /S /D=C:\Users\Administrator\miniconda3 | Write-Output; \
     del miniconda3.exe; \
     ./miniconda3/Scripts/conda clean --all -y; \
-    "
-
-# hadolint ignore=DL3059
-RUN miniconda3\Scripts\activate.bat && \
+    " && \
+    miniconda3\Scripts\activate.bat && \
     conda update --all --yes && \
     conda install conda-build --yes && \
     conda config --set anaconda_upload false && \
