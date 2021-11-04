@@ -4,11 +4,11 @@ ARG BASEVERSION=20.04
 
 FROM ubuntu:${BASEVERSION}
 
-# hadolint ignore=DL3031,DL3033
+# hadolint ignore=DL3008
 RUN apt-get update \
     # # Hack to force locale generation, if needed
-    && apt-get install -q -y locales locales-all \
-    && apt-get install -q -y \
+    && apt-get install -q -y --no-install-recommends locales locales-all \
+    && apt-get install -q -y --no-install-recommends \
         #----------------------------------------
         # X11-related libraries needed for various CDTs
         #----------------------------------------
@@ -60,7 +60,8 @@ RUN apt-get update \
         psmisc \
         rsync \
         util-linux \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set the locale
 ENV LANG en_US.UTF-8
