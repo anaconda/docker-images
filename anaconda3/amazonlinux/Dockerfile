@@ -8,7 +8,7 @@ ENV PATH /opt/conda/bin:$PATH
 RUN yum install -y wget bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion && \
     yum clean all && \
     rm -rf /var/cache/yum && \
-    wget --quiet https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-aarch64.sh -O ~/anaconda.sh && \
+    wget --quiet https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-aarch64.sh -O ~/anaconda.sh && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
