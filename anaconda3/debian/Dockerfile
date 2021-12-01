@@ -12,7 +12,14 @@ RUN set -x && \
         git \
         libglib2.0-0 \
         libsm6 \
+        libxcomposite1 \
+        libxcursor1 \
+        libxdamage1 \
         libxext6 \
+        libxfixes3 \
+        libxi6 \
+        libxinerama1 \
+        libxrandr2 \
         libxrender1 \
         mercurial \
         openssh-client \
