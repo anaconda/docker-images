@@ -1,11 +1,28 @@
-FROM arm64v8/amazonlinux:2.0.20210421.0
+FROM amazonlinux:2
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
 # hadolint ignore=DL3008
 # hadolint ignore=DL3033
-RUN yum install -y wget bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion && \
+RUN yum install -y \
+        wget \
+        bzip2 \
+        ca-certificates \
+        libglib2.0-0 \
+        libxext6 \
+        libsm6 \
+        libxrender1 \
+        libxcomposite1 \
+        libxcursor1 \
+        libxdamage1 \
+        libxfixes3 \
+        libxi6 \
+        libxinerama1 \
+        libxrandr2 \
+        git \
+        mercurial \
+        subversion && \
     yum clean all && \
     rm -rf /var/cache/yum && \
     wget --quiet https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-aarch64.sh -O ~/anaconda.sh && \
