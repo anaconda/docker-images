@@ -10,16 +10,16 @@ RUN yum install -y \
         bzip2 \
         ca-certificates \
         libglib2.0-0 \
-        libxext6 \
-        libsm6 \
-        libxrender1 \
-        libxcomposite1 \
-        libxcursor1 \
-        libxdamage1 \
-        libxfixes3 \
-        libxi6 \
-        libxinerama1 \
-        libxrandr2 \
+        libXext \
+        libSM \
+        libXrender \
+        libXcomposite \
+        libXcursor \
+        libXdamage \
+        libXfixes \
+        libXi \
+        libXinerama \
+        libXrandr \
         git \
         mercurial \
         subversion && \
