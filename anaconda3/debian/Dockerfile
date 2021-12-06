@@ -12,7 +12,14 @@ RUN set -x && \
         git \
         libglib2.0-0 \
         libsm6 \
+        libxcomposite1 \
+        libxcursor1 \
+        libxdamage1 \
         libxext6 \
+        libxfixes3 \
+        libxi6 \
+        libxinerama1 \
+        libxrandr2 \
         libxrender1 \
         mercurial \
         openssh-client \
@@ -23,17 +30,17 @@ RUN set -x && \
     && rm -rf /var/lib/apt/lists/* && \
     UNAME_M="$(uname -m)" && \
     if [ "${UNAME_M}" = "x86_64" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh"; \
-        SHA256SUM="2751ab3d678ff0277ae80f9e8a74f218cfc70fe9a9cdc7bb1c137d7e47e33d53"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh"; \
+        SHA256SUM="fedf9e340039557f7b5e8a8a86affa9d299f5e9820144bd7b92ae9f7ee08ac60"; \
     elif [ "${UNAME_M}" = "s390x" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-s390x.sh"; \
-        SHA256SUM="a7d1a83279f439e7d8a6c53aa725552e195c0b96ae7e7fa63baefdf0118f7942"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-s390x.sh"; \
+        SHA256SUM="1504e9259816c5804eff1304fe7e339517b9fc1a08bfd991bc525a7efb6568f1"; \
     elif [ "${UNAME_M}" = "aarch64" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-aarch64.sh"; \
-        SHA256SUM="3a3d5a61df5422f7c8c7816217b926ec7e200cc6d62967541adead8ec46d935d"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-aarch64.sh"; \
+        SHA256SUM="4daacb88fbd3a6c14e28cd3b37004ed4c2643e2b187302e927eb81a074e837bc"; \
     elif [ "${UNAME_M}" = "ppc64le" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-ppc64le.sh"; \
-        SHA256SUM="097064807a9adae3f91fc4c5852cd90df2b77fc96505929bb25bf558f1eef76f"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-ppc64le.sh"; \
+        SHA256SUM="7eb6a95925ee756240818599f8dcbba7a155adfb05ef6cd5336aa3c083de65f3"; \
     fi && \
     wget "${ANACONDA_URL}" -O anaconda.sh -q && \
     echo "${SHA256SUM} anaconda.sh" > shasum && \
