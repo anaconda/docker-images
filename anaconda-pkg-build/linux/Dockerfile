@@ -73,6 +73,7 @@ RUN yum install -q -y deltarpm \
         openssh-clients \
         psmisc \
         rsync \
+        tar \
         util-linux \
         #wget \
         which \
