@@ -1,4 +1,4 @@
-FROM alpine:3.14.0 as alpine-glibc
+FROM alpine:3.14 as alpine-glibc
 
 LABEL maintainer="Vlad Frolov"
 LABEL src=https://github.com/frol/docker-alpine-glibc
