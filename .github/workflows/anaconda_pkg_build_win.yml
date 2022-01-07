@@ -36,7 +36,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --rm continuumio/anaconda-pkg-build-win:master cmd /s /c dir
+          docker run --rm continuumio/anaconda-pkg-build-win:master
 
       - name: Push
         # if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')

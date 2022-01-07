@@ -42,4 +42,4 @@ RUN powershell -Command " \
     conda config --show-sources
 
 # hadolint ignore=DL3025
-#ENTRYPOINT ["miniconda3\Scripts\activate.bat", "&&", "C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat", "-vcvars_ver=14.16", "8.1", "&&", "cd", "C:/Users/Administrator", "&&", "cmd", "/s", "/c"]
+ENTRYPOINT "miniconda3\Scripts\activate.bat && C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat -vcvars_ver=14.16 8.1 && cd C:/Users/Administrator && cmd /S /C dir"
