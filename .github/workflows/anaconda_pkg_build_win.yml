@@ -34,9 +34,9 @@ jobs:
           cd anaconda-pkg-build/windows/ && docker build . -t continuumio/anaconda-pkg-build-win:master
           docker image inspect continuumio/anaconda-pkg-build-win:master
 
-      - name: Test
-        run: |
-          docker run --rm continuumio/anaconda-pkg-build-win:master
+      #- name: Test
+      #  run: |
+      #    docker run --rm continuumio/anaconda-pkg-build-win:master
 
       - name: Push
         # if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
