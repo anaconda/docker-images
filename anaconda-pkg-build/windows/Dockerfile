@@ -41,5 +41,8 @@ RUN powershell -Command " \
     conda config --system --set add_pip_as_python_dependency False && \
     conda config --show-sources
 
+COPY run-build.sh .
+
 # hadolint ignore=DL3025
+ENTRYPOINT miniconda3\Library\usr\bin\bash.exe
 #ENTRYPOINT miniconda3\Scripts\activate.bat&& C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat -vcvars_ver=14.16 8.1&& cd C:/Users/Administrator&& cmd /S /C dir
