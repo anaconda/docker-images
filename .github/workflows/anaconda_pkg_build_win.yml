@@ -32,7 +32,7 @@ jobs:
         run: |
           #docker run --rm mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019 cmd /s /c dir
           cd anaconda-pkg-build/windows/ && docker build . -t continuumio/anaconda-pkg-build-win:master
-          #docker image inspect continuumio/anaconda-pkg-build-win:master
+          docker image inspect continuumio/anaconda-pkg-build-win:master
 
       - name: Test
         run: |
