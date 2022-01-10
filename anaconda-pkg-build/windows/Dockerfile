@@ -34,7 +34,7 @@ RUN powershell -Command " \
     " && \
     miniconda3\Scripts\activate.bat && \
     conda update --all --yes && \
-    conda install conda-build --yes && \
+    conda install conda-build posix --yes && \
     conda config --set anaconda_upload false && \
     conda clean --all --yes && \
     conda config --system --set show_channel_urls True && \
