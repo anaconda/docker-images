@@ -44,6 +44,6 @@ RUN powershell -Command " \
 COPY run.sh .
 
 # hadolint ignore=DL3025
-ENTRYPOINT ["miniconda3\Library\usr\bin\bash.exe", "/c/Users/Administrator/run.sh"]
+ENTRYPOINT miniconda3\Library\usr\bin\bash.exe /c/Users/Administrator/run.sh
 #ENTRYPOINT miniconda3\Library\usr\bin\bash.exe
 #ENTRYPOINT miniconda3\Scripts\activate.bat&& C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat -vcvars_ver=14.16 8.1&& cd C:/Users/Administrator&& cmd /S /C dir
