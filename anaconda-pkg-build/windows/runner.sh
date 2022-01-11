@@ -2,9 +2,10 @@
 
 set -o nounset -o pipefail -o errexit
 
-#COMMAND=("$@")
-#${COMMAND[@]}
-#exit
+# Testing
+COMMAND=("$@")
+${COMMAND[@]}
+exit
 
 # needed for dirname for activate below
 PATH=$PATH:/usr/bin

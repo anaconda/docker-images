@@ -41,9 +41,16 @@ RUN powershell -Command " \
     conda config --system --set add_pip_as_python_dependency False && \
     conda config --show-sources
 
-COPY run.sh .
+COPY entry-cmd.bat entry-bash.bat runner.sh ./
+
+# ENTRYPOINT Windows notes
+# the command form (["command", "arg1", "arg2"]) does not work right on Windows
+# the script form (command arg1 arg2, not sure if quotes work) does work correctly, with the CMD (the positional params to docker run)
+# appended as extra arguments to the entrypoint.
 
 # hadolint ignore=DL3025
-ENTRYPOINT miniconda3\Library\usr\bin\bash.exe /c/Users/Administrator/run.sh
+ENTRYPOINT entry-cmd.bat
+#ENTRYPOINT entry-bash.bat
+
 #ENTRYPOINT miniconda3\Library\usr\bin\bash.exe
 #ENTRYPOINT miniconda3\Scripts\activate.bat&& C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat -vcvars_ver=14.16 8.1&& cd C:/Users/Administrator&& cmd /S /C dir
