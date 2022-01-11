@@ -1,6 +1,8 @@
 @REM Passes all arguments to runner.sh after setting up conda and compiler environments
 @REM This exists to work around unexpected behavior in Windows docker entrypoints
 
+@ECHO ON
+echo Executing bash commands %*
 C:\Users\Administrator\miniconda3\Scripts\activate.bat
 @REM C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat -vcvars_ver=14.16 8.1
 
