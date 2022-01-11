@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ~/miniconda3/Scripts/activate
+source /c/Users/Administrator/miniconda3/Scripts/activate
 
 "$@"
