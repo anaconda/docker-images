@@ -6,5 +6,4 @@ C:\Users\Administrator\miniconda3\Scripts\activate.bat
 
 @REM runner.sh is necessary b/c if -c was used then we'd have to quote the args as a single string
 @REM and they probably wouldn't parse back into the same arguments because the quotes aren't escaped
-@ECHO ON
-C:\Users\Administrator\miniconda3\Library\usr\bin\bash.exe /c/Administrator/Users/runner.sh %*
+C:\Users\Administrator\miniconda3\Library\usr\bin\bash.exe C:\Administrator\Users\runner.sh %*
