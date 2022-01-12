@@ -49,8 +49,11 @@ COPY entry-cmd.bat entry-bash.bat runner.sh ./
 # appended as extra arguments to the entrypoint.
 
 # hadolint ignore=DL3025
-ENTRYPOINT entry-cmd.bat
+
+# this would allow you to choose between cmd and bash if we can figure out how to pass the cmd+args from docker run to it
+#ENTRYPOINT entry-cmd.bat
 #ENTRYPOINT entry-bash.bat
 
-#ENTRYPOINT miniconda3\Library\usr\bin\bash.exe
+# the [cmd arg] format does not correctly pass docker run cmd+args to entrypoint
+ENTRYPOINT miniconda3\Library\usr\bin\bash.exe /c/Users/Administrator/runner.sh
 #ENTRYPOINT miniconda3\Scripts\activate.bat&& C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat -vcvars_ver=14.16 8.1&& cd C:/Users/Administrator&& cmd /S /C dir
