@@ -49,6 +49,10 @@ RUN yum install -q -y deltarpm \
         #mesa-libGL \
         #mesa-libGLU \
         #----------------------------------------
+        # Vendor-neutral OpenGL
+        #----------------------------------------
+        libglvnd-opengl \
+        #----------------------------------------
         # X11 virtual framebuffer; useful for testing GUI apps
         #----------------------------------------
         xorg-x11-server-Xvfb \
