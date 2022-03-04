@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
 
       - name: Login to DockerHub
-        uses: docker/login-action@bb984efc561711aaa26e433c32c3521176eae55b
+        uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
