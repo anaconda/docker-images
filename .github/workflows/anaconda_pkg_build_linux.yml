@@ -58,7 +58,7 @@ jobs:
             type=match,pattern=pkg-build-(.*),group=1
 
       - name: build-push pkg-builder
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        uses: docker/build-push-action@e551b19e49efd4e98792db7592c17c09b89db8d8
         with:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
@@ -85,7 +85,7 @@ jobs:
             latest=false
 
       - name: build-push pkg-builder-concourse
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        uses: docker/build-push-action@e551b19e49efd4e98792db7592c17c09b89db8d8
         with:
           context: ./anaconda-pkg-build/linux
           builder: ${{ steps.buildx.outputs.name }}
