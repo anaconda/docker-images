@@ -2,18 +2,15 @@
 # packages released on the "defaults" (repo.anaconda.com) channels.
 
 ARG BASEVERSION=7
+ARG GCC_VER=11.2.0
 
 FROM centos:${BASEVERSION} AS base-amd64
-ARG GCC_VER=7.5
 
 FROM centos:${BASEVERSION} AS base-ppc64le
-ARG GCC_VER=7.3
 
 FROM amazonlinux:2 AS base-arm64
-ARG GCC_VER=10.2
 
 FROM clefos:${BASEVERSION} AS base-s390x
-ARG GCC_VER=7.5
 
 # hadolint ignore=DL3006
 FROM base-$TARGETARCH
