@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: Login to DockerHub
-        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b # tag=v2
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -45,7 +45,7 @@ jobs:
             latest=false
 
       - name: build miniconda3/alpine
-        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94
+        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94 # tag=v3
         with:
           context: ./miniconda3/alpine
           builder: ${{ steps.buildx.outputs.name }}

@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Login to Public ECR
-        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b # tag=v2
         if: github.ref == 'refs/heads/master'
         with:
           registry: public.ecr.aws
