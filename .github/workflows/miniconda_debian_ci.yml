@@ -48,7 +48,7 @@ jobs:
             type=match,pattern=miniconda3-v(.*),group=1
 
       - name: build miniconda3/debian
-        uses: docker/build-push-action@e27bcee4eb9e7b4bc168418e3364c4482120393a
+        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94
         with:
           context: ./miniconda3/debian
           builder: ${{ steps.buildx.outputs.name }}
