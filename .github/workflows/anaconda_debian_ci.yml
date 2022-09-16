@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@8b122486cedac8393e77aa9734c3528886e4a1a8
+        uses: docker/setup-qemu-action@c5ffa2a61740d9877bd1f40899a87c8ec93b0d9f
         with:
           platforms: linux/amd64,linux/arm64/v8,linux/ppc64le,linux/s390x
 
