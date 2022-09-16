@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: Login to DockerHub
-        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b # tag=v2
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -32,7 +32,7 @@ jobs:
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@dc7b9719a96d48369863986a06765841d7ea23f6
+        uses: docker/setup-buildx-action@dc7b9719a96d48369863986a06765841d7ea23f6 # tag=v2
         with:
           version: latest
           driver-opts: network=host
@@ -51,7 +51,7 @@ jobs:
             latest=false
 
       - name: build-push anaconda3/amazonlinux
-        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94
+        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94 # tag=v3
         with:
           context: ./anaconda3/amazonlinux
           builder: ${{ steps.buildx.outputs.name }}

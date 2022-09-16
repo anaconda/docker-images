@@ -18,13 +18,13 @@ jobs:
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@dc7b9719a96d48369863986a06765841d7ea23f6
+        uses: docker/setup-buildx-action@dc7b9719a96d48369863986a06765841d7ea23f6 # tag=v2
         with:
           version: latest
           driver-opts: network=host
 
       - name: build anaconda3/alpine
-        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94
+        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94 # tag=v3
         with:
           context: ./anaconda3/alpine
           builder: ${{ steps.buildx.outputs.name }}
