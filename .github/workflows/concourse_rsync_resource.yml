@@ -21,14 +21,14 @@ jobs:
           submodules: true
 
       - name: Login to DockerHub
-        uses: docker/login-action@21f251affc0769ccac8a1cf17e937592fb492337
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
         if: github.ref == 'refs/heads/master'
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Login to Public ECR
-        uses: docker/login-action@21f251affc0769ccac8a1cf17e937592fb492337
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
         if: github.ref == 'refs/heads/master'
         with:
           registry: public.ecr.aws
