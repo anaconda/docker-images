@@ -10,7 +10,7 @@ RUN powershell (New-Object System.Net.WebClient).DownloadFile('https://repo.anac
     powershell Unblock-File Miniconda3.exe && \
     Miniconda3.exe /InstallationType=JustMe /RegisterPython=1 /S /D=C:\Miniconda3
 
-FROM mcr.microsoft.com/windows/nanoserver:1809
+FROM mcr.microsoft.com/windows/nanoserver:2009
 
 # default and makes hadolint skip this container
 SHELL [ "cmd", "/S", "/C" ]
