@@ -1,7 +1,7 @@
 # Dockerfile for container images that Anaconda, Inc. uses to build conda
 # packages released on the "defaults" (repo.anaconda.com) channels.
 
-ARG BASEVERSION=7
+ARG BASEVERSION=8
 ARG GCC_VER=11.2.0
 
 FROM centos:${BASEVERSION} AS base-amd64
