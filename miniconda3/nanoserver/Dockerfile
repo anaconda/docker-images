@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:1809 AS buildbase
+FROM mcr.microsoft.com/windows/servercore:2009 AS buildbase
 
 WORKDIR /tmp
 
