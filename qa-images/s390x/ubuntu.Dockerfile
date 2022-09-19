@@ -1,6 +1,6 @@
 # Dockerfile for container images that Anaconda, Inc. used to provide test containers for QA.
 
-ARG BASEVERSION=20.04
+ARG BASEVERSION=22.04
 
 FROM ubuntu:${BASEVERSION}
 
