@@ -51,7 +51,7 @@ jobs:
             latest=false
 
       - name: build-push anaconda3/amazonlinux
-        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94 # tag=v3
+        uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5 # tag=v3
         with:
           context: ./anaconda3/amazonlinux
           builder: ${{ steps.buildx.outputs.name }}
