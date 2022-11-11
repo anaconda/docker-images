@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@5c3ccc22eb2c950a0fa5bc7c47190d8e3f7e681a
 
       - name: Set up Docker Buildx
         id: buildx

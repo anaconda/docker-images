@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: windows-2019
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@5c3ccc22eb2c950a0fa5bc7c47190d8e3f7e681a
 
       - name: Login to DockerHub
         uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b # tag=v2
