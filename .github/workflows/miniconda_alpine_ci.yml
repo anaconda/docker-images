@@ -4,7 +4,7 @@ on:
     branches:
       - master
     tags:
-      - 'miniconda3-v*.*.*-alpine'
+      - 'miniconda3-v*.*.*'
     paths:
       - 'miniconda3/alpine/Dockerfile'
       - '.github/workflows/miniconda_alpine_ci.yml'
@@ -42,7 +42,7 @@ jobs:
           tags: |
             type=ref,event=branch,suffix=-alpine
             type=ref,event=pr,suffix=-alpine
-            type=match,pattern=miniconda3-v(.*)-alpine,group=1,suffix=-alpine
+            type=match,pattern=miniconda3-v(.*),group=1,suffix=-alpine
           flavor: |
             latest=false
 
