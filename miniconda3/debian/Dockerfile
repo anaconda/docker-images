@@ -48,7 +48,7 @@ RUN set -x && \
     echo "${SHA256SUM} miniconda.sh" > shasum && \
     if [ "${CONDA_VERSION}" != "latest" ]; then sha256sum --check --status shasum; fi && \
     mkdir -p /opt && \
-    sh miniconda.sh -b -p /opt/conda && \
+    bash miniconda.sh -b -p /opt/conda && \
     rm miniconda.sh shasum && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
