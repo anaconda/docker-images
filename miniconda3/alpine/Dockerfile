@@ -5,8 +5,8 @@ LABEL maintainer="Anaconda, Inc"
 ENV PATH /opt/conda/bin:$PATH
 
 # Leave these args here to better use the Docker build cache
-ARG CONDA_VERSION=py39_4.10.3
-ARG SHA256SUM=1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f
+ARG CONDA_VERSION=py310_22.11.1-1
+ARG SHA256SUM=00938c3534750a0e4069499baf8f4e6dc1c2e471c86a59caa0dd03f4a9269db6
 
 # hadolint ignore=DL3018
 RUN apk add -q --no-cache bash procps && \
