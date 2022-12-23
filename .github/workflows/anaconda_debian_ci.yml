@@ -1,6 +1,8 @@
 name: Build Anaconda3 Debian Image
 on:
   push:
+    branches:
+      - master
     tags:
       - 'anaconda3-*'
     paths:

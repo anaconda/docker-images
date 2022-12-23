@@ -1,6 +1,8 @@
 name: Build and publish Linux package builder images
 on:
   push:
+    branches:
+      - master
     tags:
       - 'pkg-build-*'
     paths:

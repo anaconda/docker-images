@@ -1,6 +1,8 @@
 name: Build Anaconda3 Alpine Image
 on:
   push:
+    branches:
+      - master
     paths:
       - 'anaconda3/alpine/Dockerfile'
       - '.github/workflows/anaconda_alpine_ci.yml'

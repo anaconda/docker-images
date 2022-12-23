@@ -1,6 +1,8 @@
 name: Build and publish the concourse-rsync-resource image
 on:
   push:
+    branches:
+      - master
     tags:
       - 'crr-*'
     paths:

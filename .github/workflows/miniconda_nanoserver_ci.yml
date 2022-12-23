@@ -1,6 +1,8 @@
 name: Build Miniconda3 Nanoserver Image
 on:
   push:
+    branches:
+      - master
     tags:
       - 'miniconda3-v*.*.*-nanoserver'
     paths:

@@ -1,13 +1,9 @@
 name: Lint with Hadolint
 on:
-  pull_request:
-    paths:
-      - '**/Dockerfile'
-      - '.github/workflows/lint.yml'
   push:
-    paths:
-      - '**/Dockerfile'
-      - '.github/workflows/lint.yml'
+    branches:
+      - master
+  pull_request:
 
 jobs:
   lint:
