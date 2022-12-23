@@ -56,5 +56,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           file: ./miniconda3/debian/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x
           push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags') }}
