@@ -25,8 +25,6 @@ case ${key} in
     ;;
   *)
     usage
-    exit 0
-    shift
     ;;
 esac
 done
