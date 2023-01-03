@@ -1,8 +1,8 @@
 FROM frolvlad/alpine-glibc:alpine-3.17
 
 LABEL maintainer="Anaconda, Inc"
-ENV ANACONDA_VERSION 2021.11
-ENV SHA256SUM=fedf9e340039557f7b5e8a8a86affa9d299f5e9820144bd7b92ae9f7ee08ac60
+ENV ANACONDA_VERSION=2022.10
+ENV SHA256SUM=e7ecbccbc197ebd7e1f211c59df2e37bc6959d081f2235d387e08c9026666acd
 
 # Create non-root user, install dependencies, install Anaconda
 # hadolint ignore=DL3018
