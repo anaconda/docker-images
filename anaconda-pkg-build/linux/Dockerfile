@@ -2,18 +2,15 @@
 # packages released on the "defaults" (repo.anaconda.com) channels.
 
 ARG BASEVERSION=7
+ARG GCC_VER=11.2.0
 
 FROM centos:${BASEVERSION} AS base-amd64
-ARG GCC_VER=7.5
 
 FROM centos:${BASEVERSION} AS base-ppc64le
-ARG GCC_VER=7.3
 
 FROM amazonlinux:2 AS base-arm64
-ARG GCC_VER=10.2
 
 FROM clefos:${BASEVERSION} AS base-s390x
-ARG GCC_VER=7.5
 
 # hadolint ignore=DL3006
 FROM base-$TARGETARCH
@@ -49,6 +46,10 @@ RUN yum install -q -y deltarpm \
         #mesa-libGL \
         #mesa-libGLU \
         #----------------------------------------
+        # Vendor-neutral OpenGL
+        #----------------------------------------
+        libglvnd-opengl \
+        #----------------------------------------
         # X11 virtual framebuffer; useful for testing GUI apps
         #----------------------------------------
         xorg-x11-server-Xvfb \
@@ -73,6 +74,7 @@ RUN yum install -q -y deltarpm \
         openssh-clients \
         psmisc \
         rsync \
+        tar \
         util-linux \
         #wget \
         which \
@@ -83,13 +85,15 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-ARG MC_VER=py39_4.10.3
+ARG MC_VER=py39_4.12.0
 
 RUN curl -sSL -o /tmp/miniconda.sh \
         "https://repo.anaconda.com/miniconda/Miniconda3-${MC_VER}-Linux-$(uname -m)".sh \
     && sha256sum /tmp/miniconda.sh \
     && /bin/bash /tmp/miniconda.sh -bfp /opt/conda \
-    && rm -fv /tmp/miniconda.sh
+    && rm -fv /tmp/miniconda.sh \
+    # ensure there are no out of range userids
+    && chown -R root:root /opt/conda
 
 # hadolint ignore=DL3059
 RUN MC_ARCH="$(uname -m)" \

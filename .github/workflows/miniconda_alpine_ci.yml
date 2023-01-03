@@ -1,8 +1,10 @@
 name: Build Miniconda3 Alpine Image
 on:
   push:
+    branches:
+      - master
     tags:
-      - 'miniconda3-v*.*.*-alpine'
+      - 'miniconda3-v*.*.*'
     paths:
       - 'miniconda3/alpine/Dockerfile'
       - '.github/workflows/miniconda_alpine_ci.yml'
@@ -16,10 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
 
       - name: Login to DockerHub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # tag=v2
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -27,28 +29,29 @@ jobs:
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@94ab11c41e45d028884a99163086648e898eed25
+        uses: docker/setup-buildx-action@8c0edbc76e98fa90f69d9a2c020dcb50019dc325 # tag=v2
         with:
           version: latest
           driver-opts: network=host
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@548e2346a9987b56d8a4104fe776321ff8e23440
+        uses: docker/metadata-action@57396166ad8aefe6098280995947635806a0e6ea # tag=v4
         with:
           images: continuumio/miniconda3
           tags: |
             type=ref,event=branch,suffix=-alpine
             type=ref,event=pr,suffix=-alpine
-            type=match,pattern=miniconda3-v(.*)-alpine,group=1,suffix=-alpine
+            type=match,pattern=miniconda3-v(.*),group=1,suffix=-alpine
           flavor: |
             latest=false
 
       - name: build miniconda3/alpine
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229
+        uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5 # tag=v3
         with:
           context: ./miniconda3/alpine
           builder: ${{ steps.buildx.outputs.name }}
           file: ./miniconda3/alpine/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags') }}

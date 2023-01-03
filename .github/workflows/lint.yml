@@ -1,19 +1,15 @@
 name: Lint with Hadolint
 on:
-  pull_request:
-    paths:
-      - '**/Dockerfile'
-      - '.github/workflows/lint.yml'
   push:
-    paths:
-      - '**/Dockerfile'
-      - '.github/workflows/lint.yml'
+    branches:
+      - master
+  pull_request:
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
       - name: Lint Dockerfiles
         run: |
           echo "::add-matcher::.github/hadolint-matcher.json"

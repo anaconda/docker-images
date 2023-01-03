@@ -35,16 +35,16 @@ ABS_RECIPE_PATH=$(unset CDPATH && cd "$1" && echo "${PWD}")
 ABS_OUTPUT_PATH=$(unset CDPATH && cd "$2" && echo "${PWD}")
 CONDA_ENVS=""
 # shellcheck disable=SC2154
-if [ -n "${CONDA_PY}" ]; then
+if [[ -n "${CONDA_PY}" ]]; then
     CONDA_ENVS="${CONDA_ENVS} -e CONDA_PY"
 fi
 # shellcheck disable=SC2154
-if [ -n "${CONDA_NPY}" ]; then
+if [[ -n "${CONDA_NPY}" ]]; then
     CONDA_ENVS="${CONDA_ENVS} -e CONDA_NPY"
 fi
 # Since docker run as uid 0 by default we export our uid and gid and set ownership
 # of files in our volume /output before exiting the container.
-# shellcheck disable=SC2086
+# shellcheck disable=SC2086,SC2312
 cat <<'EOF' | docker run --rm ${CONDA_ENVS} -e CONDA_CHANNELS="$3" -e HOST_UID="$(id -u)" -e HOST_GID="$(id -g)" -v "${ABS_RECIPE_PATH}:/recipe:ro" -v "${ABS_OUTPUT_PATH}:/output" -i continuumio/anaconda bash -x
 set -o errtrace -o nounset -o pipefail -o errexit
 IFS=',' read -a array <<< "$CONDA_CHANNELS"
