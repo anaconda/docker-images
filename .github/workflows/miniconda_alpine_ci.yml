@@ -36,7 +36,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@57396166ad8aefe6098280995947635806a0e6ea # tag=v4
+        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96 # tag=v4
         with:
           images: continuumio/miniconda3
           tags: |
