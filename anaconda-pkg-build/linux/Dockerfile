@@ -72,6 +72,7 @@ RUN yum install -q -y deltarpm \
         file \
         net-tools \
         openssh-clients \
+        procps-ng \
         psmisc \
         rsync \
         tar \
