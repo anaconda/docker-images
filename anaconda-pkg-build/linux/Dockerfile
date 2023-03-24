@@ -86,7 +86,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-ARG MC_VER=py39_4.12.0
+ARG MC_VER=py39_23.1.0-1
 
 RUN curl -sSL -o /tmp/miniconda.sh \
         "https://repo.anaconda.com/miniconda/Miniconda3-${MC_VER}-Linux-$(uname -m)".sh \
@@ -100,7 +100,7 @@ RUN curl -sSL -o /tmp/miniconda.sh \
 RUN MC_ARCH="$(uname -m)" \
     && if [ "${MC_ARCH}" = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi \
     && /opt/conda/bin/conda update --all --quiet --yes \
-    && /opt/conda/bin/conda install --quiet --yes conda-build \
+    && /opt/conda/bin/conda install --quiet --yes conda-build conda-libmamba-solver \
     && /opt/conda/bin/conda clean --all --yes \
     # Cache our C and C++ compilers so we don't have to download them with
     # each build; skipping the Fortran compiler as it's not used often
@@ -118,6 +118,7 @@ RUN MC_ARCH="$(uname -m)" \
 # hadolint ignore=DL3059
 RUN rm -fv /opt/conda/.condarc \
     && /opt/conda/bin/conda config --system --set show_channel_urls True \
+    && /opt/conda/bin/conda config --system --set solver libmamba \
     && /opt/conda/bin/conda config --system --set add_pip_as_python_dependency False \
     && /opt/conda/bin/conda config --show-sources
 
