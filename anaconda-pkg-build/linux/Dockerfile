@@ -102,6 +102,9 @@ RUN MC_ARCH="$(uname -m)" \
     && /opt/conda/bin/conda update --all --quiet --yes \
     && /opt/conda/bin/conda install --quiet --yes conda-build conda-libmamba-solver \
     && /opt/conda/bin/conda clean --all --yes \
+    # The solver has to be set right after the `conda clean` call and before the next
+    # `conda install` call to avoid incompatible cache formats.
+    && /opt/conda/bin/conda config --system --set solver libmamba \
     # Cache our C and C++ compilers so we don't have to download them with
     # each build; skipping the Fortran compiler as it's not used often
     # enough to justify the cache space.  Note that we do NOT want to
@@ -118,7 +121,6 @@ RUN MC_ARCH="$(uname -m)" \
 # hadolint ignore=DL3059
 RUN rm -fv /opt/conda/.condarc \
     && /opt/conda/bin/conda config --system --set show_channel_urls True \
-    && /opt/conda/bin/conda config --system --set solver libmamba \
     && /opt/conda/bin/conda config --system --set add_pip_as_python_dependency False \
     && /opt/conda/bin/conda config --show-sources
 
