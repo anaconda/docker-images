@@ -102,6 +102,10 @@ RUN MC_ARCH="$(uname -m)" \
     && /opt/conda/bin/conda update --all --quiet --yes \
     && /opt/conda/bin/conda install --quiet --yes conda-build conda-libmamba-solver \
     && /opt/conda/bin/conda clean --all --yes \
+    && rm -fv /opt/conda/.condarc \
+    && /opt/conda/bin/conda config --system --set show_channel_urls True \
+    && /opt/conda/bin/conda config --system --set add_pip_as_python_dependency False \
+    && /opt/conda/bin/conda config --show-sources \
     # The solver has to be set right after the `conda clean` call and before the next
     # `conda install` call to avoid incompatible cache formats.
     && /opt/conda/bin/conda config --system --set solver libmamba \
@@ -117,12 +121,6 @@ RUN MC_ARCH="$(uname -m)" \
     # or the compilers will be dumped from the package cache.
     && /opt/conda/bin/conda install --download-only --quiet --yes \
         "gcc_linux-$subdir=${GCC_VER}" "gxx_linux-$subdir=${GCC_VER}"
-
-# hadolint ignore=DL3059
-RUN rm -fv /opt/conda/.condarc \
-    && /opt/conda/bin/conda config --system --set show_channel_urls True \
-    && /opt/conda/bin/conda config --system --set add_pip_as_python_dependency False \
-    && /opt/conda/bin/conda config --show-sources
 
 ENV PATH="/opt/conda/bin:${PATH}"
 
