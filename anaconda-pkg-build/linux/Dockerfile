@@ -120,7 +120,8 @@ RUN MC_ARCH="$(uname -m)" \
     # Note, too, that this MUST come _after_ the `conda clean --all` above,
     # or the compilers will be dumped from the package cache.
     && /opt/conda/bin/conda install --download-only --quiet --yes \
-        "gcc_linux-$subdir=${GCC_VER}" "gxx_linux-$subdir=${GCC_VER}"
+        "gcc_linux-$subdir=${GCC_VER}" "gxx_linux-$subdir=${GCC_VER}" \
+    && /opt/conda/bin/conda clean --index-cache --yes
 
 ENV PATH="/opt/conda/bin:${PATH}"
 
