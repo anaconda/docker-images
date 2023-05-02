@@ -27,22 +27,22 @@ ENV PATH /opt/conda/bin:$PATH
 CMD [ "/bin/bash" ]
 
 # Leave these args here to better use the Docker build cache
-ARG CONDA_VERSION=py310_22.11.1-1
+ARG CONDA_VERSION=py310_23.3.1-0
 
 RUN set -x && \
     UNAME_M="$(uname -m)" && \
     if [ "${UNAME_M}" = "x86_64" ]; then \
         MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh"; \
-        SHA256SUM="00938c3534750a0e4069499baf8f4e6dc1c2e471c86a59caa0dd03f4a9269db6"; \
+        SHA256SUM="aef279d6baea7f67940f16aad17ebe5f6aac97487c7c03466ff01f4819e5a651"; \
     elif [ "${UNAME_M}" = "s390x" ]; then \
         MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-s390x.sh"; \
-        SHA256SUM="a150511e7fd19d07b770f278fb5dd2df4bc24a8f55f06d6274774f209a36c766"; \
+        SHA256SUM="ed4f51afc967e921ff5721151f567a4c43c4288ac93ec2393c6238b8c4891de8"; \
     elif [ "${UNAME_M}" = "aarch64" ]; then \
         MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-aarch64.sh"; \
-        SHA256SUM="48a96df9ff56f7421b6dd7f9f71d548023847ba918c3826059918c08326c2017"; \
+        SHA256SUM="6950c7b1f4f65ce9b87ee1a2d684837771ae7b2e6044e0da9e915d1dee6c924c"; \
     elif [ "${UNAME_M}" = "ppc64le" ]; then \
         MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-ppc64le.sh"; \
-        SHA256SUM="4c86c3383bb27b44f7059336c3a46c34922df42824577b93eadecefbf7423836"; \
+        SHA256SUM="b3de538cd542bc4f5a2f2d2a79386288d6e04f0e1459755f3cefe64763e51d16"; \
     fi && \
     wget "${MINICONDA_URL}" -O miniconda.sh -q && \
     echo "${SHA256SUM} miniconda.sh" > shasum && \
