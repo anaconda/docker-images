@@ -69,6 +69,7 @@ RUN yum install -q -y deltarpm \
         # assume the build container provides these tools.
         #----------------------------------------
         curl \
+        git \
         file \
         net-tools \
         openssh-clients \
