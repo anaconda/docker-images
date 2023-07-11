@@ -30,17 +30,17 @@ RUN set -x && \
     && rm -rf /var/lib/apt/lists/* && \
     UNAME_M="$(uname -m)" && \
     if [ "${UNAME_M}" = "x86_64" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.03-1-Linux-x86_64.sh"; \
-        SHA256SUM="95102d7c732411f1458a20bdf47e4c1b0b6c8a21a2edfe4052ca370aaae57bab"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.07-0-Linux-x86_64.sh"; \
+        SHA256SUM="ac738639aba0b676a618911600d0a0e7825ee7fd10efb6b3d95cc2e570d9ee7b"; \
     elif [ "${UNAME_M}" = "s390x" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.03-1-Linux-s390x.sh"; \
-        SHA256SUM="5af1406c6350b4ba6839c49faa32a3c90f2b9845a03c35843f118dd9dd013421"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.07-0-Linux-s390x.sh"; \
+        SHA256SUM="f6933a8b70d346d423e089843fc151c46bdaee4e3e4e4fd0fb81ca06b8766892"; \
     elif [ "${UNAME_M}" = "aarch64" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.03-1-Linux-aarch64.sh"; \
-        SHA256SUM="54e600faa2af63a25717af30ecaddf1ee428cdfebd3721a70f41462e232e8153"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.07-0-Linux-aarch64.sh"; \
+        SHA256SUM="5f4865448c1111fb80cb49abff0f9b38b2970857dba7a4627c499ba102b82af5"; \
     elif [ "${UNAME_M}" = "ppc64le" ]; then \
-        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.03-1-Linux-ppc64le.sh"; \
-        SHA256SUM="a31f2d6da83534cff7c994403cc11fa634b31fcd10eb4153d00233345ee084b2"; \
+        ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2023.07-0-Linux-ppc64le.sh"; \
+        SHA256SUM="98efb73758680b84f890d818b5748d7a08e82c4b825d597f7e3c4467125da278"; \
     fi && \
     wget "${ANACONDA_URL}" -O anaconda.sh -q && \
     echo "${SHA256SUM} anaconda.sh" > shasum && \
