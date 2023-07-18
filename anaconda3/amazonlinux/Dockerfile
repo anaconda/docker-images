@@ -25,7 +25,7 @@ RUN yum install -y \
         subversion && \
     yum clean all && \
     rm -rf /var/cache/yum && \
-    wget --quiet https://repo.anaconda.com/archive/Anaconda3-2023.03-1-Linux-aarch64.sh -O ~/anaconda.sh && \
+    wget --quiet https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-aarch64.sh -O ~/anaconda.sh && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
