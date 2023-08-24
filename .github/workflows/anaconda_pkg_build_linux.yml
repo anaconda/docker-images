@@ -2,7 +2,7 @@ name: Build and publish Linux package builder images
 on:
   push:
     branches:
-      - master
+      - main
     tags:
       - 'pkg-build-*'
     paths:
@@ -22,14 +22,14 @@ jobs:
 
       - name: Login to DockerHub
         uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Login to Public ECR
         uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
         with:
           registry: public.ecr.aws
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -70,7 +70,7 @@ jobs:
             BASEVERSION=7
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags') }}
+          push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
 
       - name: Docker meta for Concourse
         id: concourse-meta
@@ -97,4 +97,4 @@ jobs:
             BASEVERSION=7
           tags: ${{ steps.concourse-meta.outputs.tags }}
           labels: ${{ steps.concourse-meta.outputs.labels }}
-          push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags') }}
+          push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
