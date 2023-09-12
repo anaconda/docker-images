@@ -4,7 +4,7 @@
 FROM continuumio/anaconda-pkg-build:latest
 
 RUN  /opt/conda/bin/conda install --quiet --yes conda_time_machine
-    
+
 
 ENV PATH="/opt/conda/bin:${PATH}"
 
