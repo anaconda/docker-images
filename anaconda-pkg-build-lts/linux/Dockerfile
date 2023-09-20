@@ -3,7 +3,7 @@
 
 FROM continuumio/anaconda-pkg-build:2023.03.28
 
-RUN  /opt/conda/bin/conda install --quiet --yes conda_time_machine
+RUN  /opt/conda/bin/conda install -c jcmorin-ana-org --quiet --yes anaconda-time-machine
 
 
 ENV PATH="/opt/conda/bin:${PATH}"
