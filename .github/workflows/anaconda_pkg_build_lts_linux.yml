@@ -55,8 +55,8 @@ jobs:
             continuumio/anaconda-pkg-build
             public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
+            type=ref,event=branch,suffix=-lts
+            type=ref,event=pr,suffix=-lts
             type=match,pattern=lts-pkg-build-(.*),group=1,suffix=-lts
 
       - name: build-push pkg-builder
