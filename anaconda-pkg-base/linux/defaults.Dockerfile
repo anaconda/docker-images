@@ -1,8 +1,15 @@
-# Dockerfile for container images that Anaconda, Inc. used to provide test containers for QA.
-
 ARG BASEVERSION=7
 
-FROM clefos:${BASEVERSION}
+FROM centos:${BASEVERSION} AS base-amd64
+
+FROM centos:${BASEVERSION} AS base-ppc64le
+
+FROM amazonlinux:2 AS base-arm64
+
+FROM clefos:${BASEVERSION} AS base-s390x
+
+# hadolint ignore=DL3006
+FROM base-$TARGETARCH
 
 # hadolint ignore=DL3031,DL3033
 RUN yum install -q -y deltarpm \
@@ -35,6 +42,10 @@ RUN yum install -q -y deltarpm \
         #mesa-libGL \
         #mesa-libGLU \
         #----------------------------------------
+        # Vendor-neutral OpenGL
+        #----------------------------------------
+        libglvnd-opengl \
+        #----------------------------------------
         # X11 virtual framebuffer; useful for testing GUI apps
         #----------------------------------------
         xorg-x11-server-Xvfb \
@@ -57,8 +68,10 @@ RUN yum install -q -y deltarpm \
         file \
         net-tools \
         openssh-clients \
+        procps-ng \
         psmisc \
         rsync \
+        tar \
         util-linux \
         #wget \
         which \

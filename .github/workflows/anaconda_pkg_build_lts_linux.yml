@@ -1,17 +1,17 @@
-name: Build and publish Linux package builder images
+name: Build and publish Linux package builder images for LTS
 on:
   push:
     branches:
       - main
     tags:
-      - 'pkg-build-*'
+      - 'lts-pkg-build-*'
     paths:
-      - 'anaconda-pkg-build/linux/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux.yml'
+      - 'anaconda-pkg-build-lts/linux/Dockerfile'
+      - '.github/workflows/anaconda_pkg_build_lts_linux.yml'
   pull_request:
     paths:
-      - 'anaconda-pkg-build/linux/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux.yml'
+      - 'anaconda-pkg-build-lts/linux/Dockerfile'
+      - '.github/workflows/anaconda_pkg_build_lts_linux.yml'
   workflow_dispatch:
 
 jobs:
@@ -55,46 +55,21 @@ jobs:
             continuumio/anaconda-pkg-build
             public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=match,pattern=pkg-build-(.*),group=1
+            type=ref,event=branch,suffix=-lts
+            type=ref,event=pr,suffix=-lts
+            type=match,pattern=lts-pkg-build-(.*),group=1,suffix=-lts
+          flavor: |
+            latest=false
 
       - name: build-push pkg-builder
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5
         with:
-          context: ./anaconda-pkg-build/linux
+          context: ./anaconda-pkg-build-lts/linux
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/Dockerfile
+          file: ./anaconda-pkg-build-lts/linux/Dockerfile
           platforms: linux/amd64,linux/ppc64le,linux/arm64/v8,linux/s390x
           build-args: |
             BASEVERSION=7
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
-
-      - name: Docker meta for Concourse
-        id: concourse-meta
-        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5
-        with:
-          images: |
-            continuumio/anaconda-pkg-build
-            public.ecr.aws/y0o4y9o3/anaconda-pkg-build
-          tags: |
-            type=ref,event=branch,suffix=-amd64
-            type=ref,event=pr,suffix=-amd64
-            type=match,pattern=pkg-build-(.*),group=1,suffix=-amd64
-          flavor: |
-            latest=false
-
-      - name: build-push pkg-builder-concourse
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5
-        with:
-          context: ./anaconda-pkg-build/linux
-          builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/Dockerfile
-          platforms: linux/amd64
-          build-args: |
-            BASEVERSION=7
-          tags: ${{ steps.concourse-meta.outputs.tags }}
-          labels: ${{ steps.concourse-meta.outputs.labels }}
           push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
