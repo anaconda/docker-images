@@ -53,6 +53,7 @@ RUN set -x && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     mkdir -p /.singularity.d/env/ && \
     cp -p /opt/conda/etc/profile.d/conda.sh /.singularity.d/env/91-environment.sh && \
+    echo "conda activate base" >> /.singularity.d/env/91-environment.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \
     find /opt/conda/ -follow -type f -name '*.a' -delete && \
