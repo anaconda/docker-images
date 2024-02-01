@@ -1,7 +1,7 @@
 # This container has the CUDA compilers installed. For versions less than 12, they're used,
 # because defaults' cudatoolkit <= 11.8 package doesn't provide compilers.
 # But not for versions equal and greater than 12.
-ARG CUDA_VERSION=11.8
+ARG CUDA_VERSION=11.8.0
 FROM nvidia/cuda:${CUDA_VERSION}-devel-centos7
 
 # this is mostly copied from public.ecr.aws/y0o4y9o3/anaconda-pkg-build
