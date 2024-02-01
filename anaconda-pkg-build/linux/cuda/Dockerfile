@@ -7,7 +7,7 @@ FROM nvidia/cuda:${CUDA_VERSION}-devel-centos7
 # this is mostly copied from public.ecr.aws/y0o4y9o3/anaconda-pkg-build
 
 # ulimit needs to be turned down: https://bugzilla.redhat.com/show_bug.cgi?id=1537564
-# hadolint ignore=DL3031,DL3033
+# hadolint ignore=DL3031,DL3033,SC3045
 RUN ulimit -n 1024 \
     && yum install -q -y deltarpm \
     # Hack to force locale generation, if needed
