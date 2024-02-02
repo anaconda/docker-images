@@ -55,9 +55,9 @@ jobs:
             continuumio/anaconda-pkg-build
             public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=match,pattern=pkg-build-(.*),group=1
+            type=ref,event=branch,suffix=-cuda
+            type=ref,event=pr,suffix=-cuda
+            type=match,pattern=pkg-build-(.*),group=1,suffix=-cuda
 
       - name: build-push pkg-builder
         uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5
