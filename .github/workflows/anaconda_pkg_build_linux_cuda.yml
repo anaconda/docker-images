@@ -52,8 +52,8 @@ jobs:
         uses: docker/metadata-action@dbef88086f6cef02e264edb7dbf63250c17cef6c # v5
         with:
           images: |
-            continuumio/anaconda-pkg-build-cuda
-            public.ecr.aws/y0o4y9o3/anaconda-pkg-build-cuda
+            continuumio/anaconda-pkg-build
+            public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
             type=ref,event=branch
             type=ref,event=pr
