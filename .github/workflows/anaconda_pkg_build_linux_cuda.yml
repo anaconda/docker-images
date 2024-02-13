@@ -1,0 +1,73 @@
+name: Build and publish Linux CUDA package builder images
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'pkg-build-*'
+    paths:
+      - 'anaconda-pkg-build/linux/cuda/Dockerfile'
+      - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
+  pull_request:
+    paths:
+      - 'anaconda-pkg-build/linux/cuda/Dockerfile'
+      - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Login to DockerHub
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to Public ECR
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
+        with:
+          registry: public.ecr.aws
+          username: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          AWS_REGION: us-east-1
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3
+        with:
+          version: latest
+          driver-opts: network=host
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@dbef88086f6cef02e264edb7dbf63250c17cef6c # v5
+        with:
+          images: |
+            continuumio/anaconda-pkg-build
+            public.ecr.aws/y0o4y9o3/anaconda-pkg-build
+          tags: |
+            type=ref,event=branch,suffix=-cuda
+            type=ref,event=pr,suffix=-cuda
+            type=match,pattern=pkg-build-(.*),group=1,suffix=-cuda
+
+      - name: build-push pkg-builder
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5
+        with:
+          context: ./anaconda-pkg-build/linux/cuda
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./anaconda-pkg-build/linux/cuda/Dockerfile
+          platforms: linux/amd64
+          build-args: |
+            CUDA_VERSION=11.8.0
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
