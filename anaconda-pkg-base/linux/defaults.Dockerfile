@@ -2,8 +2,6 @@ ARG BASEVERSION=7
 
 FROM centos:${BASEVERSION} AS base-amd64
 
-FROM centos:${BASEVERSION} AS base-ppc64le
-
 FROM amazonlinux:2 AS base-arm64
 
 FROM clefos:${BASEVERSION} AS base-s390x

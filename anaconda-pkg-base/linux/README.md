@@ -1,4 +1,4 @@
-# Base `Dockerfile`s for testing on linux-{amd64, aarch64, ppc64le, s390x}
+# Base `Dockerfile`s for testing on linux-{amd64, aarch64, s390x}
 
 Based on [anaconda-pkg-build](https://github.com/ContinuumIO/docker-images/blob/master/anaconda-pkg-build/linux/Dockerfile), but without miniconda3 pre-installed. This allows testing of miniconda3/anaconda3/other installers including testing conda-build.
 
