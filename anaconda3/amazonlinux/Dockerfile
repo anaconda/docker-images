@@ -3,6 +3,9 @@ FROM amazonlinux:2
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
+ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-aarch64.sh"
+ARG SHA256SUM="69ee26361c1ec974199bce5c0369e3e9a71541de7979d2b9cfa4af556d1ae0ea"
+
 # hadolint ignore=DL3008
 # hadolint ignore=DL3033
 RUN yum install -y \
@@ -25,7 +28,9 @@ RUN yum install -y \
         subversion && \
     yum clean all && \
     rm -rf /var/cache/yum && \
-    wget --quiet https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-aarch64.sh -O ~/anaconda.sh && \
+    wget --quiet ${INSTALLER_URL} -O ~/anaconda.sh && \
+    echo "${SHA256SUM} anaconda.sh" > shasum && \
+    sha256sum --check --status shasum && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
