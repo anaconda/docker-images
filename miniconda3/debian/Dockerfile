@@ -27,10 +27,13 @@ ENV PATH /opt/conda/bin:$PATH
 CMD [ "/bin/bash" ]
 
 # Leave these args here to better use the Docker build cache
+# renovate: datasource=custom.miniconda
 ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py311_23.11.0-1-Linux-x86_64.sh"
 ARG SHA256SUM_LINUX64="5b3cefe534e23541f5f703f40d4818e361c3615dbf14651a0f29554c3fc3d0fd"
+# renovate: datasource=custom.miniconda
 ARG INSTALLER_URL_S390X="https://repo.anaconda.com/miniconda/Miniconda3-py311_23.11.0-1-Linux-s390x.sh"
 ARG SHA256SUM_S390X="04586c734987a39114b81384014c2cfa89360c518371b6fa249d3062efca27fe"
+# renovate: datasource=custom.miniconda
 ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py311_23.11.0-1-Linux-aarch64.sh"
 ARG SHA256SUM_AARCH64="63c06a1974695e50bbe767a030903d169e637e42d5b7b6d30876b19a01fbbad8"
 
