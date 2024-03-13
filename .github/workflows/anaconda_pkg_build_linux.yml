@@ -71,30 +71,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
-
-      - name: Docker meta for Concourse
-        id: concourse-meta
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5
-        with:
-          images: |
-            continuumio/anaconda-pkg-build
-            public.ecr.aws/y0o4y9o3/anaconda-pkg-build
-          tags: |
-            type=ref,event=branch,suffix=-amd64
-            type=ref,event=pr,suffix=-amd64
-            type=match,pattern=pkg-build-(.*),group=1,suffix=-amd64
-          flavor: |
-            latest=false
-
-      - name: build-push pkg-builder-concourse
-        uses: docker/build-push-action@af5a7ed5ba88268d5278f7203fb52cd833f66d6e # v5
-        with:
-          context: ./anaconda-pkg-build/linux
-          builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/Dockerfile
-          platforms: linux/amd64
-          build-args: |
-            BASEVERSION=7
-          tags: ${{ steps.concourse-meta.outputs.tags }}
-          labels: ${{ steps.concourse-meta.outputs.labels }}
-          push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
