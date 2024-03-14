@@ -51,8 +51,8 @@ To achieve this, the `Dockerfile` must have the following lines:
 
 ```
 # renovate datasource=custom.miniconda
-INSTALLER_URL="<URL to installer file>"
-SHA256SUM="<installer checksum>"
+ARG INSTALLER_URL="<URL to installer file>"
+ARG SHA256SUM="<installer checksum>"
 ```
 
 The sha variable must be in the line beneath the installer URL.
