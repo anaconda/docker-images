@@ -30,7 +30,7 @@ RUN yum install -y \
     yum clean all && \
     rm -rf /var/cache/yum && \
     wget --quiet ${INSTALLER_URL} -O ~/anaconda.sh && \
-    echo "${SHA256SUM} anaconda.sh" > shasum && \
+    echo "${SHA256SUM} ~/anaconda.sh" > shasum && \
     sha256sum --check --status shasum && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh && \
