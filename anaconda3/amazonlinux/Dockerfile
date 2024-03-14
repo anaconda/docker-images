@@ -29,11 +29,11 @@ RUN yum install -y \
         subversion && \
     yum clean all && \
     rm -rf /var/cache/yum && \
-    wget --quiet ${INSTALLER_URL} -O ~/anaconda.sh && \
-    echo "${SHA256SUM} ~/anaconda.sh" > shasum && \
+    wget --quiet ${INSTALLER_URL} -O anaconda.sh && \
+    echo "${SHA256SUM} anaconda.sh" > shasum && \
     sha256sum --check --status shasum && \
-    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
-    rm ~/anaconda.sh && \
+    /bin/bash anaconda.sh -b -p /opt/conda && \
+    rm anaconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \
