@@ -33,7 +33,7 @@ RUN yum install -y \
     echo "${SHA256SUM} anaconda.sh" > shasum && \
     sha256sum --check --status shasum && \
     /bin/bash anaconda.sh -b -p /opt/conda && \
-    rm anaconda.sh && \
+    rm anaconda.sh shasum && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \
