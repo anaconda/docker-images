@@ -22,7 +22,8 @@
         "Dockerfile"
       ],
       "matchStrings": [
-        "# renovate:\\s*datasource=(?<datasource>[\\w\\.]+?)\\sARG INSTALLER_URL\\w*=[\"']https:\\/\\/repo\\.anaconda\\.com\\/\\w+\\/\\w+-(?<currentValue>(py\\d+_)?[\\d\\.]+\\-\\d+?)-(?<depName>[\\w\\-\\.]+?)[\"']\\sARG SHA256SUM\\w*=[\"'](?<currentDigest>[a-f\\d]+?)[\"']\\s"
+        "# renovate:\\s*datasource=(?<datasource>[\\w\\.]+?)\\sARG INSTALLER_URL\\w*=[\"']https:\\/\\/repo\\.anaconda\\.com\\/\\w+\\/\\w+-(?<currentValue>(py\\d+_)?[\\d\\.]+\\-\\d+?)-(?<depName>[\\w\\-\\.]+?)[\"']\\sARG SHA256SUM\\w*=[\"'](?<currentDigest>[a-f\\d]+?)[\"']\\s",
+        "# renovate:\\s*datasource=(?<datasource>[\\w\\.]+?) depName=(?<depName>[\\w\\-\\.]+?)\\sARG INSTALLER_VERSION=(?<currentValue>(py\\d+_)?[\\d\\.]+\\-\\d+?)\\s"
       ],
       "versioningTemplate": "regex:^(py\\d+_)?(?<major>\\d+)\\.(?<minor>\\d+)(\\.(?<patch>\\d+))?(\\-(?<build>\\d+))?$"
     }

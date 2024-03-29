@@ -47,7 +47,10 @@ If an image with the same version needs to be republished, the version number sh
 ### Preparing `Dockerfile`s for updates
 
 Docker images using the Miniconda or Anaconda Distribution installers can be updated using `renovate`.
-To achieve this, the `Dockerfile` must have the following lines:
+
+#### Updates with sha256 checks
+
+To update Dockerfiles that contain sha256 checks, the full URL and sha256 sums need to be provided for each installer:
 
 ```
 # renovate datasource=custom.miniconda
@@ -67,6 +70,17 @@ ARG SHA256SUM_LINUX64="<linux-64 installer checksum>"
 ARG INSTALLER_URL_AARCH64="<URL to linux-aarch64 installer file>"
 ARG SHA256SUM_AARCH64="<linux-aarch64 installer checksum>"
 ```
+
+#### Simple version number updates
+
+If not checksums are needed, the Dockerfile can be simplified:
+
+```
+# renovate: datasource=custom.miniconda depName=Linux-x86_64.sh
+ARG INSTALLER_VERSION=<installer version>
+```
+
+`Linux-x86_64.sh` can be replaced by any installer suffix supported in the latest release.
 
 ### Understanding the transform templates
 
