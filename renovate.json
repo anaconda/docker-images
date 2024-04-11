@@ -7,11 +7,13 @@
     {
       "matchDatasources": ["custom.anaconda"],
       "groupName": "Anaconda Distribution",
+      "commitMessageTopic": "{{{groupName}}}",
       "separateMajorMinor": false
     },
     {
       "matchDatasources": ["custom.miniconda"],
       "groupName": "Miniconda",
+      "commitMessageTopic": "{{{groupName}}}",
       "separateMajorMinor": false
     }
   ],
