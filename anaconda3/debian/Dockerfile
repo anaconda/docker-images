@@ -3,13 +3,13 @@ FROM debian:bullseye-slim
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
-# renovate: datasource=custom.anaconda
+# renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh"
 ARG SHA256SUM_LINUX64="c536ddb7b4ba738bddbd4e581b29308cb332fa12ae3fa2cd66814bd735dff231"
-# renovate: datasource=custom.anaconda
+# renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL_S390X="https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-s390x.sh"
 ARG SHA256SUM_S390X="3e2e8b17ea9a5caafd448f52e01435998b2e1ce102040a924d5bd6e05a1d735b"
-# renovate: datasource=custom.anaconda
+# renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-aarch64.sh"
 ARG SHA256SUM_AARCH64="28c5bed6fba84f418516e41640c7937514aabd55e929a8f66937c737303c7bba"
 

@@ -3,7 +3,7 @@ FROM amazonlinux:2
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
-# renovate: datasource=custom.anaconda
+# renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-aarch64.sh"
 ARG SHA256SUM="28c5bed6fba84f418516e41640c7937514aabd55e929a8f66937c737303c7bba"
 
