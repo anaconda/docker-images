@@ -1,4 +1,4 @@
-FROM debian:11.9-slim
+FROM debian:12.5-slim
 
 LABEL maintainer="Anaconda, Inc"
 
