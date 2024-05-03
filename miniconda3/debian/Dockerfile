@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:11.9-slim
 
 LABEL maintainer="Anaconda, Inc"
 
