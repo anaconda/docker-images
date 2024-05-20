@@ -85,7 +85,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # renovate: datasource=custom.miniconda_installer depName=Linux-x86_64.sh
-ARG INSTALLER_VERSION=py312_24.3.0-0
+ARG INSTALLER_VERSION=py312_24.4.0-0
 
 RUN curl -sSL -o /tmp/miniconda.sh \
         "https://repo.anaconda.com/miniconda/Miniconda3-${INSTALLER_VERSION}-Linux-$(uname -m)".sh \
