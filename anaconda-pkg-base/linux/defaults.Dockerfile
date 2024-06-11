@@ -1,10 +1,8 @@
-ARG BASEVERSION=7
+FROM centos:7.9.2009@sha256:be65f488b7764ad3638f236b7b515b3678369a5124c47b8d32916d6487418ea4 AS base-amd64
 
-FROM centos:${BASEVERSION} AS base-amd64
+FROM amazonlinux:2.0.20240412.0@sha256:3bc2191fa2d5f467217e5ca947485bc203b73c02b9a23b164818fa6e37647625 AS base-arm64
 
-FROM amazonlinux:2 AS base-arm64
-
-FROM clefos:${BASEVERSION} AS base-s390x
+FROM clefos:7.7.1908@sha256:2bcecd8dcbee4e8cc4fcffff01e8db2d01d7967507c7e718a160fa29750fa4af AS base-s390x
 
 # hadolint ignore=DL3006
 FROM base-$TARGETARCH
