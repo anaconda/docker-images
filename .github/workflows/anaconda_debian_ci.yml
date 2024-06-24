@@ -51,7 +51,7 @@ jobs:
             type=match,pattern=anaconda3-(.*),group=1
 
       - name: build-push anaconda3/debian
-        uses: docker/build-push-action@c382f710d39a5bb4e430307530a720f50c2d3318 # v6.0.0
+        uses: docker/build-push-action@31159d49c0d4756269a0940a750801a1ea5d7003 # v6.1.0
         with:
           context: ./anaconda3/debian
           builder: ${{ steps.buildx.outputs.name }}
