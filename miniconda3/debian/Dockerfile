@@ -1,4 +1,4 @@
-FROM debian:12.6-slim@sha256:c92290a4cef36ff581878f86735572f621ef7735efe861df05c28e71f95c9fc6
+FROM debian:12.6-slim@sha256:5f7d5664eae4a192c2d2d6cb67fc3f3c7891a8722cd2903cc35aa649a12b0c8d
 
 LABEL maintainer="Anaconda, Inc"
 
