@@ -60,7 +60,7 @@ jobs:
             type=match,pattern=pkg-build-(.*),group=1,suffix=-cuda
 
       - name: build-push pkg-builder
-        uses: docker/build-push-action@5176d81f87c23d6fc96624dfdbcd9f3830bbe445 # v6.5.0
+        uses: docker/build-push-action@5cd11c3a4ced054e52742c5fd54dca954e0edd85 # v6.7.0
         with:
           context: ./anaconda-pkg-build/linux/cuda
           builder: ${{ steps.buildx.outputs.name }}
