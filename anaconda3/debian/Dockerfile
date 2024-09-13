@@ -1,7 +1,7 @@
-FROM debian:12.6-slim@sha256:2ccc7e39b0a6f504d252f807da1fc4b5bcd838e83e4dec3e2f57b2a4a64e7214
+FROM debian:12.7-slim@sha256:a629e796d77a7b2ff82186ed15d01a493801c020eed5ce6adaa2704356f15a1c
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH=/opt/conda/bin:$PATH
 
 # renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh"
