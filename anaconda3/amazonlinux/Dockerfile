@@ -1,7 +1,7 @@
-FROM amazonlinux:2.0.20240816.0@sha256:d02b4bac5d085fa4e8f6e397e21315683ed11ae907b421177859e317b59e2f7c
+FROM amazonlinux:2.0.20240903.0@sha256:7c3a1e990a2c3a3cb526b64c233d73e458d15a4cb000c39c0f1648299b9d113c
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH=/opt/conda/bin:$PATH
 
 # renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-aarch64.sh"
