@@ -22,7 +22,7 @@ RUN apt-get update -q && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH=/opt/conda/bin:$PATH
 
 CMD [ "/bin/bash" ]
 
