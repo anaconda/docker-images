@@ -1,17 +1,17 @@
 name: Build and publish Linux package builder images
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - 'pkg-build-*'
-    paths:
-      - 'anaconda-pkg-build/linux/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux.yml'
-  pull_request:
-    paths:
-      - 'anaconda-pkg-build/linux/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux.yml'
+  #push:
+  #  branches:
+  #    - main
+  #  tags:
+  #    - 'pkg-build-*'
+  #  paths:
+  #    - 'anaconda-pkg-build/linux/Dockerfile'
+  #    - '.github/workflows/anaconda_pkg_build_linux.yml'
+  #pull_request:
+  #  paths:
+  #    - 'anaconda-pkg-build/linux/Dockerfile'
+  #    - '.github/workflows/anaconda_pkg_build_linux.yml'
   workflow_dispatch:
 
 jobs:
