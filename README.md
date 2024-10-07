@@ -24,7 +24,7 @@ image            | owner                                     | description | ver
 [anaconda-pkg-build](https://hub.docker.com/r/continuumio/anaconda-pkg-build/tags?page=1&ordering=last_updated)  | Package Automation Team | Container with a bootstrapped Anaconda installation with GCC | [![](https://img.shields.io/docker/v/continuumio/anaconda-pkg-build?sort=semver)](https://hub.docker.com/r/continuumio/anaconda-pkg-build) | [![](https://img.shields.io/docker/pulls/continuumio/anaconda-pkg-build)](https://hub.docker.com/r/continuumio/anaconda-pkg-build) | [![](https://img.shields.io/docker/stars/continuumio/anaconda-pkg-build)](https://hub.docker.com/r/continuumio/anaconda-pkg-build)
 [anaconda-pkg-base](https://hub.docker.com/r/continuumio/anaconda-pkg-base/tags?page=1&ordering=last_updated)  | Package Automation Team | Container *without* a bootstrapped Anaconda installation with GCC | [![](https://img.shields.io/docker/v/continuumio/anaconda-pkg-base?sort=semver)](https://hub.docker.com/r/continuumio/anaconda-pkg-base) | [![](https://img.shields.io/docker/pulls/continuumio/anaconda-pkg-base)](https://hub.docker.com/r/continuumio/anaconda-pkg-base) | [![](https://img.shields.io/docker/stars/continuumio/anaconda-pkg-base)](https://hub.docker.com/r/continuumio/anaconda-pkg-base)
 
-**Note regarding owners**: 
+**Note regarding owners**:
 - The `anaconda-pkg-*` images are owned by the Package Automation Team, but decisions about the contents of these Dockerfiles must be reviewed and approved by the Package Build Core Team.
 - Apart from the directories for the images, all other files in this repo are jointly owned by the Installer Team and the Package Automation Team.
 
