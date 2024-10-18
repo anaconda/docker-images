@@ -1,17 +1,17 @@
 name: Build and publish Linux CUDA package builder images
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - 'pkg-build-*'
-    paths:
-      - 'anaconda-pkg-build/linux/cuda/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
-  pull_request:
-    paths:
-      - 'anaconda-pkg-build/linux/cuda/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
+  #push:
+  #  branches:
+  #    - main
+  #  tags:
+  #    - 'pkg-build-*'
+  #  paths:
+  #    - 'anaconda-pkg-build/linux/cuda/Dockerfile'
+  #    - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
+  #pull_request:
+  #  paths:
+  #    - 'anaconda-pkg-build/linux/cuda/Dockerfile'
+  #    - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
   workflow_dispatch:
 
 jobs:
