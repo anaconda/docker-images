@@ -4,8 +4,8 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=/opt/conda/bin:$PATH
 
 # renovate: datasource=custom.anaconda_installer
-ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-aarch64.sh"
-ARG SHA256SUM="b4be0ad2052236882402902a31d32cd37635d3db194a42f977be0d68a8ff1a31"
+ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-aarch64.sh"
+ARG SHA256SUM="489c608e8bddd2cf29dfbdd811cf99087cd6b6a0615d41c6f9058ce340594b65"
 
 # hadolint ignore=DL3008
 # hadolint ignore=DL3033
