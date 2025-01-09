@@ -20,10 +20,11 @@ repos:
     hooks:
       - id: hadolint-docker
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.30.0
+    rev: 0.31.0
     hooks:
       - id: check-github-workflows
       - id: check-renovate
+        args: ["--regex-variant", "nonunicode"]
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
     hooks:
