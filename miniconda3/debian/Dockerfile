@@ -28,14 +28,14 @@ CMD [ "/bin/bash" ]
 
 # Leave these args here to better use the Docker build cache
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py312_24.11.1-0-Linux-x86_64.sh"
-ARG SHA256SUM_LINUX64="636b209b00b6673471f846581829d4b96b9c3378679925a59a584257c3fef5a3"
+ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-0-Linux-x86_64.sh"
+ARG SHA256SUM_LINUX64="832de27a5a35b7963f0d83466abada3eb138e51985255f190e0dc350427a9dd1"
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_S390X="https://repo.anaconda.com/miniconda/Miniconda3-py312_24.11.1-0-Linux-s390x.sh"
-ARG SHA256SUM_S390X="105bce6b0137f574147b8fdfd5e3a7d6c92f3ea9fbf3e0de61331ea43586e9af"
+ARG INSTALLER_URL_S390X="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-0-Linux-s390x.sh"
+ARG SHA256SUM_S390X="fa0b443ea73c71abd29eb51212c7b032d5089cbb2761aa07f91668b903a2a575"
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py312_24.11.1-0-Linux-aarch64.sh"
-ARG SHA256SUM_AARCH64="9180a2f1fab799fd76e9ef914643269dcf5bad9d455623b905b87f5d39ae140f"
+ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-0-Linux-aarch64.sh"
+ARG SHA256SUM_AARCH64="ae9d3ea83df97e78fd51c452d0bc75005a28d504c22db6f1000822293f916b54"
 
 RUN set -x && \
     UNAME_M="$(uname -m)" && \
