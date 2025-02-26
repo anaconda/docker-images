@@ -1,4 +1,4 @@
-name: Build and publish Linux alma v8.10 package builder images, for building against glibc 2.28
+name: Build and publish AlmaLinux 8 package builder images
 on:
   #push:
   #  branches:
@@ -58,9 +58,9 @@ jobs:
             continuumio/anaconda-pkg-build
             public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
-            type=ref,event=branch,suffix=-alma
-            type=ref,event=pr,suffix=-alma
-            type=match,pattern=pkg-build-(.*),group=1,suffix=-alma
+            type=ref,event=branch,suffix=-almalinux-8
+            type=ref,event=pr,suffix=-almalinux-8
+            type=match,pattern=pkg-build-(.*),group=1,suffix=-almalinux-8
 
       - name: build-push pkg-builder
         uses: docker/build-push-action@0adf9959216b96bec444f325f1e493d4aa344497 # v6.14.0
