@@ -3,7 +3,7 @@
 
 ARG GCC_VER=11.2.0
 
-FROM almalinux:8.10-20240923@sha256:d7dbaf57916185b2be09e1eaa1156b543f3937164ffa08d7fdc020a0a3800a5a
+FROM almalinux:9.4-20240923@sha256:1c718a4cd7bab3bdb069ddbbd1eb593a390e6932d51d0048a2f6556303bafba7
 
 # hadolint ignore=DL3031,DL3033
 RUN \
