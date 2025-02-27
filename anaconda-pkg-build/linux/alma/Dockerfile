@@ -91,7 +91,7 @@ RUN curl -sSL -o /tmp/miniconda.sh \
 RUN MC_ARCH="$(uname -m)" \
     && if [ "${MC_ARCH}" = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi \
     && /opt/conda/bin/conda update --all --quiet --yes \
-    && /opt/conda/bin/conda install --quiet --yes conda-build \
+    && /opt/conda/bin/conda install --quiet --yes conda-build=24.1.2 \
     && /opt/conda/bin/conda clean --all --yes \
     && rm -fv /opt/conda/.condarc \
     && /opt/conda/bin/conda config --system --set show_channel_urls True \
