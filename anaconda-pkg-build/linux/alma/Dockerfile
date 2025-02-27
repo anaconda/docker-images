@@ -77,7 +77,7 @@ ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
 # renovate: datasource=custom.miniconda_installer depName=Linux-x86_64.sh
-ARG INSTALLER_VERSION=py312_25.1.1-2
+ARG INSTALLER_VERSION=py312_24.5.0-0
 
 RUN curl -sSL -o /tmp/miniconda.sh \
         "https://repo.anaconda.com/miniconda/Miniconda3-${INSTALLER_VERSION}-Linux-$(uname -m)".sh \
@@ -87,10 +87,12 @@ RUN curl -sSL -o /tmp/miniconda.sh \
     # ensure there are no out of range userids
     && chown -R root:root /opt/conda
 
+# anaconda-telemetry conflicts with conda-build 24.1.2
 # hadolint ignore=DL3059
 RUN MC_ARCH="$(uname -m)" \
     && if [ "${MC_ARCH}" = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi \
     && /opt/conda/bin/conda update --all --quiet --yes \
+    #&& /opt/conda/bin/conda uninstall --quiet --yes conda-anaconda-telemetry \
     && /opt/conda/bin/conda install --quiet --yes conda-build=24.1.2 \
     && /opt/conda/bin/conda clean --all --yes \
     && rm -fv /opt/conda/.condarc \
