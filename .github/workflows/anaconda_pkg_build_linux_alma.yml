@@ -1,17 +1,17 @@
 name: Build and publish AlmaLinux 8 package builder images
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - 'pkg-build-alma-*'
-    paths:
-      - 'anaconda-pkg-build/linux/alma/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux_alma.yml'
-  pull_request:
-    paths:
-      - 'anaconda-pkg-build/linux/alma/Dockerfile'
-      - '.github/workflows/anaconda_pkg_build_linux_alma.yml'
+  # push:
+  #   branches:
+  #     - main
+  #   tags:
+  #     - 'pkg-build-alma-*'
+  #   paths:
+  #     - 'anaconda-pkg-build/linux/alma/Dockerfile'
+  #     - '.github/workflows/anaconda_pkg_build_linux_alma.yml'
+  # pull_request:
+  #   paths:
+  #     - 'anaconda-pkg-build/linux/alma/Dockerfile'
+  #     - '.github/workflows/anaconda_pkg_build_linux_alma.yml'
   workflow_dispatch:
 
 jobs:
