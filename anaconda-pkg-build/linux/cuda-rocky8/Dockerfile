@@ -80,7 +80,8 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
-# renovate: datasource=custom.miniconda_installer depName=Linux-x86_64.sh
+# this should not be renovated. If it is, conda-build v24.1.2 won't be able to
+# be installed, which will make this image not usable in Anaconda's current CI
 ARG INSTALLER_VERSION=py312_24.5.0-0
 
 RUN curl -sSL -o /tmp/miniconda.sh \
