@@ -70,7 +70,7 @@ jobs:
           file: ./anaconda-pkg-build/linux/cuda/Dockerfile
           platforms: linux/amd64
           build-args: |
-            CUDA_VERSION=11.8.0
+            CUDA_VERSION=12.4.1
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
