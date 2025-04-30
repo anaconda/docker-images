@@ -31,9 +31,6 @@ CMD [ "/bin/bash" ]
 ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.3.1-1-Linux-x86_64.sh"
 ARG SHA256SUM_LINUX64="53a86109463cfd70ba7acab396d416e623012914eee004729e1ecd6fe94e8c69"
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_S390X="https://repo.anaconda.com/miniconda/Miniconda3-py312_25.1.1-2-Linux-s390x.sh"
-ARG SHA256SUM_S390X="55c681937c27e13a8ed818d1fec182e623e0308fffc1b10605896dac15f90077"
-# renovate: datasource=custom.miniconda_installer
 ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.3.1-1-Linux-aarch64.sh"
 ARG SHA256SUM_AARCH64="4caa0c266ab726b440ccad40a74774167494e001da5de281b74f2d5673e4ace9"
 
@@ -42,9 +39,6 @@ RUN set -x && \
     if [ "${UNAME_M}" = "x86_64" ]; then \
         INSTALLER_URL="${INSTALLER_URL_LINUX64}"; \
         SHA256SUM="${SHA256SUM_LINUX64}"; \
-    elif [ "${UNAME_M}" = "s390x" ]; then \
-        INSTALLER_URL="${INSTALLER_URL_S390X}"; \
-        SHA256SUM="${SHA256SUM_S390X}"; \
     elif [ "${UNAME_M}" = "aarch64" ]; then \
         INSTALLER_URL="${INSTALLER_URL_AARCH64}"; \
         SHA256SUM="${SHA256SUM_AARCH64}"; \
