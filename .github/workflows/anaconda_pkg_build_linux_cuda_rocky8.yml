@@ -1,17 +1,17 @@
 name: Build and publish Linux CUDA package builder images
 on:
-  #push:
-  #  branches:
-  #    - main
-  #  tags:
-  #    - 'pkg-build-*'
-  #  paths:
-  #    - 'anaconda-pkg-build/linux/cuda/Dockerfile'
-  #    - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
-  #pull_request:
-  #  paths:
-  #    - 'anaconda-pkg-build/linux/cuda/Dockerfile'
-  #    - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
+  push:
+   branches:
+     - main
+   tags:
+     - 'pkg-build-*'
+   paths:
+     - 'anaconda-pkg-build/linux/cuda-rocky8/Dockerfile'
+     - '.github/workflows/anaconda_pkg_build_linux_cuda_rocky8.yml'
+  pull_request:
+   paths:
+     - 'anaconda-pkg-build/linux/cuda-rocky8/Dockerfile'
+     - '.github/workflows/anaconda_pkg_build_linux_cuda_rocky8.yml'
   workflow_dispatch:
 
 jobs:
@@ -58,16 +58,16 @@ jobs:
             continuumio/anaconda-pkg-build
             public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
-            type=ref,event=branch,suffix=-cuda
-            type=ref,event=pr,suffix=-cuda
-            type=match,pattern=pkg-build-(.*),group=1,suffix=-cuda
+            type=ref,event=branch,suffix=-cuda-rocky8
+            type=ref,event=pr,suffix=-cuda-rocky8
+            type=match,pattern=pkg-build-(.*),group=1,suffix=-cuda-rocky8
 
       - name: build-push pkg-builder
-        uses: docker/build-push-action@14487ce63c7a62a4a324b0bfb37086795e31c6c1 # v6.16.0
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         with:
-          context: ./anaconda-pkg-build/linux/cuda
+          context: ./anaconda-pkg-build/linux/cuda-rocky8
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/cuda/Dockerfile
+          file: ./anaconda-pkg-build/linux/cuda-rocky8/Dockerfile
           platforms: linux/amd64
           build-args: |
             CUDA_VERSION=12.4.1
