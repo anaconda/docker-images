@@ -14,6 +14,8 @@ on:
   #    - '.github/workflows/anaconda_pkg_build_linux_cuda.yml'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   build:
     runs-on: ubuntu-latest

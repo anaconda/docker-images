@@ -14,6 +14,8 @@ on:
       - '.github/workflows/anaconda_debian_ci.yml'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   build:
     runs-on: ubuntu-latest
