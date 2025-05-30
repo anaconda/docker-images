@@ -42,7 +42,7 @@ jobs:
         uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
         with:
           cache-binary: false
-          driver-opts: network=host
+          driver-opts: network=host,image=moby/buildkit:v0.22.0@sha256:832fa7aa1eb3deb56fa62ae933bfa42dad9a83ff4824dbbaf173b49c722b59d0
           # renovate: datasource=github-releases depName=docker/buildx
           version: v0.24.0
 
