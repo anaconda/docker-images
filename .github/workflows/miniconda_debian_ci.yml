@@ -44,7 +44,7 @@ jobs:
           cache-binary: false
           driver-opts: network=host
           # renovate: datasource=github-releases depName=docker/buildx
-          version: v0.23.0
+          version: v0.24.0
 
       - name: Docker meta
         id: meta
