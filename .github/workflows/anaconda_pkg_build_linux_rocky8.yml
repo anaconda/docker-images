@@ -2,11 +2,9 @@ name: Build and publish Rocky Linux 8 package builder images
 on:
   push:
     branches:
-      - PKG-7916
-#      - main
+      - main
     tags:
-      - 'rocky8-test/v1.0.0'
-#      - 'pkg-build-*'
+      - 'pkg-build-*'
     paths:
       - 'anaconda-pkg-build/linux/rocky8/Dockerfile'
       - '.github/workflows/anaconda_pkg_build_linux_rocky8.yml'

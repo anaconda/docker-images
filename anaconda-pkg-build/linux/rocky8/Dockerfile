@@ -24,6 +24,8 @@ RUN \
         #----------------------------------------
         curl \
         file \
+        findutils \
+        nano \
         net-tools \
         openssh-clients \
         procps-ng \
