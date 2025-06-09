@@ -51,6 +51,7 @@ jobs:
             type=ref,event=branch,suffix=-amazonlinux
             type=ref,event=pr,suffix=-amazonlinux
             type=match,pattern=anaconda3-(.*),group=1,suffix=-amazonlinux
+            type=match,pattern=anaconda3-(.*)-(.*),group=1,suffix=-amazonlinux
           flavor: |
             latest=false
 
