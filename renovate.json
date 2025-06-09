@@ -15,16 +15,6 @@
         "# renovate:\\s*datasource=(?<datasource>[\\w\\.]+?) depName=(?<depName>[\\w\\-\\.]+?)\\sARG INSTALLER_VERSION=(?<currentValue>(py\\d+_)?[\\d\\.]+\\-\\d+?)\\s"
       ],
       "versioningTemplate": "regex:^(py\\d+_)?(?<major>\\d+)\\.(?<minor>\\d+)(\\.(?<patch>\\d+))?(\\-(?<build>\\d+))?$"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "^\\.github/workflows/[^/]+\\.ya?ml$"
-      ],
-      "matchStrings": [
-        "image[:|=]\\s*(?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>.*?)"
-      ],
-      "datasourceTemplate": "docker"
     }
   ],
   "packageRules": [

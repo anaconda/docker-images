@@ -20,8 +20,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      # renovate: datasource=docker depName=moby/buildkit
+      BUILDKIT_IMAGE_VERSION: v0.22.0@sha256:832fa7aa1eb3deb56fa62ae933bfa42dad9a83ff4824dbbaf173b49c722b59d0
       # renovate: datasource=github-releases depName=docker/buildx
       BUILDX_VERSION: v0.24.0
+      # renovate: datasource=docker depName=tonistiigi/binfmt
+      QEMU_IMAGE_VERSION: qemu-v9.2.2@sha256:1b804311fe87047a4c96d38b4b3ef6f62fca8cd125265917a9e3dc3c996c39e6
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -47,14 +51,14 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
         with:
-          image: tonistiigi/binfmt:qemu-v9.2.2@sha256:1b804311fe87047a4c96d38b4b3ef6f62fca8cd125265917a9e3dc3c996c39e6
+          image: tonistiigi/binfmt:${{ env.QEMU_IMAGE_VERSION }}
 
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
         with:
           cache-binary: false
-          driver-opts: network=host,image=moby/buildkit:v0.22.0@sha256:832fa7aa1eb3deb56fa62ae933bfa42dad9a83ff4824dbbaf173b49c722b59d0
+          driver-opts: network=host,image=moby/buildkit:${{ env.BUILDKIT_IMAGE_VERSION }}
           version: ${{ env.BUILDX_VERSION }}
 
       - name: Docker meta
