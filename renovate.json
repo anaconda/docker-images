@@ -22,15 +22,6 @@
         "^\\.github/workflows/[^/]+\\.ya?ml$"
       ],
       "matchStrings": [
-        "#\\s*renovate:\\s*datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)\\s+version:\\s*(?<currentValue>.*?)\\s"
-      ]
-    },
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "^\\.github/workflows/[^/]+\\.ya?ml$"
-      ],
-      "matchStrings": [
         "image[:|=]\\s*(?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>.*?)"
       ],
       "datasourceTemplate": "docker"
