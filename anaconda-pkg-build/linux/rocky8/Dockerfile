@@ -3,7 +3,7 @@
 
 ARG GCC_VER=11.2.0
 
-FROM rockylinux:8.9.20231119@sha256:9794037624aaa6212aeada1d28861ef5e0a935adaf93e4ef79837119f2a2d04c
+FROM rockylinux:9.3.20231119@sha256:d7be1c094cc5845ee815d4632fe377514ee6ebcf8efaed6892889657e5ddaaa6
 
 # hadolint ignore=DL3031,DL3033
 RUN \
