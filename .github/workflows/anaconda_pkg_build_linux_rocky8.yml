@@ -1,35 +1,24 @@
-name: Build and publish Linux CUDA package builder images
+name: Build and publish Rocky Linux 8 package builder images
 on:
   push:
-   branches:
-     - main
-   tags:
-     - 'pkg-build-*'
-   paths:
-     - 'anaconda-pkg-build/linux/cuda-rocky8/Dockerfile'
-     - '.github/workflows/anaconda_pkg_build_linux_cuda_rocky8.yml'
+    branches:
+      - main
+    tags:
+      - 'pkg-build-*'
+    paths:
+      - 'anaconda-pkg-build/linux/rocky8/Dockerfile'
+      - '.github/workflows/anaconda_pkg_build_linux_rocky8.yml'
   pull_request:
-   paths:
-     - 'anaconda-pkg-build/linux/cuda-rocky8/Dockerfile'
-     - '.github/workflows/anaconda_pkg_build_linux_cuda_rocky8.yml'
+    paths:
+      - 'anaconda-pkg-build/linux/rocky8/Dockerfile'
+      - '.github/workflows/anaconda_pkg_build_linux_rocky8.yml'
   workflow_dispatch:
-
-permissions: {}
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      # renovate: datasource=docker depName=moby/buildkit
-      BUILDKIT_IMAGE_VERSION: v0.22.0@sha256:832fa7aa1eb3deb56fa62ae933bfa42dad9a83ff4824dbbaf173b49c722b59d0
-      # renovate: datasource=github-releases depName=docker/buildx
-      BUILDX_VERSION: v0.24.0
-      # renovate: datasource=docker depName=tonistiigi/binfmt
-      QEMU_IMAGE_VERSION: qemu-v9.2.2@sha256:1b804311fe87047a4c96d38b4b3ef6f62fca8cd125265917a9e3dc3c996c39e6
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
 
       - name: Login to DockerHub
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
@@ -51,15 +40,15 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
         with:
-          image: tonistiigi/binfmt:${{ env.QEMU_IMAGE_VERSION }}
+          # https://github.com/docker/setup-qemu-action/issues/188#issuecomment-2604322104
+          image: tonistiigi/binfmt:qemu-v8.1.5
 
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
         with:
-          cache-binary: false
-          driver-opts: network=host,image=moby/buildkit:${{ env.BUILDKIT_IMAGE_VERSION }}
-          version: ${{ env.BUILDX_VERSION }}
+          version: latest
+          driver-opts: network=host
 
       - name: Docker meta
         id: meta
@@ -69,19 +58,19 @@ jobs:
             continuumio/anaconda-pkg-build
             public.ecr.aws/y0o4y9o3/anaconda-pkg-build
           tags: |
-            type=ref,event=branch,suffix=-cuda-rocky8
-            type=ref,event=pr,suffix=-cuda-rocky8
-            type=match,pattern=pkg-build-(.*),group=1,suffix=-cuda-rocky8
+            type=ref,event=branch,suffix=-rockylinux-8
+            type=ref,event=pr,suffix=-rockylinux-8
+            type=match,pattern=pkg-build-(.*),group=1,suffix=-rockylinux-8
+          flavor: |
+            latest=false
 
       - name: build-push pkg-builder
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
-          context: ./anaconda-pkg-build/linux/cuda-rocky8
+          context: ./anaconda-pkg-build/linux/rocky8
           builder: ${{ steps.buildx.outputs.name }}
-          file: ./anaconda-pkg-build/linux/cuda-rocky8/Dockerfile
-          platforms: linux/amd64
-          build-args: |
-            CUDA_VERSION=12.4.1
+          file: ./anaconda-pkg-build/linux/rocky8/Dockerfile
+          platforms: linux/amd64,linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}

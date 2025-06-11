@@ -3,60 +3,17 @@
 
 ARG GCC_VER=11.2.0
 
-FROM centos:7.9.2009@sha256:be65f488b7764ad3638f236b7b515b3678369a5124c47b8d32916d6487418ea4 AS base-amd64
-
-FROM amazonlinux:2.0.20250512.0@sha256:2c8cd67d220dae7cf95b6a79a128d8eb0563ee08a448bade6e6d256674b483c9 AS base-arm64
-
-FROM clefos:7.7.1908@sha256:2bcecd8dcbee4e8cc4fcffff01e8db2d01d7967507c7e718a160fa29750fa4af AS base-s390x
-
-# hadolint ignore=DL3006
-FROM base-$TARGETARCH
+FROM rockylinux:8.9.20231119@sha256:9794037624aaa6212aeada1d28861ef5e0a935adaf93e4ef79837119f2a2d04c
 
 # hadolint ignore=DL3031,DL3033
-RUN yum install -q -y deltarpm \
+RUN \
     # Hack to force locale generation, if needed
-    && yum update -q -y glibc-common \
+    yum update -q -y glibc-common \
     && yum install -q -y \
-        #----------------------------------------
-        # X11-related libraries needed for various CDTs
-        #----------------------------------------
-        libX11 \
-        libXau \
-        libxcb \
-        libXcomposite \
-        libXcursor \
-        libXdamage \
-        libXdmcp \
-        libXext \
-        libXfixes \
-        libXi \
-        libXinerama \
-        libXrandr \
-        libXrender \
-        libXScrnSaver \
-        libXt \
-        libXtst \
-        #----------------------------------------
-        # MESA 3D graphics library
-        #----------------------------------------
-        #mesa-libEGL \
-        #mesa-libGL \
-        #mesa-libGLU \
-        #----------------------------------------
-        # Vendor-neutral OpenGL
-        #----------------------------------------
-        libglvnd-opengl \
         #----------------------------------------
         # X11 virtual framebuffer; useful for testing GUI apps
         #----------------------------------------
         xorg-x11-server-Xvfb \
-        #----------------------------------------
-        # Other hardware and low-level system libraries
-        #----------------------------------------
-        #alsa-lib \
-        #libselinux \
-        #pam \
-        #pciutils-libs \
         #----------------------------------------
         # Low-level and basic system utilities.
         #
@@ -66,7 +23,10 @@ RUN yum install -q -y deltarpm \
         # assume the build container provides these tools.
         #----------------------------------------
         curl \
+        diffutils \
         file \
+        findutils \
+        nano \
         net-tools \
         openssh-clients \
         procps-ng \
@@ -79,9 +39,9 @@ RUN yum install -q -y deltarpm \
     && yum clean all
 
 # Set the locale
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 # renovate: datasource=custom.miniconda_installer depName=Linux-x86_64.sh
 ARG INSTALLER_VERSION=py313_25.3.1-1
