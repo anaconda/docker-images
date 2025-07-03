@@ -16,5 +16,12 @@
       ],
       "versioningTemplate": "regex:^(py\\d+_)?(?<major>\\d+)\\.(?<minor>\\d+)(\\.(?<patch>\\d+))?(\\-(?<build>\\d+))?$"
     }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["tonistiigi/binfmt"],
+      "versioning": "regex:^qemu-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    }
   ]
 }
