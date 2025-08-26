@@ -67,5 +67,5 @@ jobs:
       - name: Test image
         env:
           IMAGE_ID: ${{ steps.build-push.outputs.imageid }}
-        run: docker run ${IMAGE_ID} miniconda3/debian/test.sh >> ${GITHUB_OUTPUT}
+        run: docker run ${IMAGE_ID} miniconda3/debian/test.sh
         shell: bash
