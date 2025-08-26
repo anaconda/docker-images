@@ -65,7 +65,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
 
       - name: Test image
-        run: |
-          conda create -y -n constructor constructor
-          conda run -n constructor constructor --help
-        shell: docker run ${{ steps.build-push.outputs.imageid }} /bin/bash -eo pipefail {0}
+        env:
+          IMAGE_ID: ${{ steps.build-push.outputs.imageid }}
+        run: docker run ${IMAGE_ID} miniconda3/debian/test.sh >> ${GITHUB_OUTPUT}
+        shell: bash
