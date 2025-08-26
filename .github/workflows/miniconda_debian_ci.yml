@@ -61,11 +61,12 @@ jobs:
           file: ./miniconda3/debian/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          load: true
           platforms: linux/amd64,linux/arm64
           push: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags') }}
 
       - name: Test image
         env:
           IMAGE_ID: ${{ steps.build-push.outputs.imageid }}
-        run: docker run ${IMAGE_ID} miniconda3/debian/test.sh
+        run: docker run ${IMAGE_ID} ./miniconda3/debian/test.sh
         shell: bash
