@@ -55,10 +55,14 @@ RUN curl -sSL -o /tmp/miniconda.sh \
     && chown -R root:root /opt/conda
 
 # hadolint ignore=DL3059
+# py-lief is giving an error because of this issue: https://github.com/conda/conda-build/issues/5665
+# so we pin to less than 0.16 as advised
 RUN MC_ARCH="$(uname -m)" \
     && if [ "${MC_ARCH}" = "x86_64" ]; then subdir="64"; else subdir="${MC_ARCH}"; fi \
     && /opt/conda/bin/conda update --all --quiet --yes \
-    && /opt/conda/bin/conda install --quiet --yes conda-build \
+    && /opt/conda/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
+    && /opt/conda/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r \
+    && /opt/conda/bin/conda install --quiet --yes conda-build "py-lief<0.16" \
     && /opt/conda/bin/conda clean --all --yes \
     && rm -fv /opt/conda/.condarc \
     && /opt/conda/bin/conda config --system --add channels defaults \
