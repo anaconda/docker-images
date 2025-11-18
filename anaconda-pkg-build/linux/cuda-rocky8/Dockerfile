@@ -1,7 +1,7 @@
 # This container has the CUDA compilers installed. For versions less than 12, they're used,
 # because defaults' cudatoolkit <= 11.8 package doesn't provide compilers.
 # But not for versions equal and greater than 12.
-ARG CUDA_VERSION=12.8.1
+ARG CUDA_VERSION=12.4.1
 ARG GCC_VER=14.3.0
 FROM nvidia/cuda:${CUDA_VERSION}-devel-rockylinux8
 
