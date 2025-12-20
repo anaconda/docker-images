@@ -1,20 +1,32 @@
+FROM scratch AS anaconda_installer_amd64
+# renovate: datasource=custom.anaconda_installer
+ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh"
+ARG SHA256SUM_LINUX64="3ba0a298155c32fbfd80cbc238298560bf69a2df511783054adfc151b76d80d8"
+ADD --checksum=sha256:${SHA256SUM_LINUX64} ${INSTALLER_URL_LINUX64} /anaconda.sh
+
+FROM scratch AS anaconda_installer_s390x
+# renovate: datasource=custom.anaconda_installer
+ARG INSTALLER_URL_S390X="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-s390x.sh"
+ARG SHA256SUM_S390X="e00bd5e6c275695e8050a45aa85790315f504c95243dfe3632f505284310f3c4"
+ADD --checksum=sha256:${SHA256SUM_S390X} ${INSTALLER_URL_S390X} /anaconda.sh
+
+FROM scratch AS anaconda_installer_arm64
+# renovate: datasource=custom.anaconda_installer
+ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-aarch64.sh"
+ARG SHA256SUM_AARCH64="489c608e8bddd2cf29dfbdd811cf99087cd6b6a0615d41c6f9058ce340594b65"
+ADD --checksum=sha256:${SHA256SUM_AARCH64} ${INSTALLER_URL_AARCH64} /anaconda.sh
+
+FROM anaconda_installer_${TARGETARCH} AS anaconda_installer
+
 FROM debian:12.11-slim@sha256:6ac2c08566499cc2415926653cf2ed7c3aedac445675a013cc09469c9e118fdd
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=/opt/conda/bin:$PATH
 
-# renovate: datasource=custom.anaconda_installer
-ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh"
-ARG SHA256SUM_LINUX64="3ba0a298155c32fbfd80cbc238298560bf69a2df511783054adfc151b76d80d8"
-# renovate: datasource=custom.anaconda_installer
-ARG INSTALLER_URL_S390X="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-s390x.sh"
-ARG SHA256SUM_S390X="e00bd5e6c275695e8050a45aa85790315f504c95243dfe3632f505284310f3c4"
-# renovate: datasource=custom.anaconda_installer
-ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-aarch64.sh"
-ARG SHA256SUM_AARCH64="489c608e8bddd2cf29dfbdd811cf99087cd6b6a0615d41c6f9058ce340594b65"
-
 # hadolint ignore=DL3008
-RUN set -x && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=bind,target=/tmp/anaconda.sh,source=/anaconda.sh,from=anaconda_installer \
     apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
         bzip2 \
@@ -35,25 +47,8 @@ RUN set -x && \
         openssh-client \
         procps \
         subversion \
-        wget \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* && \
-    UNAME_M="$(uname -m)" && \
-    if [ "${UNAME_M}" = "x86_64" ]; then \
-        INSTALLER_URL=${INSTALLER_URL_LINUX64}; \
-        SHA256SUM=${SHA256SUM_LINUX64}; \
-    elif [ "${UNAME_M}" = "s390x" ]; then \
-        INSTALLER_URL=${INSTALLER_URL_S390X}; \
-        SHA256SUM=${SHA256SUM_S390X}; \
-    elif [ "${UNAME_M}" = "aarch64" ]; then \
-        INSTALLER_URL=${INSTALLER_URL_AARCH64}; \
-        SHA256SUM=${SHA256SUM_AARCH64}; \
-    fi && \
-    wget "${INSTALLER_URL}" -O anaconda.sh -q && \
-    echo "${SHA256SUM} anaconda.sh" > shasum && \
-    sha256sum --check --status shasum && \
-    /bin/bash anaconda.sh -b -p /opt/conda && \
-    rm anaconda.sh shasum && \
+    && set -x && \
+    /bin/bash /tmp/anaconda.sh -b -p /opt/conda && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate" >> ~/.bashrc && \

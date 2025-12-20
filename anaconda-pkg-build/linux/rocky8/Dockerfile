@@ -6,7 +6,7 @@ ARG GCC_VER=11.2.0
 FROM rockylinux:8.9.20231119@sha256:9794037624aaa6212aeada1d28861ef5e0a935adaf93e4ef79837119f2a2d04c
 
 # hadolint ignore=DL3031,DL3033
-RUN \
+RUN --mount=type=cache,target=/var/cache/yum,sharing=locked \
     # Hack to force locale generation, if needed
     yum update -q -y glibc-common \
     && yum install -q -y \
@@ -35,8 +35,7 @@ RUN \
         tar \
         util-linux \
         #wget \
-        which \
-    && yum clean all
+        which
 
 # Set the locale
 ENV LANG=en_US.UTF-8

@@ -9,7 +9,8 @@ FROM nvidia/cuda:${CUDA_VERSION}-devel-rockylinux8
 
 # ulimit needs to be turned down: https://bugzilla.redhat.com/show_bug.cgi?id=1537564
 # hadolint ignore=DL3031,DL3033,SC3045
-RUN ulimit -n 1024 \
+RUN --mount=type=cache,target=/var/cache/yum,sharing=locked \
+    ulimit -n 1024 \
     # Hack to force locale generation, if needed
     && yum update -q -y glibc-common \
     && yum install -q -y \
@@ -72,8 +73,7 @@ RUN ulimit -n 1024 \
         util-linux \
         diffutils \
         #wget \
-        which \
-    && yum clean all
+        which
 
 # Set the locale
 ENV LANG=en_US.UTF-8
