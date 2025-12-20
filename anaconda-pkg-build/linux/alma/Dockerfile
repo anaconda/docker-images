@@ -6,7 +6,7 @@ ARG GCC_VER=11.2.0
 FROM almalinux:8.10-20240923@sha256:d7dbaf57916185b2be09e1eaa1156b543f3937164ffa08d7fdc020a0a3800a5a
 
 # hadolint ignore=DL3031,DL3033
-RUN \
+RUN --mount=type=cache,target=/var/cache/yum,sharing=locked \
     # Hack to force locale generation, if needed
     yum update -q -y glibc-common \
     && yum install -q -y \
@@ -68,8 +68,7 @@ RUN \
         tar \
         util-linux \
         #wget \
-        which \
-    && yum clean all
+        which
 
 # Set the locale
 ENV LANG=en_US.UTF-8

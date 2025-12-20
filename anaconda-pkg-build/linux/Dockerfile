@@ -13,7 +13,8 @@ FROM clefos:7.7.1908@sha256:2bcecd8dcbee4e8cc4fcffff01e8db2d01d7967507c7e718a160
 FROM base-$TARGETARCH
 
 # hadolint ignore=DL3031,DL3033
-RUN yum install -q -y deltarpm \
+RUN --mount=type=cache,target=/var/cache/yum,sharing=locked \
+    yum install -q -y deltarpm \
     # Hack to force locale generation, if needed
     && yum update -q -y glibc-common \
     && yum install -q -y \
@@ -75,8 +76,7 @@ RUN yum install -q -y deltarpm \
         tar \
         util-linux \
         #wget \
-        which \
-    && yum clean all
+        which
 
 # Set the locale
 ENV LANG en_US.UTF-8

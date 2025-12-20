@@ -3,7 +3,9 @@ ARG BASEVERSION=focal-20241011@sha256:8e5c4f0285ecbb4ead070431d29b576a530d3166df
 FROM ubuntu:${BASEVERSION}
 
 # hadolint ignore=DL3008
-RUN apt-get update \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update \
     # # Hack to force locale generation, if needed
     && apt-get install -q -y --no-install-recommends locales locales-all \
     && apt-get install -q -y --no-install-recommends \
@@ -57,9 +59,7 @@ RUN apt-get update \
         openssh-client \
         psmisc \
         rsync \
-        util-linux \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        util-linux
 
 # Set the locale
 ENV LANG en_US.UTF-8
