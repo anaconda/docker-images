@@ -4,14 +4,14 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=/opt/conda/bin:$PATH
 
 # renovate: datasource=custom.anaconda_installer
-ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh"
-ARG SHA256SUM_LINUX64="3ba0a298155c32fbfd80cbc238298560bf69a2df511783054adfc151b76d80d8"
+ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/archive/Anaconda3-2025.12-2-Linux-x86_64.sh"
+ARG SHA256SUM_LINUX64="57b2b48cc5b8665e25fce7011f0389d47c1288288007844b3b1ba482d4f39029"
 # renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL_S390X="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-s390x.sh"
 ARG SHA256SUM_S390X="e00bd5e6c275695e8050a45aa85790315f504c95243dfe3632f505284310f3c4"
 # renovate: datasource=custom.anaconda_installer
-ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-aarch64.sh"
-ARG SHA256SUM_AARCH64="489c608e8bddd2cf29dfbdd811cf99087cd6b6a0615d41c6f9058ce340594b65"
+ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/archive/Anaconda3-2025.12-2-Linux-aarch64.sh"
+ARG SHA256SUM_AARCH64="be13a20f31d82508a061984fa3555369cfd8e4692643721415c19e7dc2e9e0f9"
 
 # hadolint ignore=DL3008
 RUN set -x && \
