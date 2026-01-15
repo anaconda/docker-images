@@ -23,7 +23,7 @@ jobs:
       # renovate: datasource=docker depName=moby/buildkit
       BUILDKIT_IMAGE_VERSION: v0.22.0@sha256:832fa7aa1eb3deb56fa62ae933bfa42dad9a83ff4824dbbaf173b49c722b59d0
       # renovate: datasource=github-releases depName=docker/buildx
-      BUILDX_VERSION: v0.24.0
+      BUILDX_VERSION: v0.30.1
       # renovate: datasource=docker depName=tonistiigi/binfmt
       QEMU_IMAGE_VERSION: qemu-v9.2.2@sha256:1b804311fe87047a4c96d38b4b3ef6f62fca8cd125265917a9e3dc3c996c39e6
     steps:
