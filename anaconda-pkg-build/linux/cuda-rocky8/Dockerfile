@@ -2,7 +2,7 @@
 # because defaults' cudatoolkit <= 11.8 package doesn't provide compilers.
 # But not for versions equal and greater than 12.
 ARG CUDA_VERSION=12.4.1
-ARG GCC_VER=11.2.0
+ARG GCC_VER=14.3.0
 FROM nvidia/cuda:${CUDA_VERSION}-devel-rockylinux8
 
 # this is mostly copied from public.ecr.aws/y0o4y9o3/anaconda-pkg-build
