@@ -1,7 +1,7 @@
 # Dockerfile for container images that Anaconda, Inc. uses to build conda
 # packages released on the "defaults" (repo.anaconda.com) channels.
 
-ARG GCC_VER=11.2.0
+ARG GCC_VER=14.3.0
 
 FROM rockylinux:8.9.20231119@sha256:9794037624aaa6212aeada1d28861ef5e0a935adaf93e4ef79837119f2a2d04c
 
