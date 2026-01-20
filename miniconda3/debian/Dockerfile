@@ -28,11 +28,11 @@ CMD [ "/bin/bash" ]
 
 # Leave these args here to better use the Docker build cache
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.3.1-1-Linux-x86_64.sh"
-ARG SHA256SUM_LINUX64="53a86109463cfd70ba7acab396d416e623012914eee004729e1ecd6fe94e8c69"
+ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.5.1-1-Linux-x86_64.sh"
+ARG SHA256SUM_LINUX64="33778762cb69381ce01de7f60bf4350935d3b31169e541fc9fbffbab5712670a"
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.3.1-1-Linux-aarch64.sh"
-ARG SHA256SUM_AARCH64="4caa0c266ab726b440ccad40a74774167494e001da5de281b74f2d5673e4ace9"
+ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.5.1-1-Linux-aarch64.sh"
+ARG SHA256SUM_AARCH64="	b7d611dcaa638efd700a4a4eb24fbcb9f7b94cc1773d7c655959c330d0b68e16"
 
 RUN set -x && \
     UNAME_M="$(uname -m)" && \
@@ -52,6 +52,11 @@ RUN set -x && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate" >> ~/.bashrc && \
+    /opt/conda/bin/conda tos accept && \
+    /opt/conda/bin/conda remove --force-remove -y conda-anaconda-tos && \
+    rm -rf ~/.conda/tos && \
+    /opt/conda/bin/conda install -y colorama && \
+    /opt/conda/bin/conda remove -y colorama && \
     find /opt/conda/ -follow -type f -name '*.a' -delete && \
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     /opt/conda/bin/conda clean -afy
