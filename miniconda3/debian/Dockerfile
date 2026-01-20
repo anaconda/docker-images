@@ -32,7 +32,7 @@ ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py313_
 ARG SHA256SUM_LINUX64="33778762cb69381ce01de7f60bf4350935d3b31169e541fc9fbffbab5712670a"
 # renovate: datasource=custom.miniconda_installer
 ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.5.1-1-Linux-aarch64.sh"
-ARG SHA256SUM_AARCH64="	b7d611dcaa638efd700a4a4eb24fbcb9f7b94cc1773d7c655959c330d0b68e16"
+ARG SHA256SUM_AARCH64="b7d611dcaa638efd700a4a4eb24fbcb9f7b94cc1773d7c655959c330d0b68e16"
 
 RUN set -x && \
     UNAME_M="$(uname -m)" && \
