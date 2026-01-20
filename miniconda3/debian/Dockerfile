@@ -29,7 +29,7 @@ CMD [ "/bin/bash" ]
 # Leave these args here to better use the Docker build cache
 # renovate: datasource=custom.miniconda_installer
 ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.5.1-1-Linux-x86_64.sh"
-ARG SHA256SUM_LINUX64="33778762cb69381ce01de7f60bf4350935d3b31169e541fc9fbffbab5712670a"
+ARG SHA256SUM_LINUX64="612af113b49db0368e2be41ac4d51b7088eebd5f31daeeb89f23fff8f920db58"
 # renovate: datasource=custom.miniconda_installer
 ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.5.1-1-Linux-aarch64.sh"
 ARG SHA256SUM_AARCH64="b7d611dcaa638efd700a4a4eb24fbcb9f7b94cc1773d7c655959c330d0b68e16"
