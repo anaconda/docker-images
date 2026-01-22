@@ -55,8 +55,6 @@ RUN set -x && \
     /opt/conda/bin/conda tos accept && \
     /opt/conda/bin/conda remove --force-remove -y conda-anaconda-tos && \
     rm -rf ~/.conda/tos && \
-    /opt/conda/bin/conda install -y colorama && \
-    /opt/conda/bin/conda remove -y colorama && \
     find /opt/conda/ -follow -type f -name '*.a' -delete && \
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     /opt/conda/bin/conda clean -afy
