@@ -18,7 +18,7 @@ ADD --checksum=sha256:${SHA256SUM_AARCH64} ${INSTALLER_URL_AARCH64} /anaconda.sh
 
 FROM anaconda_installer_${TARGETARCH} AS anaconda_installer
 
-FROM debian:12.11-slim@sha256:6ac2c08566499cc2415926653cf2ed7c3aedac445675a013cc09469c9e118fdd
+FROM debian:13.3-slim@sha256:77ba0164de17b88dd0bf6cdc8f65569e6e5fa6cd256562998b62553134a00ef0
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=/opt/conda/bin:$PATH

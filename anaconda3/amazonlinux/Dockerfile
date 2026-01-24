@@ -6,7 +6,7 @@ ADD --checksum=sha256:${SHA256SUM_AARCH64} ${INSTALLER_URL_AARCH64} /anaconda.sh
 
 FROM anaconda_installer_${TARGETARCH} AS anaconda_installer
 
-FROM amazonlinux:2.0.20250623.0@sha256:ce8776f79d55908d613c84226c6ac0b0522b7b35970173e7f91f6af9f7df6fee
+FROM amazonlinux:2.0.20260109.1@sha256:27cfead35481245ef6a20b04aab71c9f11245cfe8edd585ce0f3201d37a25f41
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=/opt/conda/bin:$PATH
