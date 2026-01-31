@@ -1,16 +1,22 @@
+FROM scratch AS anaconda_installer_arm64
+# renovate: datasource=custom.anaconda_installer
+ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-aarch64.sh"
+ARG SHA256SUM_AARCH64="489c608e8bddd2cf29dfbdd811cf99087cd6b6a0615d41c6f9058ce340594b65"
+# hadolint ignore=DL3020
+ADD --checksum=sha256:${SHA256SUM_AARCH64} ${INSTALLER_URL_AARCH64} /anaconda.sh
+
+FROM anaconda_installer_${TARGETARCH} AS anaconda_installer
+
 FROM amazonlinux:2.0.20260120.1@sha256:53b7aa9763e941ca8fb7c2286bec14da8fafac5c47036550d22950d935fd8b5e
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=/opt/conda/bin:$PATH
 
-# renovate: datasource=custom.anaconda_installer
-ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-aarch64.sh"
-ARG SHA256SUM="489c608e8bddd2cf29dfbdd811cf99087cd6b6a0615d41c6f9058ce340594b65"
-
 # hadolint ignore=DL3008
 # hadolint ignore=DL3033
-RUN yum install -y \
-        wget \
+RUN --mount=type=cache,target=/var/cache/yum,sharing=locked \
+    --mount=type=bind,target=/tmp/anaconda.sh,source=/anaconda.sh,from=anaconda_installer \
+    yum install -y \
         bzip2 \
         ca-certificates \
         libglib2.0-0 \
@@ -27,13 +33,7 @@ RUN yum install -y \
         git \
         mercurial \
         subversion && \
-    yum clean all && \
-    rm -rf /var/cache/yum && \
-    wget --quiet ${INSTALLER_URL} -O anaconda.sh && \
-    echo "${SHA256SUM} anaconda.sh" > shasum && \
-    sha256sum --check --status shasum && \
-    /bin/bash anaconda.sh -b -p /opt/conda && \
-    rm anaconda.sh shasum && \
+    /bin/bash /tmp/anaconda.sh -b -p /opt/conda && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate" >> ~/.bashrc && \
