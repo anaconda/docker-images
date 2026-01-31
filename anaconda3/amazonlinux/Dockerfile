@@ -2,6 +2,7 @@ FROM scratch AS anaconda_installer_arm64
 # renovate: datasource=custom.anaconda_installer
 ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-aarch64.sh"
 ARG SHA256SUM_AARCH64="489c608e8bddd2cf29dfbdd811cf99087cd6b6a0615d41c6f9058ce340594b65"
+# hadolint ignore=DL3020
 ADD --checksum=sha256:${SHA256SUM_AARCH64} ${INSTALLER_URL_AARCH64} /anaconda.sh
 
 FROM anaconda_installer_${TARGETARCH} AS anaconda_installer
