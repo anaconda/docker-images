@@ -57,4 +57,5 @@ RUN set -x && \
     rm -rf ~/.conda/tos && \
     find /opt/conda/ -follow -type f -name '*.a' -delete && \
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
-    /opt/conda/bin/conda clean -afy
+    /opt/conda/bin/conda clean -afy && \
+    /opt/conda/bin/conda config --set auto_update_conda False
