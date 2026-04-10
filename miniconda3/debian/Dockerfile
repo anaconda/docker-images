@@ -27,12 +27,11 @@ ENV PATH=/opt/conda/bin:$PATH
 ARG DEPRECATION_MESSAGE="::warning::This image is deprecated.\n\n\
 Updates to this image will be discontinued after version \`25.7.x\`. \
 The latest Miniconda Docker images are available as \`anaconda/miniconda\`. \
-For more information, visit: https://hub.docker.com/r/anaconda/miniconda"
+For more information, visit: https://hub.docker.com/r/anaconda/miniconda\n"
 
 # Deprecation warning script
-RUN echo '#!/bin/bash\n\
-echo "'"${DEPRECATION_MESSAGE}"'" >&2\n\
-exec "$@"' > /usr/local/bin/docker-entrypoint.sh && \
+RUN printf '#!/bin/bash\nprintf "'%s'" >&2\nexec "$@"\n' "${DEPRECATION_MESSAGE}" \
+    > /usr/local/bin/docker-entrypoint.sh && \
     chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
