@@ -1,5 +1,10 @@
 # Anaconda and Miniconda Docker Images and Documentation
 
+>[!CAUTION]
+>The `continuumio` images are deprecated. Updates to `continuumio/miniconda3` will be
+>discontinued after version `26.7.x`. The latest Docker images for Miniconda are
+>available at [`anaconda/miniconda`](https://hub.docker.com/r/anaconda/miniconda).
+
 Docker images for Anaconda/Miniconda that are available from DockerHub:
 
 https://hub.docker.com/r/continuumio/
