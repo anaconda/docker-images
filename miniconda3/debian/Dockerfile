@@ -25,7 +25,7 @@ RUN apt-get update -q && \
 ENV PATH=/opt/conda/bin:$PATH
 
 ARG DEPRECATION_MESSAGE="::warning::This image is deprecated.\n\n\
-Updates to this image will be discontinued after version \`25.7.x\`. \
+Updates to this image will be discontinued after version \`26.7.x\`. \
 The latest Miniconda Docker images are available as \`anaconda/miniconda\`. \
 For more information, visit: https://hub.docker.com/r/anaconda/miniconda\n"
 
