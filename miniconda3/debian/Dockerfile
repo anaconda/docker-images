@@ -1,3 +1,17 @@
+FROM scratch AS miniconda_installer_amd64
+# renovate: datasource=custom.miniconda_installer
+ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py314_26.7.1-1-Linux-x86_64.sh"
+ARG SHA256SUM_LINUX64="e8b25b92b262499141c5bd57a98d3c008024185fa951494b9cd9b6d94e72338b"
+ADD --checksum=sha256:${SHA256SUM_LINUX64} ${INSTALLER_URL_LINUX64} /miniconda.sh
+
+FROM scratch AS miniconda_installer_arm64
+# renovate: datasource=custom.miniconda_installer
+ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py314_26.7.1-1-Linux-aarch64.sh"
+ARG SHA256SUM_AARCH64="e31545afd7462d3c9c33b154c7a101c5acb5e01b69380b6994651aead6942893"
+ADD --checksum=sha256:${SHA256SUM_AARCH64} ${INSTALLER_URL_AARCH64} /miniconda.sh
+
+FROM miniconda_installer_${TARGETARCH} AS miniconda_installer
+
 FROM debian:13.6-slim@sha256:d7e12182ce18b85b93007c1dedf31f2d29e01ccf3182cc4017c709b6259bc132
 
 LABEL maintainer="Anaconda, Inc"
@@ -5,7 +19,9 @@ LABEL maintainer="Anaconda, Inc"
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # hadolint ignore=DL3008
-RUN apt-get update -q && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update -q && \
     apt-get install -q -y --no-install-recommends \
         bzip2 \
         ca-certificates \
@@ -17,10 +33,7 @@ RUN apt-get update -q && \
         mercurial \
         openssh-client \
         procps \
-        subversion \
-        wget \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        subversion
 
 ENV PATH=/opt/conda/bin:$PATH
 
@@ -37,29 +50,10 @@ RUN printf '#!/bin/bash\nprintf "'%s'" >&2\nexec "$@"\n' "${DEPRECATION_MESSAGE}
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD [ "/bin/bash" ]
 
-# Leave these args here to better use the Docker build cache
-# renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py314_26.7.1-1-Linux-x86_64.sh"
-ARG SHA256SUM_LINUX64="e8b25b92b262499141c5bd57a98d3c008024185fa951494b9cd9b6d94e72338b"
-# renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py314_26.7.1-1-Linux-aarch64.sh"
-ARG SHA256SUM_AARCH64="e31545afd7462d3c9c33b154c7a101c5acb5e01b69380b6994651aead6942893"
-
-RUN set -x && \
-    UNAME_M="$(uname -m)" && \
-    if [ "${UNAME_M}" = "x86_64" ]; then \
-        INSTALLER_URL="${INSTALLER_URL_LINUX64}"; \
-        SHA256SUM="${SHA256SUM_LINUX64}"; \
-    elif [ "${UNAME_M}" = "aarch64" ]; then \
-        INSTALLER_URL="${INSTALLER_URL_AARCH64}"; \
-        SHA256SUM="${SHA256SUM_AARCH64}"; \
-    fi && \
-    wget "${INSTALLER_URL}" -O miniconda.sh -q && \
-    echo "${SHA256SUM} miniconda.sh" > shasum && \
-    sha256sum --check --status shasum && \
+RUN --mount=type=bind,target=/tmp/miniconda.sh,source=/miniconda.sh,from=miniconda_installer \
+    set -x && \
     mkdir -p /opt && \
-    bash miniconda.sh -b -p /opt/conda && \
-    rm miniconda.sh shasum && \
+    bash /tmp/miniconda.sh -b -p /opt/conda && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate" >> ~/.bashrc && \
