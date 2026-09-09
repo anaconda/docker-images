@@ -23,30 +23,30 @@ jobs:
       # renovate: datasource=docker depName=moby/buildkit
       BUILDKIT_IMAGE_VERSION: v0.22.0@sha256:832fa7aa1eb3deb56fa62ae933bfa42dad9a83ff4824dbbaf173b49c722b59d0
       # renovate: datasource=github-releases depName=docker/buildx
-      BUILDX_VERSION: v0.31.0
+      BUILDX_VERSION: v0.36.1
       # renovate: datasource=docker depName=tonistiigi/binfmt
       QEMU_IMAGE_VERSION: qemu-v9.2.2@sha256:1b804311fe87047a4c96d38b4b3ef6f62fca8cd125265917a9e3dc3c996c39e6
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Login to DockerHub
-        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
+        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
         with:
           image: tonistiigi/binfmt:${{ env.QEMU_IMAGE_VERSION }}
           platforms: linux/amd64,linux/arm64
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
         with:
           cache-binary: false
           driver-opts: network=host,image=moby/buildkit:${{ env.BUILDKIT_IMAGE_VERSION }}
@@ -54,7 +54,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         with:
           images: continuumio/miniconda3
           tags: |
@@ -64,7 +64,7 @@ jobs:
             type=match,pattern=miniconda3-(.*)-(.*),group=1
 
       - name: build miniconda3/debian
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
         with:
           context: ./miniconda3/debian
           builder: ${{ steps.buildx.outputs.name }}

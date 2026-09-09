@@ -1,18 +1,18 @@
 FROM scratch AS miniconda_installer_amd64
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.11.1-1-Linux-x86_64.sh"
-ARG SHA256SUM_LINUX64="e0b10e050e8928e2eb9aad2c522ee3b5d31d30048b8a9997663a8a460d538cef"
+ARG INSTALLER_URL_LINUX64="https://repo.anaconda.com/miniconda/Miniconda3-py314_26.7.1-1-Linux-x86_64.sh"
+ARG SHA256SUM_LINUX64="e8b25b92b262499141c5bd57a98d3c008024185fa951494b9cd9b6d94e72338b"
 ADD --checksum=sha256:${SHA256SUM_LINUX64} ${INSTALLER_URL_LINUX64} /miniconda.sh
 
 FROM scratch AS miniconda_installer_arm64
 # renovate: datasource=custom.miniconda_installer
-ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py313_25.11.1-1-Linux-aarch64.sh"
-ARG SHA256SUM_AARCH64="9f39cc8c46ca37afed5e563cc234b3add34fea2f1119e076dcae7a377ca6b8ee"
+ARG INSTALLER_URL_AARCH64="https://repo.anaconda.com/miniconda/Miniconda3-py314_26.7.1-1-Linux-aarch64.sh"
+ARG SHA256SUM_AARCH64="e31545afd7462d3c9c33b154c7a101c5acb5e01b69380b6994651aead6942893"
 ADD --checksum=sha256:${SHA256SUM_AARCH64} ${INSTALLER_URL_AARCH64} /miniconda.sh
 
 FROM miniconda_installer_${TARGETARCH} AS miniconda_installer
 
-FROM debian:13.3-slim@sha256:77ba0164de17b88dd0bf6cdc8f65569e6e5fa6cd256562998b62553134a00ef0
+FROM debian:13.6-slim@sha256:d7e12182ce18b85b93007c1dedf31f2d29e01ccf3182cc4017c709b6259bc132
 
 LABEL maintainer="Anaconda, Inc"
 
@@ -37,6 +37,17 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 
 ENV PATH=/opt/conda/bin:$PATH
 
+ARG DEPRECATION_MESSAGE="::warning::This image is deprecated.\n\n\
+Updates to this image will be discontinued after Miniconda version \`26.7.x\`. \
+The latest Miniconda Docker images are available as \`anaconda/miniconda\`. \
+For more information, visit: https://hub.docker.com/r/anaconda/miniconda\n"
+
+# Deprecation warning script
+RUN printf '#!/bin/bash\nprintf "'%s'" >&2\nexec "$@"\n' "${DEPRECATION_MESSAGE}" \
+    > /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD [ "/bin/bash" ]
 
 RUN --mount=type=bind,target=/tmp/miniconda.sh,source=/miniconda.sh,from=miniconda_installer \

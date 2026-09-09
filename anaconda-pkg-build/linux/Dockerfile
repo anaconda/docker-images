@@ -5,7 +5,7 @@ ARG GCC_VER=11.2.0
 
 FROM centos:7.9.2009@sha256:be65f488b7764ad3638f236b7b515b3678369a5124c47b8d32916d6487418ea4 AS base-amd64
 
-FROM amazonlinux:2.0.20260120.1@sha256:53b7aa9763e941ca8fb7c2286bec14da8fafac5c47036550d22950d935fd8b5e AS base-arm64
+FROM amazonlinux:2.0.20260825.0@sha256:3a54a89d998842376d183e218f43b0ad1a9fb588a27963684552336295426419 AS base-arm64
 
 FROM clefos:7.7.1908@sha256:2bcecd8dcbee4e8cc4fcffff01e8db2d01d7967507c7e718a160fa29750fa4af AS base-s390x
 
@@ -84,7 +84,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # renovate: datasource=custom.miniconda_installer depName=Linux-x86_64.sh
-ARG INSTALLER_VERSION=py313_25.3.1-1
+ARG INSTALLER_VERSION=py314_26.7.1-1
 
 RUN curl -sSL -o /tmp/miniconda.sh \
         "https://repo.anaconda.com/miniconda/Miniconda3-${INSTALLER_VERSION}-Linux-$(uname -m)".sh \
